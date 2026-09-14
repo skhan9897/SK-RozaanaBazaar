@@ -60,11 +60,7 @@ body {
 .category-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    min-height: 140px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    min-height: 150px;
 }
 
 .category-card:hover {

@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: sk-rozaana-bazaar
+    runtime: docker
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 8080
+      # You can add DB environment variables here later
+      # - key: DB_URL
+      #   value: jdbc:mysql://your-db-host:3306/skrozana_db

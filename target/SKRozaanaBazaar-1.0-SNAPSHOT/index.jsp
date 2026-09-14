@@ -4,9 +4,18 @@
 <head>
     <title>SKRozaanaBazaar - Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-logo">
+            <i class="fas fa-shopping-basket"></i> SK Rozaana Bazaar
+        </div>
+        <div class="loader"></div>
+    </div>
+
     <%@ include file="includes/navbar.jsp" %>
 
     <div class="container-fluid p-0">
@@ -49,5 +58,14 @@
     </div>
 
     <%@ include file="includes/footer.jsp" %>
+
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var splash = document.getElementById('splash-screen');
+                splash.classList.add('hidden');
+            }, 1500); // 1.5 seconds delay
+        });
+    </script>
 </body>
 </html>

@@ -136,3 +136,21 @@ INSERT INTO products (category_id, subcategory_id, product_name, brand, descript
 -- Gaming
 (16, 175, 'PlayStation 5 Console (Disc Edition)', 'Sony', 'Experience lightning fast loading with high speed SSD', 54990, 5, 52240, 5, 'SKRB-GAM-004', '/images/products/ps5.jpg', 4.9, 'ACTIVE'),
 (16, 177, 'Xbox Wireless Controller - Robot White', 'Microsoft', 'Modernized design with sculpted surfaces for comfort', 5399, 15, 4589, 45, 'SKRB-GAM-005', '/images/products/xbox-cont.jpg', 4.7, 'ACTIVE');
+
+-- ==========================================
+-- 4. MERCHANTS (Partnership Table)
+-- ==========================================
+CREATE TABLE IF NOT EXISTS merchants (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    merchant_id VARCHAR(20) UNIQUE NOT NULL,
+    business_name VARCHAR(255) NOT NULL,
+    business_type VARCHAR(100),
+    pan_number VARCHAR(20),
+    gstin VARCHAR(20),
+    business_address TEXT,
+    terms_accepted BOOLEAN DEFAULT FALSE,
+    verification_status VARCHAR(20) DEFAULT 'ACTIVE',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

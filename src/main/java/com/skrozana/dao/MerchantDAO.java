@@ -20,6 +20,25 @@ public class MerchantDAO {
             conn = DBConnection.getConnection();
             if (conn == null) throw new Exception("Database connection failed!");
 
+            // Automatically create merchants table if it doesn't exist (Auto-Fix)
+            String createTableSql = "CREATE TABLE IF NOT EXISTS merchants (" +
+                    "id INT PRIMARY KEY AUTO_INCREMENT, " +
+                    "user_id INT NOT NULL, " +
+                    "merchant_id VARCHAR(20) UNIQUE NOT NULL, " +
+                    "business_name VARCHAR(255) NOT NULL, " +
+                    "business_type VARCHAR(100), " +
+                    "pan_number VARCHAR(20), " +
+                    "gstin VARCHAR(20), " +
+                    "business_address TEXT, " +
+                    "terms_accepted BOOLEAN DEFAULT FALSE, " +
+                    "verification_status VARCHAR(20) DEFAULT 'ACTIVE', " +
+                    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE" +
+                    ")";
+            try (Statement st = conn.createStatement()) {
+                st.execute(createTableSql);
+            }
+
             try (PreparedStatement psCheck = conn.prepareStatement(checkSql)) {
                 psCheck.setString(1, user.getEmail());
                 psCheck.setString(2, user.getMobile());

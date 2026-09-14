@@ -29,11 +29,11 @@ public class AdminCustomerServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             User user = userDAO.getUserById(id);
             request.setAttribute("customer", user);
-            request.getRequestDispatcher("customers/customer-details.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/customers/customer-details.jsp").forward(request, response);
         } else {
             List<User> customers = userDAO.getAllUsers();
             request.setAttribute("customers", customers);
-            request.getRequestDispatcher("customers/customer-list.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/customers/customer-list.jsp").forward(request, response);
         }
     }
 }

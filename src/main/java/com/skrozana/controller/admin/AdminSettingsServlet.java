@@ -25,9 +25,9 @@ public class AdminSettingsServlet extends HttpServlet {
         if (action == null) action = "profile";
 
         if ("changePassword".equals(action)) {
-            request.getRequestDispatcher("settings/change-password.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/settings/change-password.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("settings/profile.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/settings/profile.jsp").forward(request, response);
         }
     }
 

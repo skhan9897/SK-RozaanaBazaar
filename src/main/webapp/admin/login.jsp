@@ -73,6 +73,13 @@
         <button type="submit" class="btn btn-primary btn-block btn-lg font-weight-bold shadow-sm">
             Sign In <i class="fas fa-sign-in-alt ml-1"></i>
         </button>
+        <div class="text-center mt-4">
+            <hr class="border-secondary">
+            <p class="text-muted small">Are you a business partner?</p>
+            <a href="merchant-login.jsp" class="btn btn-outline-info btn-sm btn-block">
+                <i class="fas fa-store mr-1"></i> Merchant Portal Login
+            </a>
+        </div>
         <div class="text-center mt-3">
             <a href="../index" class="small text-muted font-weight-bold"><i class="fas fa-arrow-left"></i> Back to Main Store</a>
         </div>

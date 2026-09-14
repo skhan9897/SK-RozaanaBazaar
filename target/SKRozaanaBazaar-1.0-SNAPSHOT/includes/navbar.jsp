@@ -1,5 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="dropdown mr-2">
+        <a class="text-dark ml-2" href="#" id="adminMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-bars fa-lg"></i>
+        </a>
+        <div class="dropdown-menu shadow border-0" aria-labelledby="adminMenu" style="border-radius: 10px; margin-top: 10px;">
+            <h6 class="dropdown-header text-primary font-weight-bold" style="font-size: 0.8rem;">🛡️ BUSINESS PORTAL</h6>
+            <a class="dropdown-item font-weight-bold py-2" href="admin/login.jsp">
+                <i class="fas fa-user-shield mr-2 text-primary"></i> Admin Login
+            </a>
+            <a class="dropdown-item font-weight-bold py-2" href="admin/merchant-register.jsp">
+                <i class="fas fa-store-alt mr-2 text-success"></i> Merchant Registration
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item small text-muted" href="#">Terms & Conditions</a>
+        </div>
+    </div>
     <a class="navbar-brand font-weight-bold" href="index">SKRozaanaBazaar</a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -45,9 +61,4 @@
         <a class="nav-link font-weight-bold" href="DealsServlet">Deals</a>
         <a class="nav-link font-weight-bold" href="NewArrivalsServlet">New Arrivals</a>
     </nav>
-    <div class="pr-2">
-        <a class="btn btn-sm btn-dark font-weight-bold px-3 shadow-sm" href="admin/login.jsp" style="letter-spacing: 0.3px; background-color: #2b2b36; border-color: #3f3f52;">
-            🛡️ Admin Section Login
-        </a>
-    </div>
 </div>

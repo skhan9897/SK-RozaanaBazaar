@@ -203,11 +203,8 @@
             }
         }
 
-        // Hide after 1.5 seconds anyway
-        setTimeout(hideSplash, 1500);
-
-        // Hide as soon as page resources are loaded
-        window.addEventListener('load', hideSplash);
+        // Hide after 5 seconds
+        setTimeout(hideSplash, 5000);
     </script>
 </body>
 </html>

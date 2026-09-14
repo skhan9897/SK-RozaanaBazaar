@@ -14,6 +14,9 @@
             <i class="fas fa-shopping-basket"></i> SK Rozaana Bazaar
         </div>
         <div class="loader"></div>
+        <div class="mt-4 font-weight-bold" style="letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem; opacity: 0.9;">
+            Developed by Sajid Khan
+        </div>
     </div>
 
     <%@ include file="includes/navbar.jsp" %>

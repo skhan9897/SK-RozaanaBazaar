@@ -197,4 +197,22 @@ public class OrderDAO {
         }
         return null;
     }
+
+    public java.util.Map<String, Integer> getOrdersByState() {
+        java.util.Map<String, Integer> stateData = new java.util.HashMap<>();
+        String sql = "SELECT u.state, COUNT(o.id) as count FROM orders o JOIN users u ON o.user_id = u.id GROUP BY u.state";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String state = rs.getString("state");
+                if (state != null && !state.isEmpty()) {
+                    stateData.put(state, rs.getInt("count"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stateData;
+    }
 }

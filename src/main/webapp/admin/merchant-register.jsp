@@ -64,9 +64,34 @@
                         <input type="text" name="pan" class="form-control" required>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label>GSTIN</label>
-                        <input type="text" name="gstin" class="form-control" required>
+                        <label>GSTIN Status</label>
+                        <select id="gstStatus" class="form-control" onchange="toggleGstInput()">
+                            <option value="Available">I have GSTIN</option>
+                            <option value="No GST">No GST</option>
+                        </select>
                     </div>
+                    <div class="col-md-6 form-group" id="gstInputContainer">
+                        <label>GSTIN Number</label>
+                        <input type="text" name="gstin" id="gstin" class="form-control" placeholder="Enter GSTIN" required>
+                    </div>
+
+                <script>
+                    function toggleGstInput() {
+                        var status = document.getElementById("gstStatus").value;
+                        var container = document.getElementById("gstInputContainer");
+                        var input = document.getElementById("gstin");
+
+                        if (status === "No GST") {
+                            container.style.visibility = "hidden"; // Keep layout, but hide
+                            input.value = "No GST";
+                            input.removeAttribute("required");
+                        } else {
+                            container.style.visibility = "visible";
+                            input.value = "";
+                            input.setAttribute("required", "required");
+                        }
+                    }
+                </script>
                     <div class="col-md-12 form-group">
                         <label>Business Address</label>
                         <textarea name="address" class="form-control" rows="3" required></textarea>

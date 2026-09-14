@@ -44,6 +44,14 @@ public class OrderDAO {
                             psItem.setDouble(5, item.getPrice());
                             psItem.setDouble(6, item.getSubtotal());
                             psItem.addBatch();
+                            
+                            // Update stock
+                            String updateStockSql = "UPDATE products SET stock = stock - ? WHERE id = ?";
+                            try (PreparedStatement psStock = conn.prepareStatement(updateStockSql)) {
+                                psStock.setInt(1, item.getQuantity());
+                                psStock.setInt(2, item.getProductId());
+                                psStock.executeUpdate();
+                            }
                         }
                         psItem.executeBatch();
                     }
@@ -163,5 +171,30 @@ public class OrderDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public Order getOrderById(int id) {
+        String sql = "SELECT * FROM orders WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Order order = new Order();
+                order.setId(rs.getInt("id"));
+                order.setUserId(rs.getInt("user_id"));
+                order.setOrderNumber(rs.getString("order_number"));
+                order.setTotalAmount(rs.getDouble("total_amount"));
+                order.setShippingAddress(rs.getString("shipping_address"));
+                order.setPaymentMethod(rs.getString("payment_method"));
+                order.setPaymentStatus(rs.getString("payment_status"));
+                order.setOrderStatus(rs.getString("order_status"));
+                order.setCreatedAt(rs.getTimestamp("created_at"));
+                return order;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

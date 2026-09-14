@@ -47,14 +47,14 @@ public class AdminCategoryServlet extends HttpServlet {
             throws ServletException, IOException {
         List<Category> categories = categoryDAO.getAllCategoriesAdmin();
         request.setAttribute("categories", categories);
-        request.getRequestDispatcher("categories/category-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/categories/category-list.jsp").forward(request, response);
     }
 
     private void showAddForm(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         List<Category> parentCategories = categoryDAO.getAllCategories();
         request.setAttribute("parents", parentCategories);
-        request.getRequestDispatcher("categories/add-category.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/categories/add-category.jsp").forward(request, response);
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) 
@@ -65,16 +65,16 @@ public class AdminCategoryServlet extends HttpServlet {
         
         request.setAttribute("category", category);
         request.setAttribute("parents", parentCategories);
-        request.getRequestDispatcher("categories/edit-category.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/categories/edit-category.jsp").forward(request, response);
     }
 
     private void deleteCategory(HttpServletRequest request, HttpServletResponse response) 
             throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         if (categoryDAO.deleteCategory(id)) {
-            response.sendRedirect("AdminCategoryServlet?action=list&msg=deleted");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminCategoryServlet?action=list&msg=deleted");
         } else {
-            response.sendRedirect("AdminCategoryServlet?action=list&error=delete_failed");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminCategoryServlet?action=list&error=delete_failed");
         }
     }
 }

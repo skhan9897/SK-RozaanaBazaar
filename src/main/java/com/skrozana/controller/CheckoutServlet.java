@@ -68,7 +68,14 @@ public class CheckoutServlet extends HttpServlet {
         order.setTotalAmount(totalAmount);
         order.setShippingAddress(address);
         order.setPaymentMethod(paymentMethod);
-        order.setPaymentStatus("Pending");
+        
+        // Set payment status based on method
+        if ("Cash On Delivery".equalsIgnoreCase(paymentMethod)) {
+            order.setPaymentStatus("Pending");
+        } else {
+            order.setPaymentStatus("Successful"); // Simulated success for UPI/Card
+        }
+
         order.setOrderStatus("Placed");
 
         int orderId = orderDAO.placeOrder(order, orderItems);

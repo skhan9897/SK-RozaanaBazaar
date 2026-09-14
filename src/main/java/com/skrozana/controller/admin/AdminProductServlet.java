@@ -51,14 +51,14 @@ public class AdminProductServlet extends HttpServlet {
             throws ServletException, IOException {
         List<Product> products = productDAO.getAllProducts();
         request.setAttribute("products", products);
-        request.getRequestDispatcher("products/product-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/products/product-list.jsp").forward(request, response);
     }
 
     private void showAddForm(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         List<Category> categories = categoryDAO.getAllCategories();
         request.setAttribute("categories", categories);
-        request.getRequestDispatcher("products/add-product.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/products/add-product.jsp").forward(request, response);
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) 
@@ -69,16 +69,16 @@ public class AdminProductServlet extends HttpServlet {
         
         request.setAttribute("product", product);
         request.setAttribute("categories", categories);
-        request.getRequestDispatcher("products/edit-product.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/products/edit-product.jsp").forward(request, response);
     }
 
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response) 
             throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         if (productDAO.deleteProduct(id)) {
-            response.sendRedirect("AdminProductServlet?action=list&msg=deleted");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminProductServlet?action=list&msg=deleted");
         } else {
-            response.sendRedirect("AdminProductServlet?action=list&error=delete_failed");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminProductServlet?action=list&error=delete_failed");
         }
     }
 
@@ -89,6 +89,6 @@ public class AdminProductServlet extends HttpServlet {
         
         // ... Logic to extract params and call DAO methods ...
         // Redirect back to list
-        response.sendRedirect("AdminProductServlet?action=list");
+        response.sendRedirect(request.getContextPath() + "/admin/AdminProductServlet?action=list");
     }
 }

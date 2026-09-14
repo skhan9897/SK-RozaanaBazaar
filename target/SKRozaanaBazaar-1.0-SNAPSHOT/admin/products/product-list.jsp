@@ -4,7 +4,7 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Product Management</h1>
-        <a href="AdminProductServlet?action=add" class="btn btn-primary">Add New Product</a>
+        <a href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=add" class="btn btn-primary">Add New Product</a>
     </div>
 
     <div class="table-responsive">

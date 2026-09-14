@@ -29,10 +29,22 @@ public class AdminOrderServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             String status = request.getParameter("status");
             orderDAO.updateOrderStatus(id, status);
-            response.sendRedirect("AdminOrderServlet?action=list");
+            String statusFilter = request.getParameter("statusFilter");
+            if (statusFilter != null && !statusFilter.isEmpty()) {
+                response.sendRedirect("AdminOrderServlet?action=list&status=" + statusFilter);
+            } else {
+                response.sendRedirect("AdminOrderServlet?action=list");
+            }
         } else {
-            List<Order> orders = orderDAO.getAllOrders();
+            String statusFilter = request.getParameter("status");
+            List<Order> orders;
+            if (statusFilter != null && !statusFilter.isEmpty() && !"All".equalsIgnoreCase(statusFilter)) {
+                orders = orderDAO.getOrdersByStatus(statusFilter);
+            } else {
+                orders = orderDAO.getAllOrders();
+            }
             request.setAttribute("orders", orders);
+            request.setAttribute("currentStatus", statusFilter != null ? statusFilter : "All");
             request.getRequestDispatcher("orders/order-list.jsp").forward(request, response);
         }
     }

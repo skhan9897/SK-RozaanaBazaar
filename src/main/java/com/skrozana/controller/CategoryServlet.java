@@ -36,9 +36,15 @@ public class CategoryServlet extends HttpServlet {
             request.setAttribute("categories", categories);
             request.getRequestDispatcher("category.jsp").forward(request, response);
         } else if (subCatIdStr != null) {
-            // List products in this subcategory
+            // List products in this subcategory and still send subcategories list to avoid disappearing breadcrumbs
+            int catId = Integer.parseInt(catIdStr);
             int subCatId = Integer.parseInt(subCatIdStr);
+            Category category = categoryDAO.getCategoryById(catId);
+            List<Subcategory> subcategories = categoryDAO.getSubCategories(catId);
             List<Product> products = productDAO.getProductsBySubcategory(subCatId);
+            
+            request.setAttribute("category", category);
+            request.setAttribute("subcategories", subcategories);
             request.setAttribute("products", products);
             request.getRequestDispatcher("products.jsp").forward(request, response);
         } else {

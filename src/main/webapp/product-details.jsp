@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Products - SKRozaanaBazaar</title>
+    <title>${product.productName} - SKRozaanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -11,60 +11,64 @@
 <body>
     <%@ include file="includes/navbar.jsp" %>
 
-    <div class="container mt-4">
-        <h2 class="mb-4">${not empty category ? category.name : 'Products'}</h2>
-
-        <c:if test="${not empty subcategories}">
-            <div class="row mb-4">
-                <div class="col-12">
-                    <h5>Refine by Subcategory:</h5>
-                    <div class="d-flex flex-wrap">
-                        <c:forEach var="sub" items="${subcategories}">
-                            <a href="CategoryServlet?id=${category.id}&subId=${sub.id}" class="btn btn-outline-secondary btn-sm mr-2 mb-2">${sub.name}</a>
-                        </c:forEach>
-                    </div>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <!-- Product Image -->
+            <div class="col-md-6 text-center">
+                <div class="border p-3 rounded bg-white shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop" class="img-fluid rounded" alt="${product.productName}" id="detail-img" style="max-height: 400px; object-fit: contain;">
                 </div>
             </div>
-        </c:if>
 
-        <div class="row">
-            <c:choose>
-                <c:when test="${not empty products}">
-                    <c:forEach var="product" items="${products}">
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="card h-100 shadow-sm product-card">
-                                <div class="position-relative">
-                                    <span class="badge badge-danger position-absolute m-2 px-2 py-1" style="z-index: 2;">${product.discount}% OFF</span>
-                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60" class="card-img-top p-3 text-img" alt="${product.productName}" style="height: 200px; object-fit: contain;" id="prod-img-${product.id}">
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title font-weight-bold mb-1 text-truncate">${product.productName}</h5>
-                                    <p class="card-text text-muted small mb-2">${product.brand}</p>
-                                    <div class="mb-2">
-                                        <span class="badge badge-success"><i class="fas fa-star"></i> ${product.rating}</span>
-                                    </div>
-                                    <div class="mt-auto">
-                                        <h6 class="text-primary font-weight-bold h5">₹${product.finalPrice} <span class="text-muted small ml-1"><del>₹${product.price}</del></span></h6>
-                                        <a href="ProductDetailsServlet?id=${product.id}" class="btn btn-sm btn-primary btn-block">View Details</a>
-                                        <form action="AddToCartServlet" method="POST" class="mt-2">
-                                            <input type="hidden" name="pid" value="${product.id}">
-                                            <button type="submit" class="btn btn-sm btn-outline-success btn-block">Add to Cart</button>
-                                        </form>
-                                    </div>
+            <!-- Product Details -->
+            <div class="col-md-6">
+                <span class="text-muted small uppercase font-weight-bold">${product.brand}</span>
+                <h2 class="font-weight-bold text-dark mt-1 mb-2">${product.productName}</h2>
+
+                <div class="mb-3">
+                    <span class="badge badge-success px-2 py-1"><i class="fas fa-star"></i> ${product.rating}</span>
+                    <span class="text-muted small ml-2">SKU: ${product.sku}</span>
+                </div>
+
+                <div class="mb-4 p-3 bg-light rounded border">
+                    <span class="badge badge-danger px-2 py-1 mb-2">${product.discount}% OFF</span>
+                    <div>
+                        <span class="h3 font-weight-bold text-primary">₹${product.finalPrice}</span>
+                        <span class="text-muted ml-2"><del>₹${product.price}</del></span>
+                    </div>
+                    <small class="text-success font-weight-bold d-block mt-2">Inclusive of all taxes</small>
+                </div>
+
+                <h5 class="font-weight-bold text-dark">Quick Description</h5>
+                <p class="text-muted">${product.description}</p>
+
+                <hr>
+
+                <!-- Action Buttons -->
+                <div class="mt-4">
+                    <c:choose>
+                        <c:when test="${product.stock > 0}">
+                            <span class="text-success font-weight-bold d-block mb-3"><i class="fas fa-check-circle"></i> In Stock (${product.stock} units available)</span>
+                            <div class="row">
+                                <div class="col-6">
+                                    <form action="AddToCartServlet" method="POST">
+                                        <input type="hidden" name="pid" value="${product.id}">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">🛒 Add to Cart</button>
+                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <div class="col-12 text-center mt-5">
-                        <div class="alert alert-info">No products found in this category.</div>
-                        <a href="CategoryServlet" class="btn btn-outline-primary">Back to Categories</a>
-                    </div>
-                </c:otherwise>
-            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="text-danger font-weight-bold d-block mb-3"><i class="fas fa-times-circle"></i> Out of Stock</span>
+                            <button class="btn btn-secondary btn-lg btn-block" disabled>Out of Stock</button>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
         </div>
     </div>
+
+    <%@ include file="includes/footer.jsp" %>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -156,18 +160,16 @@
                 "Hammer": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=500&auto=format&fit=crop"
             };
 
-            <c:forEach var="product" items="${products}">
-                var name = "${product.productName}";
-                var imgElement = document.getElementById("prod-img-${product.id}");
-                if (imgElement) {
-                    for (var key in images) {
-                        if (name.toLowerCase().includes(key.toLowerCase())) {
-                            imgElement.src = images[key];
-                            break;
-                        }
+            var name = "${product.productName}";
+            var imgElement = document.getElementById("detail-img");
+            if (imgElement && name) {
+                for (var key in images) {
+                    if (name.toLowerCase().includes(key.toLowerCase())) {
+                        imgElement.src = images[key];
+                        break;
                     }
                 }
-            </c:forEach>
+            }
         });
     </script>
 </body>

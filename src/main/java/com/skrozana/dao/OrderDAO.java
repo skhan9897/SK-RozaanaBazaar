@@ -123,6 +123,35 @@ public class OrderDAO {
         return orders;
     }
 
+    public List<Order> getOrdersByStatus(String status) {
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT * FROM orders WHERE order_status = ? ORDER BY created_at DESC";
+        if ("Pending".equalsIgnoreCase(status)) {
+            sql = "SELECT * FROM orders WHERE order_status = ? OR order_status = 'Placed' ORDER BY created_at DESC";
+        }
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, status);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setId(rs.getInt("id"));
+                order.setUserId(rs.getInt("user_id"));
+                order.setOrderNumber(rs.getString("order_number"));
+                order.setTotalAmount(rs.getDouble("total_amount"));
+                order.setShippingAddress(rs.getString("shipping_address"));
+                order.setPaymentMethod(rs.getString("payment_method"));
+                order.setPaymentStatus(rs.getString("payment_status"));
+                order.setOrderStatus(rs.getString("order_status"));
+                order.setCreatedAt(rs.getTimestamp("created_at"));
+                orders.add(order);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
     public boolean updateOrderStatus(int orderId, String status) {
         String sql = "UPDATE orders SET order_status = ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();

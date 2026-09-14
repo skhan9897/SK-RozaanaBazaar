@@ -36,7 +36,11 @@
                                         </td>
                                         <td>₹${item.price}</td>
                                         <td>
-                                            <input type="number" value="${item.quantity}" class="form-control d-inline-block" style="width: 70px;" readonly>
+                                            <form action="CartServlet" method="POST" class="form-inline">
+                                                <input type="hidden" name="action" value="updateQuantity">
+                                                <input type="hidden" name="cartId" value="${item.id}">
+                                                <input type="number" name="quantity" value="${item.quantity}" min="1" max="100" class="form-control form-control-sm mr-2" style="width: 65px;" onchange="this.form.submit()">
+                                            </form>
                                         </td>
                                         <td>₹${item.price * item.quantity}</td>
                                         <td>

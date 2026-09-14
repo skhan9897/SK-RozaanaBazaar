@@ -42,4 +42,29 @@ public class CartServlet extends HttpServlet {
         request.setAttribute("totalAmount", totalAmount);
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        String action = request.getParameter("action");
+        if ("updateQuantity".equals(action)) {
+            int cartId = Integer.parseInt(request.getParameter("cartId"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            if (quantity > 0) {
+                cartDAO.updateCartQuantity(cartId, quantity);
+            } else {
+                cartDAO.removeFromCart(cartId);
+            }
+        }
+        response.sendRedirect("CartServlet");
+    }
 }

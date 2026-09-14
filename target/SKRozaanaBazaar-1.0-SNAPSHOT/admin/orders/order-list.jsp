@@ -6,6 +6,28 @@
         <h1 class="h2">Order Management</h1>
     </div>
 
+    <!-- Order Status Filter Tabs -->
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a class="nav-link ${currentStatus == 'All' ? 'active font-weight-bold' : ''}" href="AdminOrderServlet?action=list&status=All">All Orders</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link ${currentStatus == 'Pending' ? 'active font-weight-bold' : ''}" href="AdminOrderServlet?action=list&status=Pending">Pending</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link ${currentStatus == 'Confirmed' ? 'active font-weight-bold' : ''}" href="AdminOrderServlet?action=list&status=Confirmed">Confirmed</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link ${currentStatus == 'Shipped' ? 'active font-weight-bold' : ''}" href="AdminOrderServlet?action=list&status=Shipped">Shipped</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link ${currentStatus == 'Delivered' ? 'active font-weight-bold' : ''}" href="AdminOrderServlet?action=list&status=Delivered">Delivered</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link ${currentStatus == 'Cancelled' ? 'active font-weight-bold' : ''}" href="AdminOrderServlet?action=list&status=Cancelled">Cancelled</a>
+        </li>
+    </ul>
+
     <div class="table-responsive">
         <table class="table table-striped table-hover border">
             <thead class="bg-light">
@@ -29,8 +51,9 @@
                             <form action="AdminOrderServlet" method="GET" class="form-inline">
                                 <input type="hidden" name="action" value="updateStatus">
                                 <input type="hidden" name="id" value="${order.id}">
+                                <input type="hidden" name="statusFilter" value="${currentStatus}">
                                 <select name="status" class="form-control form-control-sm mr-2" onchange="this.form.submit()">
-                                    <option value="Placed" ${order.orderStatus == 'Placed' ? 'selected' : ''}>Placed</option>
+                                    <option value="Pending" ${order.orderStatus == 'Pending' || order.orderStatus == 'Placed' ? 'selected' : ''}>Pending</option>
                                     <option value="Confirmed" ${order.orderStatus == 'Confirmed' ? 'selected' : ''}>Confirmed</option>
                                     <option value="Shipped" ${order.orderStatus == 'Shipped' ? 'selected' : ''}>Shipped</option>
                                     <option value="Delivered" ${order.orderStatus == 'Delivered' ? 'selected' : ''}>Delivered</option>

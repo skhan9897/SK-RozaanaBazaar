@@ -28,26 +28,31 @@
     </div>
 
     <div class="container mt-5">
-        <h3>Shop By Category</h3>
-        <div class="row text-center mt-4">
-            <div class="col-md-2">
-                <div class="p-3 border rounded">Groceries</div>
-            </div>
-            <div class="col-md-2">
-                <div class="p-3 border rounded">Electronics</div>
-            </div>
-            <div class="col-md-2">
-                <div class="p-3 border rounded">Fashion</div>
-            </div>
-            <div class="col-md-2">
-                <div class="p-3 border rounded">Beauty</div>
-            </div>
-            <div class="col-md-2">
-                <div class="p-3 border rounded">Mobiles</div>
-            </div>
-            <div class="col-md-2">
-                <div class="p-3 border rounded">Home</div>
-            </div>
+        <h3 class="text-center mb-4">Shop By Category</h3>
+        <div class="row text-center">
+            <c:forEach var="cat" items="${categories}">
+                <div class="col-md-2 col-6 mb-4">
+                    <a href="CategoryServlet?id=${cat.id}" class="text-decoration-none text-dark">
+                        <div class="category-card p-4 border rounded shadow-sm bg-white">
+                            <c:choose>
+                                <c:when test="${not empty cat.image}">
+                                    <img src="${pageContext.request.contextPath}${cat.image}" alt="${cat.name}" class="img-fluid mb-2" style="height: 50px;" onerror="this.src='https://via.placeholder.com/50'">
+                                </c:when>
+                                <c:otherwise>
+                                    <i class="fas fa-folder fa-2x mb-2 text-primary"></i>
+                                </c:otherwise>
+                            </c:choose>
+                            <h5>${cat.name}</h5>
+                        </div>
+                    </a>
+                </div>
+            </c:forEach>
+            <c:if test="${empty categories}">
+                <div class="col-12 text-center">
+                    <p class="text-muted">Loading categories...</p>
+                    <a href="HomeServlet" class="btn btn-primary">Refresh Categories</a>
+                </div>
+            </c:if>
         </div>
 
         <h3 class="mt-5">Today's Deals</h3>

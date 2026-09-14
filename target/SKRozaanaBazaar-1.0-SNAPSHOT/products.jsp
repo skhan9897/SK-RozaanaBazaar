@@ -10,14 +10,29 @@
 <body>
     <%@ include file="includes/navbar.jsp" %>
 
-    <div class="container mt-5">
+    <div class="container mt-4">
+        <h2 class="mb-4">${not empty category ? category.name : 'Products'}</h2>
+
+        <c:if test="${not empty subcategories}">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h5>Refine by Subcategory:</h5>
+                    <div class="d-flex flex-wrap">
+                        <c:forEach var="sub" items="${subcategories}">
+                            <a href="CategoryServlet?id=${category.id}&subId=${sub.id}" class="btn btn-outline-secondary btn-sm mr-2 mb-2">${sub.name}</a>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+
         <div class="row">
             <c:choose>
                 <c:when test="${not empty products}">
                     <c:forEach var="product" items="${products}">
                         <div class="col-md-3 mb-4">
                             <div class="card h-100">
-                                <img src="images/products/${product.image}" class="card-img-top" alt="${product.productName}">
+                                <img src="${pageContext.request.contextPath}${product.image}" class="card-img-top" alt="${product.productName}" onerror="this.src='images/placeholder.jpg'">
                                 <div class="card-body">
                                     <h5 class="card-title">${product.productName}</h5>
                                     <p class="card-text text-muted small">${product.brand}</p>

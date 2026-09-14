@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <a class="navbar-brand font-weight-bold" href="index.jsp">SKRozaanaBazaar</a>
+    <a class="navbar-brand font-weight-bold" href="index">SKRozaanaBazaar</a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <form class="form-inline mx-auto w-50" action="search" method="GET">
@@ -40,7 +40,7 @@
 
 <div class="bg-light py-2 px-3 border-bottom">
     <nav class="nav">
-        <a class="nav-link" href="index.jsp">Home</a>
+        <a class="nav-link" href="index">Home</a>
         <a class="nav-link" href="CategoryServlet">Categories</a>
         <a class="nav-link" href="DealsServlet">Deals</a>
         <a class="nav-link" href="NewArrivalsServlet">New Arrivals</a>

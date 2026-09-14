@@ -7,6 +7,9 @@ services:
     envVars:
       - key: PORT
         value: 8080
-      # You can add DB environment variables here later
-      # - key: DB_URL
-      #   value: jdbc:mysql://your-db-host:3306/skrozana_db
+      - key: DB_URL
+        value: jdbc:mysql://bamupc1fh4jwu1sxij7n-mysql.services.clever-cloud.com:3306/bamupc1fh4jwu1sxij7n
+      - key: DB_USER
+        value: uw1i0y5e163vztxv
+      - key: DB_PASSWORD
+        value: VQzfMMHPpqHquYUleFyx

@@ -11,7 +11,7 @@ import java.util.List;
 public class UserDAO {
 
     public boolean registerUser(User user) {
-        String sql = "INSERT INTO users (name, email, mobile, password, address, city, state, pincode, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'CUSTOMER', 'active')";
+        String sql = "INSERT INTO users (name, email, mobile, password, address, city, state, pincode, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'CUSTOMER', 'ACTIVE')";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             
@@ -32,7 +32,7 @@ public class UserDAO {
     }
 
     public User loginUser(String email, String password) {
-        String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND status = 'active'";
+        String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND status = 'ACTIVE'";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             

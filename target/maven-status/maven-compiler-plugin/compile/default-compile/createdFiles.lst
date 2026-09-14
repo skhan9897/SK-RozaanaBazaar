@@ -17,6 +17,7 @@ com\skrozana\controller\admin\AdminOrderServlet.class
 com\skrozana\model\OrderItem.class
 com\skrozana\model\Order.class
 com\skrozana\model\Cart.class
+com\skrozana\controller\DealsServlet.class
 com\skrozana\controller\admin\AdminProductServlet.class
 com\skrozana\filter\AdminFilter.class
 com\skrozana\dao\OrderDAO.class
@@ -26,4 +27,5 @@ com\skrozana\dao\UserDAO.class
 com\skrozana\util\DBConnection.class
 com\skrozana\controller\admin\AdminDashboardServlet.class
 com\skrozana\controller\CategoryServlet.class
+com\skrozana\controller\NewArrivalsServlet.class
 com\skrozana\controller\admin\AdminCategoryServlet.class

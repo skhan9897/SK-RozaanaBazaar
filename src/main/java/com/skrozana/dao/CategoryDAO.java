@@ -1,6 +1,7 @@
 package com.skrozana.dao;
 
 import com.skrozana.model.Category;
+import com.skrozana.model.Subcategory;
 import com.skrozana.util.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +13,7 @@ public class CategoryDAO {
     
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
-        String sql = "SELECT * FROM categories WHERE status = 'active' AND parent_id = 0";
+        String sql = "SELECT * FROM categories WHERE status = 'ACTIVE'";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -22,7 +23,9 @@ public class CategoryDAO {
                 Category cat = new Category();
                 cat.setId(rs.getInt("id"));
                 cat.setName(rs.getString("category_name"));
+                cat.setDescription(rs.getString("description"));
                 cat.setImage(rs.getString("image"));
+                cat.setStatus(rs.getString("status"));
                 categories.add(cat);
             }
         } catch (Exception e) {
@@ -31,26 +34,28 @@ public class CategoryDAO {
         return categories;
     }
 
-    public List<Category> getSubCategories(int parentId) {
-        List<Category> categories = new ArrayList<>();
-        String sql = "SELECT * FROM categories WHERE status = 'active' AND parent_id = ?";
+    public List<Subcategory> getSubCategories(int categoryId) {
+        List<Subcategory> subcategories = new ArrayList<>();
+        String sql = "SELECT * FROM subcategories WHERE status = 'ACTIVE' AND category_id = ?";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             
-            ps.setInt(1, parentId);
+            ps.setInt(1, categoryId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Category cat = new Category();
-                cat.setId(rs.getInt("id"));
-                cat.setName(rs.getString("category_name"));
-                cat.setImage(rs.getString("image"));
-                categories.add(cat);
+                Subcategory sub = new Subcategory();
+                sub.setId(rs.getInt("id"));
+                sub.setCategoryId(rs.getInt("category_id"));
+                sub.setName(rs.getString("subcategory_name"));
+                sub.setImage(rs.getString("image"));
+                sub.setStatus(rs.getString("status"));
+                subcategories.add(sub);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return categories;
+        return subcategories;
     }
 
     public Category getCategoryById(int id) {
@@ -63,7 +68,7 @@ public class CategoryDAO {
                 Category cat = new Category();
                 cat.setId(rs.getInt("id"));
                 cat.setName(rs.getString("category_name"));
-                cat.setParentId(rs.getInt("parent_id"));
+                cat.setDescription(rs.getString("description"));
                 cat.setImage(rs.getString("image"));
                 cat.setStatus(rs.getString("status"));
                 return cat;
@@ -84,7 +89,7 @@ public class CategoryDAO {
                 Category cat = new Category();
                 cat.setId(rs.getInt("id"));
                 cat.setName(rs.getString("category_name"));
-                cat.setParentId(rs.getInt("parent_id"));
+                cat.setDescription(rs.getString("description"));
                 cat.setImage(rs.getString("image"));
                 cat.setStatus(rs.getString("status"));
                 categories.add(cat);
@@ -93,48 +98,5 @@ public class CategoryDAO {
             e.printStackTrace();
         }
         return categories;
-    }
-
-    public boolean addCategory(Category c) {
-        String sql = "INSERT INTO categories (category_name, parent_id, image, status) VALUES (?, ?, ?, ?)";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, c.getName());
-            ps.setInt(2, c.getParentId());
-            ps.setString(3, c.getImage());
-            ps.setString(4, c.getStatus());
-            return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean updateCategory(Category c) {
-        String sql = "UPDATE categories SET category_name=?, parent_id=?, image=?, status=? WHERE id=?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, c.getName());
-            ps.setInt(2, c.getParentId());
-            ps.setString(3, c.getImage());
-            ps.setString(4, c.getStatus());
-            ps.setInt(5, c.getId());
-            return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean deleteCategory(int id) {
-        String sql = "DELETE FROM categories WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 }

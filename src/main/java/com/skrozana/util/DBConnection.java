@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static final String DEFAULT_URL = "jdbc:mysql://localhost:3306/skrozana_db";
-    private static final String DEFAULT_USER = "root";
-    private static final String DEFAULT_PASSWORD = "password";
+    private static final String DEFAULT_URL = "jdbc:mysql://bamupc1fh4jwu1sxij7n-mysql.services.clever-cloud.com:3306/bamupc1fh4jwu1sxij7n";
+    private static final String DEFAULT_USER = "uw1i0y5e163vztxv";
+    private static final String DEFAULT_PASSWORD = "VQzfMMHPpqHquYUleFyx";
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
     public static Connection getConnection() {

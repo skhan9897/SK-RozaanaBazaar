@@ -37,20 +37,25 @@ public class MerchantRegisterServlet extends HttpServlet {
         merchant.setBusinessAddress(request.getParameter("address"));
         merchant.setTermsAccepted(request.getParameter("terms") != null);
         
-        String result = merchantDAO.registerMerchant(user, merchant);
-        
-        if (result != null) {
-            if ("EXISTS".equals(result)) {
-                request.setAttribute("errorMsg", "This email is already registered as a merchant. Please Login.");
-                request.getRequestDispatcher("merchant-register.jsp").forward(request, response);
+        try {
+            String result = merchantDAO.registerMerchant(user, merchant);
+            
+            if (result != null) {
+                if ("EXISTS".equals(result)) {
+                    request.setAttribute("errorMsg", "Error: Email or Mobile number is already registered.");
+                    request.getRequestDispatcher("merchant-register.jsp").forward(request, response);
+                } else {
+                    String[] parts = result.split("\\|");
+                    request.setAttribute("merchantId", parts[0]);
+                    request.setAttribute("password", parts[1]);
+                    request.getRequestDispatcher("merchant-success.jsp").forward(request, response);
+                }
             } else {
-                String[] parts = result.split("\\|");
-                request.setAttribute("merchantId", parts[0]);
-                request.setAttribute("password", parts[1]);
-                request.getRequestDispatcher("merchant-success.jsp").forward(request, response);
+                request.setAttribute("errorMsg", "Registration Failed! Please check if your database tables are created correctly.");
+                request.getRequestDispatcher("merchant-register.jsp").forward(request, response);
             }
-        } else {
-            request.setAttribute("errorMsg", "Registration Failed! Please try again.");
+        } catch (Exception e) {
+            request.setAttribute("errorMsg", "System Error: " + e.getMessage());
             request.getRequestDispatcher("merchant-register.jsp").forward(request, response);
         }
     }

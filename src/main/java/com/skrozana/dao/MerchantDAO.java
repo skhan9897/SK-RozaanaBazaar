@@ -11,14 +11,15 @@ import java.util.Random;
 
 public class MerchantDAO {
 
-    public String registerMerchant(User user, Merchant merchant) {
+    public String registerMerchant(User user, Merchant merchant) throws Exception {
         // Check if email or mobile already exists
         String checkSql = "SELECT id FROM users WHERE email = ? OR mobile = ?";
         
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
-            
+            if (conn == null) throw new Exception("Database connection failed!");
+
             try (PreparedStatement psCheck = conn.prepareStatement(checkSql)) {
                 psCheck.setString(1, user.getEmail());
                 psCheck.setString(2, user.getMobile());
@@ -30,7 +31,7 @@ public class MerchantDAO {
 
             conn.setAutoCommit(false);
             
-            // Use 'ACTIVE' status instead of 'PENDING' to match UserDAO logic
+            // Fixed column count to match DB structure
             String userSql = "INSERT INTO users (name, email, mobile, password, address, city, state, pincode, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ADMIN', 'ACTIVE')";
             String merchantSql = "INSERT INTO merchants (user_id, merchant_id, business_name, business_type, pan_number, gstin, business_address, terms_accepted, verification_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ACTIVE')";
 
@@ -67,20 +68,14 @@ public class MerchantDAO {
                     }
                     
                     conn.commit();
-                    System.out.println("Merchant Registered Successfully: " + merchantId);
                     return merchantId + "|" + initialPassword;
                 }
             }
         } catch (Exception e) {
-            System.err.println("CRITICAL ERROR IN MERCHANT REGISTRATION: " + e.getMessage());
-            e.printStackTrace();
-            if (conn != null) {
-                try { conn.rollback(); } catch (Exception ex) { ex.printStackTrace(); }
-            }
+            if (conn != null) conn.rollback();
+            throw e; // Re-throw to catch in Servlet
         } finally {
-            if (conn != null) {
-                try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
-            }
+            if (conn != null) conn.close();
         }
         return null;
     }

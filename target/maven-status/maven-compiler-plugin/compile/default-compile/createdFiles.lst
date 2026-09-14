@@ -36,4 +36,5 @@ com\skrozana\controller\admin\AdminDashboardServlet.class
 com\skrozana\controller\CategoryServlet.class
 com\skrozana\controller\NewArrivalsServlet.class
 com\skrozana\controller\admin\AdminCategoryServlet.class
+com\skrozana\controller\admin\AdminSettingsServlet.class
 com\skrozana\model\Merchant.class

@@ -24,6 +24,7 @@ public class AdminDashboardServlet extends HttpServlet {
         Map<String, Object> stats = adminDAO.getDashboardStats();
         request.setAttribute("stats", stats);
         
-        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+        // Ensure we are dispatching to the correct relative path /admin/dashboard.jsp
+        request.getRequestDispatcher("/admin/dashboard.jsp").forward(request, response);
     }
 }

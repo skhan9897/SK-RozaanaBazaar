@@ -30,10 +30,11 @@ public class AdminLoginServlet extends HttpServlet {
         if (user != null && "ADMIN".equals(user.getRole())) {
             HttpSession session = request.getSession();
             session.setAttribute("admin", user);
+            session.setAttribute("user", user); // Fallback logic matching filter criteria code checks
             response.sendRedirect("dashboard");
         } else {
             request.setAttribute("errorMsg", "Access Denied: Invalid Admin Credentials!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/login.jsp").forward(request, response);
         }
     }
 }

@@ -29,8 +29,14 @@ public class AdminFilter implements Filter {
         
         String requestURI = req.getRequestURI();
         
-        // Allow access to login.jsp and AdminLoginServlet inside /admin without filtering
-        if (requestURI.endsWith("login.jsp") || requestURI.contains("AdminLoginServlet")) {
+        // Allow access to login, registration and merchant portal pages without filtering
+        if (requestURI.endsWith("login.jsp") || 
+            requestURI.contains("AdminLoginServlet") || 
+            requestURI.contains("merchant-register") || 
+            requestURI.contains("MerchantRegisterServlet") ||
+            requestURI.contains("merchant-login") ||
+            requestURI.contains("MerchantLoginServlet") ||
+            requestURI.contains("merchant-success")) {
             chain.doFilter(request, response);
             return;
         }

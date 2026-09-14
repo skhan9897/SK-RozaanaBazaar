@@ -40,10 +40,15 @@ public class MerchantRegisterServlet extends HttpServlet {
         String result = merchantDAO.registerMerchant(user, merchant);
         
         if (result != null) {
-            String[] parts = result.split("\\|");
-            request.setAttribute("merchantId", parts[0]);
-            request.setAttribute("password", parts[1]);
-            request.getRequestDispatcher("merchant-success.jsp").forward(request, response);
+            if ("EXISTS".equals(result)) {
+                request.setAttribute("errorMsg", "This email is already registered as a merchant. Please Login.");
+                request.getRequestDispatcher("merchant-register.jsp").forward(request, response);
+            } else {
+                String[] parts = result.split("\\|");
+                request.setAttribute("merchantId", parts[0]);
+                request.setAttribute("password", parts[1]);
+                request.getRequestDispatcher("merchant-success.jsp").forward(request, response);
+            }
         } else {
             request.setAttribute("errorMsg", "Registration Failed! Please try again.");
             request.getRequestDispatcher("merchant-register.jsp").forward(request, response);

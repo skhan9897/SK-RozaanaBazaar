@@ -23,6 +23,11 @@
             <p class="mb-0">Grow your business with SK-RozaanaBazaar</p>
         </div>
         <div class="card-body p-4">
+            <c:if test="${not empty errorMsg}">
+                <div class="alert alert-danger text-center font-weight-bold mb-4">
+                    <i class="fas fa-exclamation-triangle mr-2"></i> ${errorMsg}
+                </div>
+            </c:if>
             <form action="MerchantRegisterServlet" method="POST">
                 <h5 class="text-primary border-bottom pb-2 mb-3">Personal Details</h5>
                 <div class="row">

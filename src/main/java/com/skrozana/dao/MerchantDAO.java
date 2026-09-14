@@ -12,13 +12,25 @@ import java.util.Random;
 public class MerchantDAO {
 
     public String registerMerchant(User user, Merchant merchant) {
-        String userSql = "INSERT INTO users (name, email, mobile, password, role, status) VALUES (?, ?, ?, ?, 'ADMIN', 'PENDING')";
-        String merchantSql = "INSERT INTO merchants (user_id, merchant_id, business_name, business_type, pan_number, gstin, business_address, terms_accepted) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        // First, check if user with this email already exists to ensure one-time registration
+        String checkSql = "SELECT id FROM users WHERE email = ?";
         
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
+            
+            try (PreparedStatement psCheck = conn.prepareStatement(checkSql)) {
+                psCheck.setString(1, user.getEmail());
+                ResultSet rsCheck = psCheck.executeQuery();
+                if (rsCheck.next()) {
+                    return "EXISTS"; // Email already registered
+                }
+            }
+
             conn.setAutoCommit(false);
+            
+            String userSql = "INSERT INTO users (name, email, mobile, password, address, city, state, pincode, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ADMIN', 'PENDING')";
+            String merchantSql = "INSERT INTO merchants (user_id, merchant_id, business_name, business_type, pan_number, gstin, business_address, terms_accepted) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             // Generate Merchant ID and Password
             String merchantId = "SKR-MER-" + (1000 + new Random().nextInt(9000));
@@ -29,6 +41,10 @@ public class MerchantDAO {
                 psUser.setString(2, user.getEmail());
                 psUser.setString(3, user.getMobile());
                 psUser.setString(4, initialPassword);
+                psUser.setString(5, merchant.getBusinessAddress()); // Address
+                psUser.setString(6, ""); // City
+                psUser.setString(7, ""); // State
+                psUser.setString(8, ""); // Pincode
                 
                 psUser.executeUpdate();
                 ResultSet rs = psUser.getGeneratedKeys();

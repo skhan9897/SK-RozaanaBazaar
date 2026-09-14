@@ -150,4 +150,41 @@ public class ProductDAO {
         }
         return false;
     }
+
+    public boolean updateProduct(Product p) {
+        String sql = "UPDATE products SET category_id=?, subcategory_id=?, product_name=?, brand=?, description=?, price=?, discount=?, final_price=?, stock=?, sku=?, image=?, rating=?, status=? WHERE id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, p.getCategoryId());
+            ps.setObject(2, p.getSubcategoryId());
+            ps.setString(3, p.getProductName());
+            ps.setString(4, p.getBrand());
+            ps.setString(5, p.getDescription());
+            ps.setDouble(6, p.getPrice());
+            ps.setDouble(7, p.getDiscount());
+            ps.setDouble(8, p.getFinalPrice());
+            ps.setInt(9, p.getStock());
+            ps.setString(10, p.getSku());
+            ps.setString(11, p.getImage());
+            ps.setDouble(12, p.getRating());
+            ps.setString(13, p.getStatus());
+            ps.setInt(14, p.getId());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteProduct(int id) {
+        String sql = "DELETE FROM products WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

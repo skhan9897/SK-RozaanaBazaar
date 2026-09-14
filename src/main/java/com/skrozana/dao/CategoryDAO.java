@@ -99,4 +99,47 @@ public class CategoryDAO {
         }
         return categories;
     }
+
+    public boolean addCategory(Category c) {
+        String sql = "INSERT INTO categories (category_name, description, image, status) VALUES (?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, c.getName());
+            ps.setString(2, c.getDescription());
+            ps.setString(3, c.getImage());
+            ps.setString(4, c.getStatus());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateCategory(Category c) {
+        String sql = "UPDATE categories SET category_name=?, description=?, image=?, status=? WHERE id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, c.getName());
+            ps.setString(2, c.getDescription());
+            ps.setString(3, c.getImage());
+            ps.setString(4, c.getStatus());
+            ps.setInt(5, c.getId());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteCategory(int id) {
+        String sql = "DELETE FROM categories WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

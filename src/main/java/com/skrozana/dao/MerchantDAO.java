@@ -12,8 +12,8 @@ import java.util.Random;
 public class MerchantDAO {
 
     public String registerMerchant(User user, Merchant merchant) {
-        // First, check if user with this email already exists to ensure one-time registration
-        String checkSql = "SELECT id FROM users WHERE email = ?";
+        // Check if email or mobile already exists
+        String checkSql = "SELECT id FROM users WHERE email = ? OR mobile = ?";
         
         Connection conn = null;
         try {
@@ -21,18 +21,19 @@ public class MerchantDAO {
             
             try (PreparedStatement psCheck = conn.prepareStatement(checkSql)) {
                 psCheck.setString(1, user.getEmail());
+                psCheck.setString(2, user.getMobile());
                 ResultSet rsCheck = psCheck.executeQuery();
                 if (rsCheck.next()) {
-                    return "EXISTS"; // Email already registered
+                    return "EXISTS"; 
                 }
             }
 
             conn.setAutoCommit(false);
             
-            String userSql = "INSERT INTO users (name, email, mobile, password, address, city, state, pincode, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ADMIN', 'PENDING')";
-            String merchantSql = "INSERT INTO merchants (user_id, merchant_id, business_name, business_type, pan_number, gstin, business_address, terms_accepted) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            // Use 'ACTIVE' status instead of 'PENDING' to match UserDAO logic
+            String userSql = "INSERT INTO users (name, email, mobile, password, address, city, state, pincode, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ADMIN', 'ACTIVE')";
+            String merchantSql = "INSERT INTO merchants (user_id, merchant_id, business_name, business_type, pan_number, gstin, business_address, terms_accepted, verification_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ACTIVE')";
 
-            // Generate Merchant ID and Password
             String merchantId = "SKR-MER-" + (1000 + new Random().nextInt(9000));
             String initialPassword = generateRandomPassword();
             
@@ -41,10 +42,10 @@ public class MerchantDAO {
                 psUser.setString(2, user.getEmail());
                 psUser.setString(3, user.getMobile());
                 psUser.setString(4, initialPassword);
-                psUser.setString(5, merchant.getBusinessAddress()); // Address
-                psUser.setString(6, ""); // City
-                psUser.setString(7, ""); // State
-                psUser.setString(8, ""); // Pincode
+                psUser.setString(5, merchant.getBusinessAddress()); 
+                psUser.setString(6, "N/A"); 
+                psUser.setString(7, "N/A"); 
+                psUser.setString(8, "000000"); 
                 
                 psUser.executeUpdate();
                 ResultSet rs = psUser.getGeneratedKeys();
@@ -66,15 +67,16 @@ public class MerchantDAO {
                     }
                     
                     conn.commit();
-                    // Return both ID and Password separated by |
+                    System.out.println("Merchant Registered Successfully: " + merchantId);
                     return merchantId + "|" + initialPassword;
                 }
             }
         } catch (Exception e) {
+            System.err.println("CRITICAL ERROR IN MERCHANT REGISTRATION: " + e.getMessage());
+            e.printStackTrace();
             if (conn != null) {
                 try { conn.rollback(); } catch (Exception ex) { ex.printStackTrace(); }
             }
-            e.printStackTrace();
         } finally {
             if (conn != null) {
                 try { conn.close(); } catch (Exception e) { e.printStackTrace(); }

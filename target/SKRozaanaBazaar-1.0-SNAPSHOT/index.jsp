@@ -65,12 +65,19 @@
     <%@ include file="includes/footer.jsp" %>
 
     <script>
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                var splash = document.getElementById('splash-screen');
+        // Use a DOMContentLoaded or direct execution fallback in case 'load' event waits for slow external images/CSS
+        function hideSplash() {
+            var splash = document.getElementById('splash-screen');
+            if (splash && !splash.classList.contains('hidden')) {
                 splash.classList.add('hidden');
-            }, 1500); // 1.5 seconds delay
-        });
+            }
+        }
+
+        // Hide after 1.5 seconds anyway
+        setTimeout(hideSplash, 1500);
+
+        // Hide as soon as page resources are loaded
+        window.addEventListener('load', hideSplash);
     </script>
 </body>
 </html>

@@ -3,6 +3,7 @@ com\skrozana\dao\CartDAO.class
 com\skrozana\controller\admin\AdminUserServlet.class
 com\skrozana\controller\AddToCartServlet.class
 com\skrozana\controller\RegisterServlet.class
+com\skrozana\controller\HomeServlet.class
 com\skrozana\controller\OrderServlet.class
 com\skrozana\controller\CheckoutServlet.class
 com\skrozana\model\Product.class
@@ -16,6 +17,7 @@ com\skrozana\controller\SearchServlet.class
 com\skrozana\controller\admin\AdminOrderServlet.class
 com\skrozana\model\OrderItem.class
 com\skrozana\model\Order.class
+com\skrozana\model\Subcategory.class
 com\skrozana\model\Cart.class
 com\skrozana\controller\DealsServlet.class
 com\skrozana\controller\admin\AdminProductServlet.class

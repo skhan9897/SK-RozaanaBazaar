@@ -111,8 +111,11 @@
                 var images = {
                     "Galaxy": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&auto=format&fit=crop",
                     "iPhone": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500&auto=format&fit=crop",
-                    "OnePlus": "https://images.unsplash.com/photo-1678911820864-a24a56e41344?w=500&auto=format&fit=crop",
+                    "OnePlus": "https://images.unsplash.com/photo-1565630916779-e303be97b6f5?w=500&auto=format&fit=crop",
+                    "Nord": "https://images.unsplash.com/photo-1565630916779-e303be97b6f5?w=500&auto=format&fit=crop",
                     "Charger": "https://images.unsplash.com/photo-1622445275463-afa2ab738c34?w=500&auto=format&fit=crop",
+                    "Power Bank": "https://images.unsplash.com/photo-1609592424089-98d021c7a8b6?w=500&auto=format&fit=crop",
+                    "Powerbank": "https://images.unsplash.com/photo-1609592424089-98d021c7a8b6?w=500&auto=format&fit=crop",
                     "Power": "https://images.unsplash.com/photo-1609592424089-98d021c7a8b6?w=500&auto=format&fit=crop",
                     "Laptop": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&auto=format&fit=crop",
                     "Monitor": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&auto=format&fit=crop",

@@ -27,12 +27,21 @@ public class AdminFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
         
-        User user = (session != null) ? (User) session.getAttribute("user") : null;
+        String requestURI = req.getRequestURI();
         
-        if (user != null && "ADMIN".equals(user.getRole())) {
+        // Allow access to login.jsp and AdminLoginServlet inside /admin without filtering
+        if (requestURI.endsWith("login.jsp") || requestURI.contains("AdminLoginServlet")) {
+            chain.doFilter(request, response);
+            return;
+        }
+        
+        User user = (session != null) ? (User) session.getAttribute("user") : null;
+        User adminUser = (session != null) ? (User) session.getAttribute("admin") : null;
+        
+        if ((user != null && "ADMIN".equals(user.getRole())) || adminUser != null) {
             chain.doFilter(request, response);
         } else {
-            res.sendRedirect(req.getContextPath() + "/login.jsp?error=admin_only");
+            res.sendRedirect(req.getContextPath() + "/admin/login.jsp");
         }
     }
 

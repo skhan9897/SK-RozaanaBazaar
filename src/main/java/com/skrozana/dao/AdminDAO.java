@@ -40,6 +40,41 @@ public class AdminDAO {
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) stats.put("totalRevenue", rs.getDouble(1));
             }
+
+            // Today's Orders
+            String sqlTodayOrders = "SELECT COUNT(*) FROM orders WHERE DATE(created_at) = CURDATE()";
+            try (PreparedStatement ps = conn.prepareStatement(sqlTodayOrders)) {
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) stats.put("todayOrders", rs.getInt(1));
+            }
+
+            // Today's Revenue
+            String sqlTodayRev = "SELECT SUM(total_amount) FROM orders WHERE DATE(created_at) = CURDATE() AND order_status != 'Cancelled'";
+            try (PreparedStatement ps = conn.prepareStatement(sqlTodayRev)) {
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) stats.put("todayRevenue", rs.getDouble(1));
+            }
+
+            // Low Stock Items (Stock < 10)
+            String sqlLowStock = "SELECT COUNT(*) FROM products WHERE stock < 10";
+            try (PreparedStatement ps = conn.prepareStatement(sqlLowStock)) {
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) stats.put("lowStock", rs.getInt(1));
+            }
+
+            // Pending Orders
+            String sqlPending = "SELECT COUNT(*) FROM orders WHERE order_status = 'Pending' OR order_status = 'Placed'";
+            try (PreparedStatement ps = conn.prepareStatement(sqlPending)) {
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) stats.put("pendingOrders", rs.getInt(1));
+            }
+
+            // Delivered Orders
+            String sqlDelivered = "SELECT COUNT(*) FROM orders WHERE order_status = 'Delivered'";
+            try (PreparedStatement ps = conn.prepareStatement(sqlDelivered)) {
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) stats.put("deliveredOrders", rs.getInt(1));
+            }
             
         } catch (Exception e) {
             e.printStackTrace();

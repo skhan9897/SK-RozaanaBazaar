@@ -73,6 +73,9 @@
         <button type="submit" class="btn btn-primary btn-block btn-lg font-weight-bold shadow-sm">
             Sign In <i class="fas fa-sign-in-alt ml-1"></i>
         </button>
+        <div class="text-center mt-3">
+            <a href="../index" class="small text-muted font-weight-bold"><i class="fas fa-arrow-left"></i> Back to Main Store</a>
+        </div>
     </form>
 </div>
 

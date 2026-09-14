@@ -27,10 +27,10 @@
                 </c:when>
                 <c:otherwise>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.jsp">Login</a>
+                        <a class="nav-link font-weight-bold text-dark" href="login.jsp">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="register.jsp">Register</a>
+                        <a class="nav-link font-weight-bold text-dark" href="register.jsp">Register</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -38,11 +38,16 @@
     </div>
 </nav>
 
-<div class="bg-light py-2 px-3 border-bottom">
+<div class="bg-light py-2 px-3 border-bottom d-flex justify-content-between align-items-center">
     <nav class="nav">
-        <a class="nav-link" href="index">Home</a>
-        <a class="nav-link" href="CategoryServlet">Categories</a>
-        <a class="nav-link" href="DealsServlet">Deals</a>
-        <a class="nav-link" href="NewArrivalsServlet">New Arrivals</a>
+        <a class="nav-link font-weight-bold" href="index">Home</a>
+        <a class="nav-link font-weight-bold" href="CategoryServlet">Categories</a>
+        <a class="nav-link font-weight-bold" href="DealsServlet">Deals</a>
+        <a class="nav-link font-weight-bold" href="NewArrivalsServlet">New Arrivals</a>
     </nav>
+    <div class="pr-2">
+        <a class="btn btn-sm btn-dark font-weight-bold px-3 shadow-sm" href="admin/login.jsp" style="letter-spacing: 0.3px; background-color: #2b2b36; border-color: #3f3f52;">
+            🛡️ Admin Section Login
+        </a>
+    </div>
 </div>

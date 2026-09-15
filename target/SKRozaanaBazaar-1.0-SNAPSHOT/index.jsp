@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>SKRozaanaBazaar - Home</title>
+    <meta name="google-site-verification" content="HPOOu2kQLME8MuJKU4C-rstcsWs6OROGVv-f9p2zcnU" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">

@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Modern Design System -->
+    <color name="colorPrimary">#007BFF</color>
+    <color name="colorSecondary">#FB641B</color>
+    <color name="colorSuccess">#388E3C</color>
+    <color name="colorBackground">#F8F9FA</color>
+    <color name="surface_light">#FFFFFF</color>
+    <color name="text_primary">#2D2D2D</color>
+    <color name="text_secondary">#757575</color>
+    <color name="colorDivider">#EEEEEE</color>
+    <color name="error_red">#E53935</color>
+    <color name="search_bg">#F5F5F5</color>
 </resources>

@@ -1,38 +1,170 @@
 [
     {
-        "merged": "com.skrozana.app-merged_res-28:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.skrozana.app-main-30:/drawable/ic_launcher_foreground.xml"
+        "merged": "com.skrozana.app-merged_res-42:/drawable_bg_rating_badge.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/bg_rating_badge.xml"
     },
     {
-        "merged": "com.skrozana.app-merged_res-28:/layout_activity_register.xml.flat",
-        "source": "com.skrozana.app-main-30:/layout/activity_register.xml"
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_login.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_login.xml"
     },
     {
-        "merged": "com.skrozana.app-merged_res-28:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.skrozana.app-main-30:/drawable/ic_launcher_background.xml"
+        "merged": "com.skrozana.app-merged_res-42:/layout_item_cart.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/item_cart.xml"
     },
     {
-        "merged": "com.skrozana.app-merged_res-28:/layout_activity_product_details.xml.flat",
-        "source": "com.skrozana.app-main-30:/layout/activity_product_details.xml"
+        "merged": "com.skrozana.app-merged_res-42:/layout_item_category.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/item_category.xml"
     },
     {
-        "merged": "com.skrozana.app-merged_res-28:/layout_item_category.xml.flat",
-        "source": "com.skrozana.app-main-30:/layout/item_category.xml"
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_main.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_main.xml"
     },
     {
-        "merged": "com.skrozana.app-merged_res-28:/layout_activity_main.xml.flat",
-        "source": "com.skrozana.app-main-30:/layout/activity_main.xml"
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_add_product.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_add_product.xml"
     },
     {
-        "merged": "com.skrozana.app-merged_res-28:/layout_activity_login.xml.flat",
-        "source": "com.skrozana.app-main-30:/layout/activity_login.xml"
+        "merged": "com.skrozana.app-merged_res-42:/drawable_ic_search.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/ic_search.xml"
     },
     {
-        "merged": "com.skrozana.app-merged_res-28:/layout_item_product.xml.flat",
-        "source": "com.skrozana.app-main-30:/layout/item_product.xml"
+        "merged": "com.skrozana.app-merged_res-42:/layout_item_category_main.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/item_category_main.xml"
     },
     {
-        "merged": "com.skrozana.app-merged_res-28:/layout_activity_splash.xml.flat",
-        "source": "com.skrozana.app-main-30:/layout/activity_splash.xml"
+        "merged": "com.skrozana.app-merged_res-42:/layout_fragment_cart.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/fragment_cart.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_dot_selector.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/dot_selector.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_ic_home.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/ic_home.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/navigation_nav_graph.xml.flat",
+        "source": "com.skrozana.app-main-44:/navigation/nav_graph.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_register.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_register.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_ic_profile.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/ic_profile.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_item_slider.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/item_slider.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_fragment_category.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/fragment_category.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_bg_discount_badge.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/bg_discount_badge.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_dot_active.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/dot_active.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_product_details.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_product_details.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_order_success.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_order_success.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_profile.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_profile.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/menu_bottom_nav_menu.xml.flat",
+        "source": "com.skrozana.app-main-44:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_fragment_wishlist.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/fragment_wishlist.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_product_list.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_product_list.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_item_product.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/item_product.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_fragment_home.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_ic_add.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/ic_add.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_ic_cart.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/ic_cart.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/menu_main_menu.xml.flat",
+        "source": "com.skrozana.app-main-44:/menu/main_menu.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_ic_favorite.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/ic_favorite.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_checkout.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_checkout.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_ic_remove.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/ic_remove.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_cart.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_cart.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_bg_quantity_btn.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/bg_quantity_btn.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_order_tracking.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_order_tracking.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_item_selected_image.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/item_selected_image.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_otp_verification.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_otp_verification.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_activity_splash.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/layout_fragment_profile.xml.flat",
+        "source": "com.skrozana.app-main-44:/layout/fragment_profile.xml"
+    },
+    {
+        "merged": "com.skrozana.app-merged_res-42:/drawable_dot_inactive.xml.flat",
+        "source": "com.skrozana.app-main-44:/drawable/dot_inactive.xml"
     }
 ]

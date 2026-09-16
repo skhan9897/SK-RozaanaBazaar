@@ -14,7 +14,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.screens.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,10 +22,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ProductDetailsActivity" />
+        <activity android:name=".ui.screens.MainActivity" />
+        <activity android:name=".ui.screens.LoginActivity" />
+        <activity android:name=".ui.screens.OtpVerificationActivity" />
+        <activity android:name=".ui.screens.ProductListActivity" />
+        <activity android:name=".ui.screens.CheckoutActivity" />
+        <activity android:name=".ui.screens.OrderSuccessActivity" />
+        <activity android:name=".ui.screens.OrderTrackingActivity" />
+        <activity android:name=".ui.screens.RegisterActivity" />
+        <activity android:name=".ui.screens.ProductDetailsActivity" />
+        <activity android:name=".ui.screens.CartActivity" />
+        <activity android:name=".ui.screens.ProfileActivity" />
+        <activity android:name=".ui.screens.AddProductActivity" />
 
     </application>
 

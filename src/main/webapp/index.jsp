@@ -84,7 +84,7 @@
                     <div class="card h-100 shadow-sm product-card">
                         <div class="position-relative">
                             <span class="badge badge-danger position-absolute m-2 px-2 py-1" style="z-index: 2;">${product.discount}% OFF</span>
-                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60" class="card-img-top p-3" alt="${product.productName}" style="height: 200px; object-fit: contain;" id="img-${product.id}">
+                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60" class="card-img-top p-3" alt="${product.productName}" style="height: 200px; object-fit: contain;" id="img-${product.id}" data-name="<c:out value="${product.productName}"/>">
                         </div>
                         <div class="card-body d-flex flex-column">
                             <span class="text-muted small">${product.brand}</span>
@@ -177,10 +177,9 @@
                     "Hammer": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=500&auto=format&fit=crop"
                 };
 
-                <c:forEach var="product" items="${products}">
-                    var name = "${product.productName}";
-                    var imgElement = document.getElementById("img-${product.id}");
-                    if (imgElement) {
+                document.querySelectorAll(".card-img-top").forEach(function(imgElement) {
+                    var name = imgElement.getAttribute("data-name");
+                    if (name) {
                         for (var key in images) {
                             if (name.toLowerCase().includes(key.toLowerCase())) {
                                 imgElement.src = images[key];
@@ -188,7 +187,7 @@
                             }
                         }
                     }
-                </c:forEach>
+                });
             });
         </script>
     </div>

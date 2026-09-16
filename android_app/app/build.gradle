@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.skrozana.app'
+    namespace 'com.sk.rozaanabazaar'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.skrozana.app"
+        applicationId "com.sk.rozaanabazaar"
         minSdk 24
         targetSdk 34
         versionCode 1

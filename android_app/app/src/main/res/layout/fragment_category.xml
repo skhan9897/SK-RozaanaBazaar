@@ -6,13 +6,15 @@
     android:background="@color/colorBackground"
     android:orientation="horizontal">
 
+    <!-- Left Side Navigation Rail for Categories -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMainCategories"
-        android:layout_width="100dp"
+        android:layout_width="105dp"
         android:layout_height="match_parent"
-        android:background="@color/surface_light"
+        android:background="@color/white"
         android:clipToPadding="false"
-        android:paddingVertical="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <View
@@ -20,22 +22,23 @@
         android:layout_height="match_parent"
         android:background="@color/colorDivider" />
 
+    <!-- Right Side Subcategories Grid Explorer -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/tvCategoryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:layout_marginStart="8dp"
-            android:text="Select Category"
+            android:layout_marginLeft="4dp"
+            android:text="All Categories"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView

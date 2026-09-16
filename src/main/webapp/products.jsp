@@ -1,9 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Products - SKRozaanaBazaar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${not empty category ? category.name : 'Products'} | SKRozaanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -11,157 +13,150 @@
 <body>
     <%@ include file="includes/navbar.jsp" %>
 
-    <div class="container mt-4">
-        <h2 class="mb-4">${not empty category ? category.name : 'Products'}</h2>
+    <div class="container-premium mt-3">
+        <div class="row no-gutters">
+            <!-- Left Sidebar (Filters) -->
+            <div class="col-lg-3 col-md-4 d-none d-md-block pr-2">
+                <div class="bg-white-card p-3 mb-3">
+                    <h5 class="font-weight-bold border-bottom pb-2 mb-3">Filters</h5>
 
-        <c:if test="${not empty subcategories}">
-            <div class="row mb-4">
-                <div class="col-12">
-                    <h5>Refine by Subcategory:</h5>
-                    <div class="d-flex flex-wrap">
-                        <c:forEach var="sub" items="${subcategories}">
-                            <a href="CategoryServlet?id=${category.id}&subId=${sub.id}" class="btn btn-outline-secondary btn-sm mr-2 mb-2">${sub.name}</a>
-                        </c:forEach>
+                    <div class="filter-section mb-4">
+                        <h6 class="text-uppercase small font-weight-bold mb-2">Categories</h6>
+                        <ul class="list-unstyled pl-2">
+                            <li><a href="products.jsp" class="text-primary font-weight-bold small"><i class="fas fa-chevron-left mr-1"></i> All Categories</a></li>
+                            <c:if test="${not empty category}">
+                                <li class="mt-2 pl-2"><span class="font-weight-bold">${category.name}</span></li>
+                                <c:forEach var="sub" items="${subcategories}">
+                                    <li class="pl-3 mt-1"><a href="CategoryServlet?id=${category.id}&subId=${sub.id}" class="text-dark small">${sub.name}</a></li>
+                                </c:forEach>
+                            </c:if>
+                        </ul>
+                    </div>
+
+                    <div class="filter-section mb-4">
+                        <h6 class="text-uppercase small font-weight-bold mb-2">Price</h6>
+                        <div class="px-2">
+                            <input type="range" class="custom-range" min="0" max="50000">
+                            <div class="d-flex justify-content-between mt-2">
+                                <span class="small border p-1 px-2">Min</span>
+                                <span class="small border p-1 px-2">Max</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section mb-4">
+                        <h6 class="text-uppercase small font-weight-bold mb-2">Customer Ratings</h6>
+                        <div class="custom-control custom-checkbox small mb-1">
+                            <input type="checkbox" class="custom-control-input" id="rate4">
+                            <label class="custom-control-label" for="rate4">4★ & above</label>
+                        </div>
+                        <div class="custom-control custom-checkbox small">
+                            <input type="checkbox" class="custom-control-input" id="rate3">
+                            <label class="custom-control-label" for="rate3">3★ & above</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h6 class="text-uppercase small font-weight-bold mb-2">Availability</h6>
+                        <div class="custom-control custom-checkbox small">
+                            <input type="checkbox" class="custom-control-input" id="instock">
+                            <label class="custom-control-label" for="instock">Include Out of Stock</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </c:if>
 
-        <div class="row">
-            <c:choose>
-                <c:when test="${not empty products}">
-                    <c:forEach var="product" items="${products}">
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="card h-100 shadow-sm product-card">
-                                <div class="position-relative">
-                                    <span class="badge badge-danger position-absolute m-2 px-2 py-1" style="z-index: 2;">${product.discount}% OFF</span>
-                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60" class="card-img-top p-3 text-img" alt="${product.productName}" style="height: 200px; object-fit: contain;" id="prod-img-${product.id}" data-name="<c:out value="${product.productName}"/>">
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title font-weight-bold mb-1 text-truncate">${product.productName}</h5>
-                                    <p class="card-text text-muted small mb-2">${product.brand}</p>
-                                    <div class="mb-2">
-                                        <span class="badge badge-success"><i class="fas fa-star"></i> ${product.rating}</span>
-                                    </div>
-                                    <div class="mt-auto">
-                                        <h6 class="text-primary font-weight-bold h5">₹${product.finalPrice} <span class="text-muted small ml-1"><del>₹${product.price}</del></span></h6>
-                                        <a href="ProductDetailsServlet?id=${product.id}" class="btn btn-sm btn-primary btn-block">View Details</a>
-                                        <form action="AddToCartServlet" method="POST" class="mt-2">
-                                            <input type="hidden" name="pid" value="${product.id}">
-                                            <button type="submit" class="btn btn-sm btn-outline-success btn-block">Add to Cart</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+            <!-- Right Content (Product Grid) -->
+            <div class="col-lg-9 col-md-8 col-12">
+                <div class="bg-white-card p-3 mb-3">
+                    <!-- Breadcrumbs & Sort -->
+                    <div class="d-flex justify-content-between align-items-center flex-wrap mb-3 border-bottom pb-2">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb bg-transparent p-0 m-0 small">
+                                <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                                <c:if test="${not empty category}">
+                                    <li class="breadcrumb-item active">${category.name}</li>
+                                </c:if>
+                            </ol>
+                        </nav>
+                        <div class="d-flex align-items-center">
+                            <span class="small font-weight-bold mr-3">Sort By</span>
+                            <a href="#" class="small text-primary font-weight-bold border-bottom border-primary mr-3">Relevance</a>
+                            <a href="#" class="small text-dark mr-3">Popularity</a>
+                            <a href="#" class="small text-dark mr-3">Price -- Low to High</a>
+                            <a href="#" class="small text-dark">Price -- High to Low</a>
                         </div>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <div class="col-12 text-center mt-5">
-                        <div class="alert alert-info">No products found in this category.</div>
-                        <a href="CategoryServlet" class="btn btn-outline-primary">Back to Categories</a>
                     </div>
-                </c:otherwise>
-            </c:choose>
+
+                    <c:choose>
+                        <c:when test="${not empty products}">
+                            <div class="row no-gutters border-top">
+                                <c:forEach var="product" items="${products}">
+                                    <div class="col-lg-3 col-md-4 col-6 border-right border-bottom">
+                                        <div class="product-card">
+                                            <a href="ProductDetailsServlet?id=${product.id}">
+                                                <div class="text-center mb-3" style="height: 180px; display: flex; align-items: center; justify-content: center;">
+                                                    <img src="https://via.placeholder.com/150" alt="${product.productName}" class="img-fluid prod-img" data-name="${product.productName}" style="max-height: 100%;" loading="lazy">
+                                                </div>
+                                            </a>
+                                            <div class="product-brand">${product.brand}</div>
+                                            <a href="ProductDetailsServlet?id=${product.id}"><div class="product-name text-truncate" title="${product.productName}">${product.productName}</div></a>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="rating-badge">${product.rating} <i class="fas fa-star fa-xs"></i></span>
+                                                <span class="text-muted small ml-2">(1,234)</span>
+                                            </div>
+                                            <div class="d-flex align-items-baseline">
+                                                <span class="price-final">₹${product.finalPrice}</span>
+                                                <span class="price-original">₹${product.price}</span>
+                                                <span class="discount-text">${product.discount}% off</span>
+                                            </div>
+                                            <div class="mt-2">
+                                                <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png" height="15" alt="assured">
+                                            </div>
+                                            <form action="AddToCartServlet" method="POST" class="mt-3">
+                                                <input type="hidden" name="pid" value="${product.id}">
+                                                <button type="submit" class="btn btn-orange btn-block btn-sm">Add to Cart</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="text-center py-5">
+                                <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/error-no-search-results_2353c5.png" alt="No products" style="width: 200px;">
+                                <h4 class="mt-4">Sorry, no products found!</h4>
+                                <p class="text-muted">Try a different category or search term.</p>
+                                <a href="index.jsp" class="btn btn-primary mt-2 px-5">Go to Homepage</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
         </div>
     </div>
 
+    <%@ include file="includes/footer.jsp" %>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var images = {
-                "Galaxy": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&auto=format&fit=crop",
-                "iPhone": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500&auto=format&fit=crop",
-                "OnePlus": "https://images.unsplash.com/photo-1565630916779-e303be97b6f5?w=500&auto=format&fit=crop",
-                "Nord": "https://images.unsplash.com/photo-1565630916779-e303be97b6f5?w=500&auto=format&fit=crop",
-                "Redmi": "https://images.unsplash.com/photo-1605787020600-b9ebd5df1d07?w=500&auto=format&fit=crop",
-                "Realme": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop",
-                "iPad": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&auto=format&fit=crop",
-                "Tab": "https://images.unsplash.com/photo-1589739900243-4b52cd9b104e?w=500&auto=format&fit=crop",
-                "Charger": "https://images.unsplash.com/photo-1622445275463-afa2ab738c34?w=500&auto=format&fit=crop",
-                "Power Bank": "https://images.unsplash.com/photo-1609592424089-98d021c7a8b6?w=500&auto=format&fit=crop",
-                "Powerbank": "https://images.unsplash.com/photo-1609592424089-98d021c7a8b6?w=500&auto=format&fit=crop",
-                "Power": "https://images.unsplash.com/photo-1609592424089-98d021c7a8b6?w=500&auto=format&fit=crop",
-                "MacBook": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&auto=format&fit=crop",
-                "Laptop": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&auto=format&fit=crop",
-                "Monitor": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&auto=format&fit=crop",
-                "Mouse": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop",
-                "Keyboard": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop",
-                "SSD": "https://images.unsplash.com/photo-1601524909162-be87252be298?w=500&auto=format&fit=crop",
-                "Pen Drive": "https://images.unsplash.com/photo-1622535978971-87989ee52d67?w=500&auto=format&fit=crop",
-                "Earbuds": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop",
-                "Buds": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop",
-                "Headphones": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop",
-                "Speaker": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&auto=format&fit=crop",
-                "TV": "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500&auto=format&fit=crop",
-                "Projector": "https://images.unsplash.com/photo-1535016120720-40c646be5580?w=500&auto=format&fit=crop",
-                "T-Shirt": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop",
-                "Shirt": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&auto=format&fit=crop",
-                "Jeans": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop",
-                "Saree": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&auto=format&fit=crop",
-                "Kurti": "https://images.unsplash.com/photo-1608963503737-f98de08a6b7f?w=500&auto=format&fit=crop",
-                "Dress": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&auto=format&fit=crop",
-                "Baby": "https://images.unsplash.com/photo-1515488042361-404e9250afef?w=500&auto=format&fit=crop",
-                "Diapers": "https://images.unsplash.com/photo-1515488042361-404e9250afef?w=500&auto=format&fit=crop",
-                "Wipes": "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500&auto=format&fit=crop",
-                "LEGO": "https://images.unsplash.com/photo-1560963336-447a7b431a7b?w=500&auto=format&fit=crop",
-                "Car": "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=500&auto=format&fit=crop",
-                "Atta": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop",
-                "Rice": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop",
-                "Dal": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500&auto=format&fit=crop",
-                "Oil": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&auto=format&fit=crop",
-                "Ghee": "https://images.unsplash.com/photo-1608686207856-001b95cf60ca?w=500&auto=format&fit=crop",
-                "Masala": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop",
-                "Biscuits": "https://images.unsplash.com/photo-1558961317-a169dc67098e?w=500&auto=format&fit=crop",
-                "Oreo": "https://images.unsplash.com/photo-1558961317-a169dc67098e?w=500&auto=format&fit=crop",
-                "Chips": "https://images.unsplash.com/photo-1566478431375-704332992928?w=500&auto=format&fit=crop",
-                "Tea": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=500&auto=format&fit=crop",
-                "Coffee": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&auto=format&fit=crop",
-                "Coca Cola": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500&auto=format&fit=crop",
-                "Face": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&auto=format&fit=crop",
-                "Serum": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&auto=format&fit=crop",
-                "Shampoo": "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=500&auto=format&fit=crop",
-                "Lotion": "https://images.unsplash.com/photo-1608248597481-496100c8c836?w=500&auto=format&fit=crop",
-                "Kajal": "https://images.unsplash.com/photo-1625093742435-6fa192b6fb10?w=500&auto=format&fit=crop",
-                "Cooker": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=500&auto=format&fit=crop",
-                "Mixer": "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&auto=format&fit=crop",
-                "Iron": "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?w=500&auto=format&fit=crop",
-                "Clock": "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=500&auto=format&fit=crop",
-                "Detergent": "https://images.unsplash.com/photo-1607344645866-009c320c5ab8?w=500&auto=format&fit=crop",
-                "Cleaner": "https://images.unsplash.com/photo-1585832770489-2b6921125342?w=500&auto=format&fit=crop",
-                "Vanish": "https://images.unsplash.com/photo-1585832770489-2b6921125342?w=500&auto=format&fit=crop",
-                "Harpic": "https://images.unsplash.com/photo-1585832770489-2b6921125342?w=500&auto=format&fit=crop",
-                "Sofa": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&auto=format&fit=crop",
-                "Table": "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=500&auto=format&fit=crop",
-                "Chair": "https://images.unsplash.com/photo-1505797149-43b0069ec26b?w=500&auto=format&fit=crop",
-                "Bulb": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=500&auto=format&fit=crop",
-                "Fan": "https://images.unsplash.com/photo-1618945596471-f6ce132470ab?w=500&auto=format&fit=crop",
-                "Bat": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=500&auto=format&fit=crop",
-                "Mat": "https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=500&auto=format&fit=crop",
-                "Dumbbells": "https://images.unsplash.com/photo-1638536532686-d610adfc8e5c?w=500&auto=format&fit=crop",
-                "Football": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500&auto=format&fit=crop",
-                "Console": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=500&auto=format&fit=crop",
-                "Controller": "https://images.unsplash.com/photo-1592840496694-26d035b52b48?w=500&auto=format&fit=crop",
-                "Headset": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=500&auto=format&fit=crop",
-                "Holder": "https://images.unsplash.com/photo-1586105251261-72a756497a11?w=500&auto=format&fit=crop",
-                "Helmet": "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=500&auto=format&fit=crop",
-                "Shoes": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop",
-                "Sandals": "https://images.unsplash.com/photo-1562273138-f46be4ebdf33?w=500&auto=format&fit=crop",
-                "Backpack": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&auto=format&fit=crop",
-                "Trolley": "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?w=500&auto=format&fit=crop",
-                "Notebook": "https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=500&auto=format&fit=crop",
-                "Pen": "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500&auto=format&fit=crop",
-                "Food": "https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=500&auto=format&fit=crop",
-                "Collar": "https://images.unsplash.com/photo-1601758174114-e711c0cbaa69?w=500&auto=format&fit=crop",
-                "Screwdriver": "https://images.unsplash.com/photo-1534224039826-c7a0dea0e66a?w=500&auto=format&fit=crop",
-                "Hammer": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=500&auto=format&fit=crop"
+            const images = {
+                "Galaxy": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400",
+                "iPhone": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400",
+                "Laptop": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400",
+                "Shirt": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400",
+                "Shoes": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+                "Watch": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400",
+                "Earbuds": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"
             };
 
-            document.querySelectorAll(".card-img-top").forEach(function(imgElement) {
-                var name = imgElement.getAttribute("data-name");
+            document.querySelectorAll(".prod-img").forEach(img => {
+                const name = img.getAttribute("data-name");
                 if (name) {
-                    for (var key in images) {
+                    for (let key in images) {
                         if (name.toLowerCase().includes(key.toLowerCase())) {
-                            imgElement.src = images[key];
+                            img.src = images[key];
                             break;
                         }
                     }

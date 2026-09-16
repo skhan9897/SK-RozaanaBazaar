@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS categories (
 CREATE TABLE IF NOT EXISTS products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     category_id INT NOT NULL,
+    subcategory_id INT,
     product_name VARCHAR(255) NOT NULL,
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
@@ -38,9 +39,24 @@ CREATE TABLE IF NOT EXISTS products (
     stock INT DEFAULT 0,
     brand VARCHAR(100),
     image VARCHAR(255),
+    image2 VARCHAR(255),
+    image3 VARCHAR(255),
+    image4 VARCHAR(255),
+    sku VARCHAR(100),
+    rating DECIMAL(3, 2) DEFAULT 0.00,
     status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+-- 3.1 Product Image Generation Status
+CREATE TABLE IF NOT EXISTS product_image_status (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    status ENUM('PENDING', 'GENERATING', 'GENERATED', 'FAILED') DEFAULT 'PENDING',
+    error_message TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
 -- 4. Cart Table

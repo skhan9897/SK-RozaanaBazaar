@@ -1,166 +1,69 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<nav class="col-md-2 d-none d-md-block bg-white sidebar border-right" style="min-height: 100vh; overflow-y: auto;">
-    <div class="sidebar-sticky pt-3">
-        <div class="px-3 mb-2 font-weight-bold text-uppercase text-primary" style="font-size: 0.9rem; letter-spacing: 0.5px;">
-            <i class="fa-solid fa-shield-halved mr-1"></i> SKR BUSINESS
-        </div>
-        <hr class="my-2">
-
-        <ul class="nav flex-column">
-            <!-- Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link font-weight-bold text-dark" href="${pageContext.request.contextPath}/admin/dashboard">
-                    <i class="fa-solid fa-house mr-2 text-primary"></i> Dashboard Home
-                </a>
-            </li>
-
-            <!-- Products -->
-            <li class="nav-item mt-2">
-                <span class="px-3 small text-muted font-weight-bold text-uppercase">
-                    <i class="fa-solid fa-box mr-1"></i> Products
-                </span>
-                <ul class="nav flex-column pl-3 small mt-1">
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=list">├── All Products</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=add">├── Add Product</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=edit">├── Edit Product</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=delete">├── Delete Product</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=images">├── Product Images</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=stock">├── Stock Management</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=lowstock">└── Low Stock Items</a></li>
-                </ul>
-            </li>
-
-            <!-- Categories -->
-            <li class="nav-item mt-2">
-                <span class="px-3 small text-muted font-weight-bold text-uppercase">
-                    <i class="fa-solid fa-layer-group mr-1"></i> Categories
-                </span>
-                <ul class="nav flex-column pl-3 small mt-1">
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCategoryServlet?action=list">├── All Categories</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCategoryServlet?action=add">├── Add Category</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCategoryServlet?action=edit">├── Edit Category</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCategoryServlet?action=delete">├── Delete Category</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCategoryServlet?action=subcategories">└── Subcategories</a></li>
-                </ul>
-            </li>
-
-            <!-- Orders -->
-            <li class="nav-item mt-2">
-                <span class="px-3 small text-muted font-weight-bold text-uppercase">
-                    <i class="fa-solid fa-cart-shopping mr-1"></i> Orders
-                </span>
-                <ul class="nav flex-column pl-3 small mt-1">
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminOrderServlet?action=list&status=All">├── All Orders</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminOrderServlet?action=list&status=New">├── New Orders</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminOrderServlet?action=list&status=Confirmed">├── Confirmed</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminOrderServlet?action=list&status=Packed">├── Packed</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminOrderServlet?action=list&status=Shipped">├── Shipped</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminOrderServlet?action=list&status=OutForDelivery">├── Out For Delivery</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminOrderServlet?action=list&status=Delivered">├── Delivered</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminOrderServlet?action=list&status=Cancelled">├── Cancelled</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminOrderServlet?action=details">└── Order Details</a></li>
-                </ul>
-            </li>
-
-            <!-- Customers -->
-            <li class="nav-item mt-2">
-                <span class="px-3 small text-muted font-weight-bold text-uppercase">
-                    <i class="fa-solid fa-users mr-1"></i> Customers
-                </span>
-                <ul class="nav flex-column pl-3 small mt-1">
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCustomerServlet?action=list">├── All Customers</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCustomerServlet?action=active">├── Active Users</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCustomerServlet?action=blocked">├── Blocked Users</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCustomerServlet?action=details">└── Details</a></li>
-                </ul>
-            </li>
-
-            <!-- Payments -->
-            <li class="nav-item mt-2">
-                <span class="px-3 small text-muted font-weight-bold text-uppercase">
-                    <i class="fa-solid fa-credit-card mr-1"></i> Payments
-                </span>
-                <ul class="nav flex-column pl-3 small mt-1">
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminPaymentServlet?action=list">├── All Payments</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminPaymentServlet?action=success">├── Successful</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminPaymentServlet?action=pending">├── Pending</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminPaymentServlet?action=failed">├── Failed</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminPaymentServlet?action=refunds">└── Refunds</a></li>
-                </ul>
-            </li>
-
-            <!-- Offers & Coupons -->
-            <li class="nav-item mt-2">
-                <span class="px-3 small text-muted font-weight-bold text-uppercase">
-                    <i class="fa-solid fa-tag mr-1"></i> Offers & Coupons
-                </span>
-                <ul class="nav flex-column pl-3 small mt-1">
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCouponServlet?action=list">├── All Coupons</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCouponServlet?action=add">├── Add Coupon</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCouponServlet?action=edit">├── Edit Coupon</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminCouponServlet?action=expired">└── Expired</a></li>
-                </ul>
-            </li>
-
-            <!-- Banners -->
-            <li class="nav-item mt-2">
-                <span class="px-3 small text-muted font-weight-bold text-uppercase">
-                    <i class="fa-solid fa-images mr-1"></i> Banners
-                </span>
-                <ul class="nav flex-column pl-3 small mt-1">
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminBannerServlet?action=list">├── Home Sliders</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminBannerServlet?action=add">├── Add Banner</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminBannerServlet?action=edit">├── Edit Banner</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminBannerServlet?action=delete">└── Delete Banner</a></li>
-                </ul>
-            </li>
-
-            <!-- Reviews -->
-            <li class="nav-item mt-2">
-                <span class="px-3 small text-muted font-weight-bold text-uppercase">
-                    <i class="fa-solid fa-star mr-1"></i> Reviews
-                </span>
-                <ul class="nav flex-column pl-3 small mt-1">
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminReviewServlet?action=list">├── All Reviews</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminReviewServlet?action=pending">├── Pending Reviews</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminReviewServlet?action=delete">└── Delete Review</a></li>
-                </ul>
-            </li>
-
-            <!-- Reports -->
-            <li class="nav-item mt-2">
-                <span class="px-3 small text-muted font-weight-bold text-uppercase">
-                    <i class="fa-solid fa-chart-line mr-1"></i> Reports
-                </span>
-                <ul class="nav flex-column pl-3 small mt-1">
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminReportServlet?action=sales">├── Sales Report</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminReportServlet?action=products">├── Product Report</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminReportServlet?action=customers">├── Customer Report</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminReportServlet?action=orders">├── Order Report</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminReportServlet?action=revenue">└── Revenue Report</a></li>
-                </ul>
-            </li>
-
-            <!-- Settings -->
-            <li class="nav-item mt-2">
-                <span class="px-3 small text-muted font-weight-bold text-uppercase">
-                    <i class="fa-solid fa-gears mr-1"></i> Settings
-                </span>
-                <ul class="nav flex-column pl-3 small mt-1">
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminSettingsServlet?action=profile">├── Admin Profile</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminSettingsServlet?action=password">├── Change Password</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminSettingsServlet?action=store">├── Store Settings</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary py-1" href="${pageContext.request.contextPath}/admin/AdminSettingsServlet?action=payment">└── Payment Setup</a></li>
-                </ul>
-            </li>
-
-            <!-- Logout -->
-            <hr class="my-2">
-            <li class="nav-item mb-5">
-                <a class="nav-link text-danger font-weight-bold" href="${pageContext.request.contextPath}/logout">
-                    <i class="fa-solid fa-power-off mr-1"></i> Logout
-                </a>
-            </li>
-        </ul>
+<!-- Sidebar -->
+<nav id="sidebar" class="d-none d-md-block">
+    <div class="sidebar-header">
+        <h4 class="m-0 text-white font-weight-bold">SKR Bazaar</h4>
+        <small class="text-muted">Merchant Console</small>
     </div>
+
+    <ul class="list-unstyled components">
+        <li class="active">
+            <a href="${pageContext.request.contextPath}/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        </li>
+        <li>
+            <a href="#productSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-box"></i> Products</a>
+            <ul class="collapse list-unstyled" id="productSubmenu">
+                <li><a href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=list">All Products</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=add">Add New Product</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=lowstock">Low Stock Items</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/AdminOrderServlet?action=list&status=All"><i class="fas fa-shopping-cart"></i> Orders</a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/AdminCategoryServlet?action=list"><i class="fas fa-list"></i> Categories</a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/AdminCustomerServlet?action=list"><i class="fas fa-users"></i> Customers</a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/AdminCouponServlet?action=list"><i class="fas fa-ticket-alt"></i> Coupons</a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/AdminBannerServlet?action=list"><i class="fas fa-image"></i> Banners</a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/AdminReportServlet?action=sales"><i class="fas fa-chart-line"></i> Reports</a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/AdminSettingsServlet?action=profile"><i class="fas fa-cog"></i> Settings</a>
+        </li>
+        <li class="mt-4">
+            <a href="${pageContext.request.contextPath}/logout" class="text-danger"><i class="fas fa-power-off"></i> Logout</a>
+        </li>
+    </ul>
 </nav>
+
+<!-- Page Content wrapper -->
+<div id="content">
+    <div class="admin-header">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary d-md-none">
+            <i class="fas fa-align-left"></i>
+        </button>
+        <h5 class="m-0 font-weight-bold d-none d-md-block">Merchant Dashboard</h5>
+        <div class="d-flex align-items-center">
+            <div class="dropdown">
+                <a class="dropdown-toggle text-dark font-weight-bold" href="#" id="adminProfile" data-toggle="dropdown">
+                    <img src="https://ui-avatars.com/api/?name=${user.name}&background=2874F0&color=fff" class="rounded-circle mr-2" width="32">
+                    ${user.name}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="AdminSettingsServlet?action=profile">Profile</a>
+                    <a class="dropdown-item" href="AdminSettingsServlet?action=password">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="../logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>

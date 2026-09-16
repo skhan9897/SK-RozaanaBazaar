@@ -30,8 +30,8 @@ public class HomeServlet extends HttpServlet {
         List<Category> categories = categoryDAO.getAllCategories();
         request.setAttribute("categories", categories);
         
-        // Fetch products for Today's Deals
-        List<Product> products = productDAO.getAllProducts();
+        // Fetch products for Today's Deals (Optimized with LIMIT)
+        List<Product> products = productDAO.getAllProducts(0, 24); 
         request.setAttribute("products", products);
         
         // Forward to index.jsp

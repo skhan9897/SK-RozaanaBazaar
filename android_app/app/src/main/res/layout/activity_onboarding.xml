@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SK Bazaar"
-            android:textColor="#007BFF"
+            android:textColor="#2874F0"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="32dp">
-            <View android:layout_width="8dp" android:layout_height="8dp" android:background="#007BFF" android:layout_margin="3dp"/>
+            <View android:layout_width="8dp" android:layout_height="8dp" android:background="#2874F0" android:layout_margin="3dp"/>
             <View android:layout_width="8dp" android:layout_height="8dp" android:background="#CCCCCC" android:layout_margin="3dp"/>
             <View android:layout_width="8dp" android:layout_height="8dp" android:background="#CCCCCC" android:layout_margin="3dp"/>
             <View android:layout_width="8dp" android:layout_height="8dp" android:background="#CCCCCC" android:layout_margin="3dp"/>
@@ -89,7 +89,7 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:backgroundTint="#007BFF" />
+            android:backgroundTint="#2874F0" />
 
         <TextView
             android:id="@+id/tvGetStarted"
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Let's Get Started"
-            android:textColor="#007BFF"
+            android:textColor="#2874F0"
             android:textSize="15sp"
             android:textStyle="bold"
             android:clickable="true"

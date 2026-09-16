@@ -11,71 +11,33 @@ public class AdminDAO {
     
     public Map<String, Object> getDashboardStats() {
         Map<String, Object> stats = new HashMap<>();
-        try (Connection conn = DBConnection.getConnection()) {
-            
-            // Total Users
-            String sqlUser = "SELECT COUNT(*) FROM users WHERE role = 'CUSTOMER'";
-            try (PreparedStatement ps = conn.prepareStatement(sqlUser)) {
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) stats.put("totalUsers", rs.getInt(1));
-            }
-            
-            // Total Products
-            String sqlProd = "SELECT COUNT(*) FROM products";
-            try (PreparedStatement ps = conn.prepareStatement(sqlProd)) {
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) stats.put("totalProducts", rs.getInt(1));
-            }
-            
-            // Total Orders
-            String sqlOrder = "SELECT COUNT(*) FROM orders";
-            try (PreparedStatement ps = conn.prepareStatement(sqlOrder)) {
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) stats.put("totalOrders", rs.getInt(1));
-            }
-            
-            // Total Revenue
-            String sqlRev = "SELECT SUM(total_amount) FROM orders WHERE payment_status = 'Paid' OR order_status != 'Cancelled'";
-            try (PreparedStatement ps = conn.prepareStatement(sqlRev)) {
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) stats.put("totalRevenue", rs.getDouble(1));
-            }
+        // Optimized: Combined summary query to reduce DB round-trips
+        String sql = "SELECT " +
+                     "(SELECT COUNT(*) FROM users WHERE role = 'CUSTOMER') as totalUsers, " +
+                     "(SELECT COUNT(*) FROM products) as totalProducts, " +
+                     "(SELECT COUNT(*) FROM orders) as totalOrders, " +
+                     "(SELECT IFNULL(SUM(total_amount), 0) FROM orders WHERE payment_status = 'Paid' OR order_status != 'Cancelled') as totalRevenue, " +
+                     "(SELECT COUNT(*) FROM orders WHERE DATE(created_at) = CURDATE()) as todayOrders, " +
+                     "(SELECT IFNULL(SUM(total_amount), 0) FROM orders WHERE DATE(created_at) = CURDATE() AND order_status != 'Cancelled') as todayRevenue, " +
+                     "(SELECT COUNT(*) FROM products WHERE stock < 10) as lowStock, " +
+                     "(SELECT COUNT(*) FROM orders WHERE order_status IN ('Pending', 'Placed')) as pendingOrders, " +
+                     "(SELECT COUNT(*) FROM orders WHERE order_status = 'Delivered') as deliveredOrders";
 
-            // Today's Orders
-            String sqlTodayOrders = "SELECT COUNT(*) FROM orders WHERE DATE(created_at) = CURDATE()";
-            try (PreparedStatement ps = conn.prepareStatement(sqlTodayOrders)) {
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) stats.put("todayOrders", rs.getInt(1));
-            }
-
-            // Today's Revenue
-            String sqlTodayRev = "SELECT SUM(total_amount) FROM orders WHERE DATE(created_at) = CURDATE() AND order_status != 'Cancelled'";
-            try (PreparedStatement ps = conn.prepareStatement(sqlTodayRev)) {
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) stats.put("todayRevenue", rs.getDouble(1));
-            }
-
-            // Low Stock Items (Stock < 10)
-            String sqlLowStock = "SELECT COUNT(*) FROM products WHERE stock < 10";
-            try (PreparedStatement ps = conn.prepareStatement(sqlLowStock)) {
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) stats.put("lowStock", rs.getInt(1));
-            }
-
-            // Pending Orders
-            String sqlPending = "SELECT COUNT(*) FROM orders WHERE order_status = 'Pending' OR order_status = 'Placed'";
-            try (PreparedStatement ps = conn.prepareStatement(sqlPending)) {
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) stats.put("pendingOrders", rs.getInt(1));
-            }
-
-            // Delivered Orders
-            String sqlDelivered = "SELECT COUNT(*) FROM orders WHERE order_status = 'Delivered'";
-            try (PreparedStatement ps = conn.prepareStatement(sqlDelivered)) {
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) stats.put("deliveredOrders", rs.getInt(1));
-            }
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             
+            if (rs.next()) {
+                stats.put("totalUsers", rs.getInt("totalUsers"));
+                stats.put("totalProducts", rs.getInt("totalProducts"));
+                stats.put("totalOrders", rs.getInt("totalOrders"));
+                stats.put("totalRevenue", rs.getDouble("totalRevenue"));
+                stats.put("todayOrders", rs.getInt("todayOrders"));
+                stats.put("todayRevenue", rs.getDouble("todayRevenue"));
+                stats.put("lowStock", rs.getInt("lowStock"));
+                stats.put("pendingOrders", rs.getInt("pendingOrders"));
+                stats.put("deliveredOrders", rs.getInt("deliveredOrders"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

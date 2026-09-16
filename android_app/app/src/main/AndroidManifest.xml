@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.skrozana.app">
+    package="com.sk.rozaanabazaar">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,7 +14,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".ui.screens.SplashActivity"
+            android:name=".ui.home.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,19 +22,22 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.screens.MainActivity" />
-        <activity android:name=".ui.screens.OnboardingActivity" />
-        <activity android:name=".ui.screens.LoginActivity" />
-        <activity android:name=".ui.screens.OtpVerificationActivity" />
-        <activity android:name=".ui.screens.ProductListActivity" />
-        <activity android:name=".ui.screens.CheckoutActivity" />
-        <activity android:name=".ui.screens.OrderSuccessActivity" />
-        <activity android:name=".ui.screens.OrderTrackingActivity" />
-        <activity android:name=".ui.screens.RegisterActivity" />
-        <activity android:name=".ui.screens.ProductDetailsActivity" />
-        <activity android:name=".ui.screens.CartActivity" />
-        <activity android:name=".ui.screens.ProfileActivity" />
-        <activity android:name=".ui.screens.AddProductActivity" />
+        <activity android:name=".ui.home.MainActivity" />
+        <activity android:name=".ui.home.OnboardingActivity" />
+        <activity android:name=".ui.product.ProductSearchActivity" />
+        <activity android:name=".ui.auth.LoginActivity" />
+        <activity android:name=".ui.auth.OtpVerificationActivity" />
+        <activity android:name=".ui.product.ProductListActivity" />
+        <activity android:name=".ui.product.CheckoutActivity" />
+        <activity android:name=".ui.product.OrderSuccessActivity" />
+        <activity android:name=".ui.product.OrderTrackingActivity" />
+        <activity android:name=".ui.auth.RegisterActivity" />
+        <activity android:name=".ui.product.ProductDetailsActivity" />
+        <activity android:name=".ui.product.CartActivity" />
+        <activity android:name=".ui.product.AddressActivity" />
+        <activity android:name=".ui.product.PaymentActivity" />
+        <activity android:name=".ui.home.ProfileActivity" />
+        <activity android:name=".ui.product.AddProductActivity" />
 
     </application>
 

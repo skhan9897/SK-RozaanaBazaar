@@ -3,38 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardBackgroundColor="@color/surface_light"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="1dp"
-    app:strokeWidth="0dp">
+    style="@style/Widget.App.Card"
+    app:cardBackgroundColor="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="12dp">
 
-        <!-- Product Image -->
         <ImageView
             android:id="@+id/ivProduct"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:scaleType="centerInside"
-            android:background="#F5F5F5"
+            android:background="#F9F9F9"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Wishlist Icon -->
         <ImageView
             android:id="@+id/ivWishlist"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_margin="8dp"
             android:src="@drawable/ic_favorite"
+            android:padding="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/text_secondary" />
+            app:tint="#CCCCCC" />
 
-        <!-- Product Name -->
         <TextView
             android:id="@+id/tvProductName"
             android:layout_width="0dp"
@@ -43,14 +38,13 @@
             android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="iPhone 18 Pro Max"
+            android:text="Product Name"
             android:textColor="@color/text_primary"
-            android:textSize="14sp"
+            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivProduct" />
 
-        <!-- Rating Badge -->
         <LinearLayout
             android:id="@+id/llRating"
             android:layout_width="wrap_content"
@@ -61,7 +55,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="6dp"
-            android:paddingVertical="2dp"
+            android:paddingVertical="1dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvProductName">
 
@@ -69,9 +63,9 @@
                 android:id="@+id/tvRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.6"
+                android:text="4.3"
                 android:textColor="@color/white"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -80,7 +74,7 @@
                 android:layout_marginStart="2dp"
                 android:text="★"
                 android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:textSize="9sp" />
         </LinearLayout>
 
         <TextView
@@ -90,12 +84,11 @@
             android:layout_marginStart="6dp"
             android:text="(2,340)"
             android:textColor="@color/text_secondary"
-            android:textSize="11sp"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/llRating"
             app:layout_constraintStart_toEndOf="@id/llRating"
             app:layout_constraintTop_toTopOf="@id/llRating" />
 
-        <!-- Pricing Section -->
         <LinearLayout
             android:id="@+id/llPrice"
             android:layout_width="0dp"
@@ -112,7 +105,7 @@
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="₹1,29,999"
+                android:text="₹1,499"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -122,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="₹1,49,999"
+                android:text="₹2,499"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 
@@ -131,42 +124,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="13% off"
+                android:text="40% OFF"
                 android:textColor="@color/colorSuccess"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Delivery Status -->
         <TextView
             android:id="@+id/tvDelivery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
-            android:text="Free Delivery"
+            android:text="FREE Delivery"
             android:textColor="@color/text_primary"
-            android:textSize="12sp"
+            android:textSize="11sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/llPrice" />
 
-        <!-- Compatibility Buttons -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddToCart"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnBuyNow"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </com.google.android.material.card.MaterialCardView>

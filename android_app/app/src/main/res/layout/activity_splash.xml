@@ -12,7 +12,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginTop="32dp"
         android:text="Shop More\nLive Better"
-        android:textColor="#007BFF"
+        android:textColor="#2874F0"
         android:textSize="14sp"
         android:textStyle="italic|bold"
         android:gravity="end" />
@@ -31,7 +31,7 @@
             android:layout_height="100dp"
             android:src="@drawable/ic_cart"
             android:layout_marginBottom="16dp"
-            app:tint="#007BFF" xmlns:app="http://schemas.android.com/apk/res-auto" />
+            app:tint="#2874F0" xmlns:app="http://schemas.android.com/apk/res-auto" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:indeterminateTint="#007BFF" />
+            android:indeterminateTint="#2874F0" />
 
         <TextView
             android:layout_width="wrap_content"

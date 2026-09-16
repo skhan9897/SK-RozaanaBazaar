@@ -2,6 +2,7 @@ package com.skrozana.dao;
 
 import com.skrozana.model.Product;
 import com.skrozana.util.DBConnection;
+import com.skrozana.util.ImageGenerationService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +24,9 @@ public class ProductDAO {
         product.setStock(rs.getInt("stock"));
         product.setSku(rs.getString("sku"));
         product.setImage(rs.getString("image"));
+        product.setImage2(rs.getString("image2"));
+        product.setImage3(rs.getString("image3"));
+        product.setImage4(rs.getString("image4"));
         product.setRating(rs.getDouble("rating"));
         product.setStatus(rs.getString("status"));
         product.setCreatedAt(rs.getTimestamp("created_at"));
@@ -30,7 +34,7 @@ public class ProductDAO {
 
     public List<Product> searchProducts(String query) {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM products WHERE (product_name LIKE ? OR description LIKE ? OR brand LIKE ?) AND status = 'ACTIVE'";
+        String sql = "SELECT id, category_id, subcategory_id, product_name, brand, description, price, discount, final_price, stock, sku, image, image2, image3, image4, rating, status, created_at FROM products WHERE (product_name LIKE ? OR description LIKE ? OR brand LIKE ?) AND status = 'ACTIVE' LIMIT 20";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -111,10 +115,16 @@ public class ProductDAO {
     }
 
     public List<Product> getAllProducts() {
+        return getAllProducts(0, 500); // Default high limit for compatibility
+    }
+
+    public List<Product> getAllProducts(int offset, int limit) {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM products";
+        String sql = "SELECT id, category_id, subcategory_id, product_name, brand, price, discount, final_price, stock, sku, image, image2, image3, image4, rating, status FROM products LIMIT ? OFFSET ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            ps.setInt(2, offset);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product product = new Product();
@@ -128,7 +138,8 @@ public class ProductDAO {
     }
 
     public boolean addProduct(Product p) {
-        String sql = "INSERT INTO products (category_id, subcategory_id, product_name, brand, description, price, discount, final_price, stock, sku, image, rating, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        ImageGenerationService.autoAssignImages(p);
+        String sql = "INSERT INTO products (category_id, subcategory_id, product_name, brand, description, price, discount, final_price, stock, sku, image, image2, image3, image4, rating, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, p.getCategoryId());
@@ -142,8 +153,11 @@ public class ProductDAO {
             ps.setInt(9, p.getStock());
             ps.setString(10, p.getSku());
             ps.setString(11, p.getImage());
-            ps.setDouble(12, p.getRating());
-            ps.setString(13, p.getStatus());
+            ps.setString(12, p.getImage2());
+            ps.setString(13, p.getImage3());
+            ps.setString(14, p.getImage4());
+            ps.setDouble(15, p.getRating());
+            ps.setString(16, p.getStatus());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,7 +166,7 @@ public class ProductDAO {
     }
 
     public boolean updateProduct(Product p) {
-        String sql = "UPDATE products SET category_id=?, subcategory_id=?, product_name=?, brand=?, description=?, price=?, discount=?, final_price=?, stock=?, sku=?, image=?, rating=?, status=? WHERE id=?";
+        String sql = "UPDATE products SET category_id=?, subcategory_id=?, product_name=?, brand=?, description=?, price=?, discount=?, final_price=?, stock=?, sku=?, image=?, image2=?, image3=?, image4=?, rating=?, status=? WHERE id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, p.getCategoryId());
@@ -166,9 +180,12 @@ public class ProductDAO {
             ps.setInt(9, p.getStock());
             ps.setString(10, p.getSku());
             ps.setString(11, p.getImage());
-            ps.setDouble(12, p.getRating());
-            ps.setString(13, p.getStatus());
-            ps.setInt(14, p.getId());
+            ps.setString(12, p.getImage2());
+            ps.setString(13, p.getImage3());
+            ps.setString(14, p.getImage4());
+            ps.setDouble(15, p.getRating());
+            ps.setString(16, p.getStatus());
+            ps.setInt(17, p.getId());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();

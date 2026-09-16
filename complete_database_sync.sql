@@ -100,9 +100,9 @@ INSERT INTO subcategories (category_id, subcategory_name) VALUES
 -- 3. PRODUCTS (Initial Flagship Sync)
 -- ==========================================
 
-INSERT INTO products (category_id, subcategory_id, product_name, brand, description, price, discount, final_price, stock, sku, image, rating, status) VALUES
+INSERT INTO products (category_id, subcategory_id, product_name, brand, description, price, discount, final_price, stock, sku, image, image2, image3, image4, rating, status) VALUES
 -- Mobiles
-(1, 1, 'Samsung Galaxy S24 Ultra', 'Samsung', 'AI Powered flagship smartphone with Titanium body', 129999, 10, 116999, 50, 'SKRB-MOB-013', '/images/products/s24.jpg', 4.9, 'ACTIVE'),
+(1, 1, 'Samsung Galaxy S24 Ultra', 'Samsung', 'AI Powered flagship smartphone with Titanium body', 129999, 10, 116999, 50, 'SKRB-MOB-013', '/images/products/s24.jpg', '/images/products/s24_2.jpg', '/images/products/s24_3.jpg', '/images/products/s24_4.jpg', 4.9, 'ACTIVE'),
 (1, 2, 'Xiaomi Pad 6', 'Xiaomi', 'High performance tablet for work and play', 26999, 15, 22949, 30, 'SKRB-MOB-014', '/images/products/mi-pad.jpg', 4.5, 'ACTIVE'),
 (1, 14, 'Belkin BoostCharge Pro Wireless', 'Belkin', '15W Fast Wireless charging stand for iPhone & Android', 4500, 20, 3600, 40, 'SKRB-MOB-015', '/images/products/wireless-charger.jpg', 4.6, 'ACTIVE'),
 
@@ -153,4 +153,14 @@ CREATE TABLE IF NOT EXISTS merchants (
     verification_status VARCHAR(20) DEFAULT 'ACTIVE',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- 5. PRODUCT IMAGE STATUS
+CREATE TABLE IF NOT EXISTS product_image_status (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    status ENUM('PENDING', 'GENERATING', 'GENERATED', 'FAILED') DEFAULT 'PENDING',
+    error_message TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );

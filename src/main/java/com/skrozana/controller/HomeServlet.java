@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet({"/index", "/home", ""})
+@WebServlet({"/index", "/home", "", "/HomeServlet"})
 public class HomeServlet extends HttpServlet {
     private CategoryDAO categoryDAO;
     private ProductDAO productDAO;

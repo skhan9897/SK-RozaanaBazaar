@@ -16,7 +16,7 @@
             <!-- Product Image -->
             <div class="col-md-6 text-center">
                 <div class="border p-3 rounded bg-white shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop" class="img-fluid rounded" alt="${product.productName}" id="detail-img" style="max-height: 400px; object-fit: contain;">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop" class="img-fluid rounded" alt="${product.productName}" id="detail-img" style="max-height: 400px; object-fit: contain;" data-name="<c:out value="${product.productName}"/>">
                 </div>
             </div>
 
@@ -160,13 +160,15 @@
                 "Hammer": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=500&auto=format&fit=crop"
             };
 
-            var name = "${product.productName}";
             var imgElement = document.getElementById("detail-img");
-            if (imgElement && name) {
-                for (var key in images) {
-                    if (name.toLowerCase().includes(key.toLowerCase())) {
-                        imgElement.src = images[key];
-                        break;
+            if (imgElement) {
+                var name = imgElement.getAttribute("data-name");
+                if (name) {
+                    for (var key in images) {
+                        if (name.toLowerCase().includes(key.toLowerCase())) {
+                            imgElement.src = images[key];
+                            break;
+                        }
                     }
                 }
             }

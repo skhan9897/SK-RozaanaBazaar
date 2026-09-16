@@ -42,6 +42,9 @@ public class CatalogScanner {
             int withAtLeastOneImage = 0;
             int withoutAnyImages = 0;
             int missingMultipleImageSlots = 0; 
+
+            Map<String, Integer> imagePathCounts = new HashMap<>();
+            List<Product> productsToUpdate = new ArrayList<>();
             
             String sql = "SELECT p.id, p.product_name, p.brand, p.image, p.image2, p.image3, p.image4, c.category_name " +
                          "FROM products p LEFT JOIN categories c ON p.category_id = c.id";

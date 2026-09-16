@@ -17,8 +17,14 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
+                android.content.SharedPreferences prefs = getSharedPreferences("SKBazaarPrefs", android.content.Context.MODE_PRIVATE);
+                boolean isFirstTime = prefs.getBoolean("isFirstTime", true);
+
+                if (isFirstTime) {
+                    startActivity(new Intent(SplashActivity.this, OnboardingActivity.class));
+                } else {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                }
                 finish();
             }
         }, 5000);

@@ -7,15 +7,15 @@
     <item
         android:id="@+id/nav_category"
         android:icon="@drawable/ic_search"
-        android:title="Category" />
-    <item
-        android:id="@+id/nav_wishlist"
-        android:icon="@drawable/ic_search"
-        android:title="Wishlist" />
+        android:title="Categories" />
     <item
         android:id="@+id/nav_cart"
         android:icon="@drawable/ic_cart"
         android:title="Cart" />
+    <item
+        android:id="@+id/nav_wishlist"
+        android:icon="@drawable/ic_home"
+        android:title="Orders" />
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_profile"

@@ -52,6 +52,7 @@ id btnVerify
 id btnWishlist
 id cardBecomeSeller
 id cardCart
+id cardLogoutContainer
 id cardOrders
 id etAddress
 id etCategoryId
@@ -67,7 +68,6 @@ id etProductPrice
 id etSearch
 id ivCat
 id ivCatIcon
-id ivLocation
 id ivMinus
 id ivNotification
 id ivPlus

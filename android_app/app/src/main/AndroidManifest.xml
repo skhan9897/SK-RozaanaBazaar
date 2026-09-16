@@ -23,6 +23,7 @@
         </activity>
 
         <activity android:name=".ui.screens.MainActivity" />
+        <activity android:name=".ui.screens.OnboardingActivity" />
         <activity android:name=".ui.screens.LoginActivity" />
         <activity android:name=".ui.screens.OtpVerificationActivity" />
         <activity android:name=".ui.screens.ProductListActivity" />

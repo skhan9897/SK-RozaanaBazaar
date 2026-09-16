@@ -3207,6 +3207,7 @@ int id callMeasure 0x7f080077
 int id cancel_button 0x7f080078
 int id cardBecomeSeller 0x7f080079
 int id cardCart 0x7f08007a
+int id cardLogoutContainer 0x7f080261
 int id cardOrders 0x7f08007b
 int id carryVelocity 0x7f08007c
 int id center 0x7f08007d
@@ -3348,7 +3349,6 @@ int id italic 0x7f080104
 int id item_touch_helper_previous_elevation 0x7f080105
 int id ivCat 0x7f080106
 int id ivCatIcon 0x7f080107
-int id ivLocation 0x7f080108
 int id ivMinus 0x7f080109
 int id ivNotification 0x7f08010a
 int id ivPlus 0x7f08010b

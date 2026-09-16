@@ -2,8 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#007bff">
+    android:background="#FFFFFF">
 
+    <!-- Top Corner Tagline Slogan -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="32dp"
+        android:text="Shop More\nLive Better"
+        android:textColor="#007BFF"
+        android:textSize="14sp"
+        android:textStyle="italic|bold"
+        android:gravity="end" />
+
+    <!-- Centered Brand Logo & Text Group -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,30 +25,66 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <!-- Shopping Bag Placeholder Icon Layer -->
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_cart"
+            android:layout_marginBottom="16dp"
+            app:tint="#007BFF" xmlns:app="http://schemas.android.com/apk/res-auto" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SK Rozaana Bazaar"
-            android:textColor="#FFFFFF"
-            android:textSize="32sp"
+            android:text="SK Bazaar"
+            android:textColor="#002D62"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
-        <ProgressBar
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:indeterminateTint="#FFFFFF" />
+            android:layout_marginTop="4dp"
+            android:text="Shop More  Live Better"
+            android:textColor="#555555"
+            android:textSize="14sp"
+            android:letterSpacing="0.1" />
     </LinearLayout>
 
-    <TextView
+    <!-- Bottom Loading and Footer Branding Row -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:text="Developed by Sajid Khan"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:textStyle="italic" />
+        android:layout_marginBottom="48dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="#007BFF" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Loading..."
+            android:textColor="#888888"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="—  I N D I A   K A   A P N A   B A Z A A R  —"
+            android:textColor="#999999"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
+    </LinearLayout>
 
 </RelativeLayout>

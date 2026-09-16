@@ -80,7 +80,16 @@ public class ImageGenerationService {
     }
     
     public static void autoAssignImages(Product product) {
-        // This will be handled by the background worker for existing products
-        // But for new products, we can trigger it or queue it.
+        // This is a placeholder for immediate assignment if needed.
+        // For full automation, use ImageTaskWorker and product_image_status table.
+        // To support existing servlets, we can queue the task here.
+        String sql = "INSERT IGNORE INTO product_image_status (product_id, status) VALUES (?, 'PENDING')";
+        try (java.sql.Connection conn = DBConnection.getConnection();
+             java.sql.PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, product.getId());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

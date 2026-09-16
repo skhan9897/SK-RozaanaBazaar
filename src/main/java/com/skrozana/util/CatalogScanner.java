@@ -43,10 +43,8 @@ public class CatalogScanner {
             int withoutAnyImages = 0;
             int missingMultipleImageSlots = 0; 
             
-            Map<String, Integer> imagePathCounts = new HashMap<>();
-            List<Product> productsToUpdate = new ArrayList<>();
-            
-            String sql = "SELECT id, product_name, brand, image, image2, image3, image4 FROM products";
+            String sql = "SELECT p.id, p.product_name, p.brand, p.image, p.image2, p.image3, p.image4, c.category_name " +
+                         "FROM products p LEFT JOIN categories c ON p.category_id = c.id";
             
             try (PreparedStatement ps = conn.prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
@@ -61,6 +59,8 @@ public class CatalogScanner {
                     p.setImage2(rs.getString("image2"));
                     p.setImage3(rs.getString("image3"));
                     p.setImage4(rs.getString("image4"));
+                    String catName = rs.getString("category_name");
+                    if (catName == null) catName = "General";
                     
                     String img1 = p.getImage();
                     String img2 = p.getImage2();
@@ -97,6 +97,9 @@ public class CatalogScanner {
                         img2 == null || img2.trim().isEmpty() ||
                         img3 == null || img3.trim().isEmpty() ||
                         img4 == null || img4.trim().isEmpty()) {
+                        
+                        // We store the category name in the description temporarily or just use a map
+                        p.setDescription(catName); 
                         productsToUpdate.add(p);
                     }
                 }
@@ -126,7 +129,8 @@ public class CatalogScanner {
             int updatedCount = 0;
             try (PreparedStatement ups = conn.prepareStatement(updateSql)) {
                 for (Product p : productsToUpdate) {
-                    Map<String, String> generated = ImageGenerationService.generateProductImages(p);
+                    String catName = p.getDescription(); // Recovered category name
+                    Map<String, String> generated = ImageGenerationService.generateAndSaveImages(p, catName);
                     
                     String f1 = p.getImage();
                     String f2 = p.getImage2();

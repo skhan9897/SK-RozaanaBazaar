@@ -138,10 +138,9 @@ public class ProductDAO {
     }
 
     public boolean addProduct(Product p) {
-        ImageGenerationService.autoAssignImages(p);
         String sql = "INSERT INTO products (category_id, subcategory_id, product_name, brand, description, price, discount, final_price, stock, sku, image, image2, image3, image4, rating, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, p.getCategoryId());
             ps.setObject(2, p.getSubcategoryId());
             ps.setString(3, p.getProductName());
@@ -158,11 +157,31 @@ public class ProductDAO {
             ps.setString(14, p.getImage4());
             ps.setDouble(15, p.getRating());
             ps.setString(16, p.getStatus());
-            return ps.executeUpdate() > 0;
+            
+            boolean success = ps.executeUpdate() > 0;
+            if (success) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    int productId = rs.getInt(1);
+                    queueImageTask(productId);
+                }
+            }
+            return success;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private void queueImageTask(int productId) {
+        String sql = "INSERT INTO product_image_status (product_id, status) VALUES (?, 'PENDING')";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, productId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean updateProduct(Product p) {

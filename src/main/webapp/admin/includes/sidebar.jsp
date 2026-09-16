@@ -15,6 +15,7 @@
             <ul class="collapse list-unstyled" id="productSubmenu">
                 <li><a href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=list">All Products</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=add">Add New Product</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/image-management">Image Management</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/AdminProductServlet?action=lowstock">Low Stock Items</a></li>
             </ul>
         </li>

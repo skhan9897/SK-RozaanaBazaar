@@ -3194,6 +3194,7 @@ int id btnCheckout 0x7f08006a
 int id btnContinue 0x7f08006b
 int id btnLogin 0x7f08006c
 int id btnLogout 0x7f08006d
+int id btnNext 0x7f080262
 int id btnOtpLogin 0x7f08006e
 int id btnPlaceOrder 0x7f08006f
 int id btnRegister 0x7f080070
@@ -3362,6 +3363,7 @@ int id jumpToStart 0x7f080112
 int id labeled 0x7f080113
 int id layout 0x7f080114
 int id layoutBottom 0x7f080115
+int id layoutHeader 0x7f080263
 int id left 0x7f080116
 int id leftToRight 0x7f080117
 int id legacy 0x7f080118
@@ -3644,6 +3646,7 @@ int id tvDiscount 0x7f08022c
 int id tvDiscountOffer 0x7f08022d
 int id tvFilter 0x7f08022e
 int id tvFinalAmount 0x7f08022f
+int id tvGetStarted 0x7f080264
 int id tvLogin 0x7f080230
 int id tvName 0x7f080231
 int id tvOrderDate 0x7f080232
@@ -3661,6 +3664,7 @@ int id tvRatingCount 0x7f08023d
 int id tvRegister 0x7f08023e
 int id tvRemove 0x7f08023f
 int id tvResendOtp 0x7f080240
+int id tvSkip 0x7f080265
 int id tvSort 0x7f080241
 int id tvSubtotal 0x7f080242
 int id tvTotal 0x7f080243
@@ -3812,6 +3816,7 @@ int layout activity_cart 0x7f0b001d
 int layout activity_checkout 0x7f0b001e
 int layout activity_login 0x7f0b001f
 int layout activity_main 0x7f0b0020
+int layout activity_onboarding 0x7f0b0083
 int layout activity_order_success 0x7f0b0021
 int layout activity_order_tracking 0x7f0b0022
 int layout activity_otp_verification 0x7f0b0023

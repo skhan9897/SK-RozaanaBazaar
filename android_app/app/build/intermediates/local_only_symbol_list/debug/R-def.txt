@@ -43,6 +43,7 @@ id btnCheckout
 id btnContinue
 id btnLogin
 id btnLogout
+id btnNext
 id btnOtpLogin
 id btnPlaceOrder
 id btnRegister
@@ -77,6 +78,7 @@ id ivProfileAvatar
 id ivSliderImage
 id ivWishlist
 id layoutBottom
+id layoutHeader
 id llHeader
 id llPrice
 id llRating
@@ -111,6 +113,7 @@ id tvDiscount
 id tvDiscountOffer
 id tvFilter
 id tvFinalAmount
+id tvGetStarted
 id tvLogin
 id tvName
 id tvOrderDate
@@ -128,6 +131,7 @@ id tvRatingCount
 id tvRegister
 id tvRemove
 id tvResendOtp
+id tvSkip
 id tvSort
 id tvSubtotal
 id tvTotal
@@ -141,6 +145,7 @@ layout activity_cart
 layout activity_checkout
 layout activity_login
 layout activity_main
+layout activity_onboarding
 layout activity_order_success
 layout activity_order_tracking
 layout activity_otp_verification

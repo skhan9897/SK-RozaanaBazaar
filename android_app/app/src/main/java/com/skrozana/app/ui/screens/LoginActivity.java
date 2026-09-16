@@ -93,10 +93,20 @@ public class LoginActivity extends AppCompatActivity {
                     Map<String, Object> body = response.body();
                     String status = (String) body.get("status");
                     if ("success".equals(status)) {
-                        double userId = (double) body.get("userId");
+                        int userId = 0;
+                        try {
+                            Object uidObj = body.get("userId");
+                            if (uidObj instanceof Number) {
+                                userId = ((Number) uidObj).intValue();
+                            } else if (uidObj != null) {
+                                userId = (int) Double.parseDouble(String.valueOf(uidObj));
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
                         String name = (String) body.get("name");
                         String token = body.containsKey("token") ? (String) body.get("token") : "";
-                        sessionManager.createLoginSession((int) userId, name, token);
+                        sessionManager.createLoginSession(userId, name, token);
 
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();

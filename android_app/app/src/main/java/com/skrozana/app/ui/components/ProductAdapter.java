@@ -63,20 +63,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         if (imageUrl == null || imageUrl.trim().isEmpty() || imageUrl.contains("placeholder") || imageUrl.contains("via.placeholder")) {
             String name = product.getProductName();
             if (name != null) {
-                if (name.contains("Galaxy")) imageUrl = "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&auto=format&fit=crop";
-                else if (name.contains("iPhone")) imageUrl = "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500&auto=format&fit=crop";
-                else if (name.contains("OnePlus") || name.contains("Nord")) imageUrl = "https://images.unsplash.com/photo-1565630916779-e303be97b6f5?w=500&auto=format&fit=crop";
-                else if (name.contains("Laptop")) imageUrl = "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&auto=format&fit=crop";
-                else if (name.contains("Monitor")) imageUrl = "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&auto=format&fit=crop";
-                else if (name.contains("Earbuds")) imageUrl = "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop";
-                else if (name.contains("Headphones")) imageUrl = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop";
-                else if (name.contains("T-Shirt")) imageUrl = "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop";
-                else if (name.contains("Shirt")) imageUrl = "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&auto=format&fit=crop";
-                else if (name.contains("Saree")) imageUrl = "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&auto=format&fit=crop";
-                else if (name.contains("Kurti")) imageUrl = "https://images.unsplash.com/photo-1608963503737-f98de08a6b7f?w=500&auto=format&fit=crop";
-                else if (name.contains("Atta")) imageUrl = "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop";
-                else if (name.contains("Rice")) imageUrl = "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop";
-                else if (name.contains("Oil")) imageUrl = "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&auto=format&fit=crop";
+                String lowerName = name.toLowerCase();
+                if (lowerName.contains("galaxy")) imageUrl = "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("iphone")) imageUrl = "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("oneplus") || lowerName.contains("nord")) imageUrl = "https://images.unsplash.com/photo-1565630916779-e303be97b6f5?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("laptop")) imageUrl = "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("monitor")) imageUrl = "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("earbuds")) imageUrl = "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("headphones")) imageUrl = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("t-shirt")) imageUrl = "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("shirt")) imageUrl = "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("saree")) imageUrl = "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("kurti")) imageUrl = "https://images.unsplash.com/photo-1608963503737-f98de08a6b7f?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("atta")) imageUrl = "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("rice")) imageUrl = "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop";
+                else if (lowerName.contains("oil")) imageUrl = "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&auto=format&fit=crop";
                 else imageUrl = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60";
             } else {
                 imageUrl = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60";

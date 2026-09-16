@@ -38,6 +38,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.skrozana.app.ui.screens.MainActivity" />
+        <activity android:name="com.skrozana.app.ui.screens.OnboardingActivity" />
         <activity android:name="com.skrozana.app.ui.screens.LoginActivity" />
         <activity android:name="com.skrozana.app.ui.screens.OtpVerificationActivity" />
         <activity android:name="com.skrozana.app.ui.screens.ProductListActivity" />

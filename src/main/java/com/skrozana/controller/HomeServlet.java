@@ -32,9 +32,6 @@ public class HomeServlet extends HttpServlet {
         
         // Fetch products for Today's Deals
         List<Product> products = productDAO.getAllProducts();
-        if (products.size() > 8) {
-            products = products.subList(0, 8); // Display first 8 products as featured deals
-        }
         request.setAttribute("products", products);
         
         // Forward to index.jsp

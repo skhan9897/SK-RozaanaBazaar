@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:2:1-40:12
-INJECTED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:2:1-40:12
-INJECTED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:2:1-40:12
-INJECTED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:2:1-40:12
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:2:1-41:12
+INJECTED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:2:1-41:12
+INJECTED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:2:1-41:12
+INJECTED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:2:1-41:12
 MERGED from [androidx.navigation:navigation-runtime-android:2.10.1] C:\Users\Sajid Khan\.gradle\caches\transforms-3\269aa29bb1f718e24321725d7c83ddd8\transformed\jetified-navigation-runtime\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-common-android:2.10.1] C:\Users\Sajid Khan\.gradle\caches\transforms-3\ba96f06631e8bd281e8aeef444f88b45\transformed\jetified-navigation-common\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-fragment:2.10.1] C:\Users\Sajid Khan\.gradle\caches\transforms-3\c8a2670194d8e0cdf7e39e4b6a0a27a6\transformed\navigation-fragment-2.10.1\AndroidManifest.xml:17:1-22:12
@@ -75,8 +75,8 @@ ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBaza
 	android:name
 		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:5:22-64
 application
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:7:5-38:19
-INJECTED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:7:5-38:19
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:7:5-39:19
+INJECTED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:7:5-39:19
 MERGED from [com.google.android.material:material:1.9.0] C:\Users\Sajid Khan\.gradle\caches\transforms-3\836f57ab6f7260f4f30ca1e6a29f17ff\transformed\material-1.9.0\AndroidManifest.xml:24:5-20
 MERGED from [com.google.android.material:material:1.9.0] C:\Users\Sajid Khan\.gradle\caches\transforms-3\836f57ab6f7260f4f30ca1e6a29f17ff\transformed\material-1.9.0\AndroidManifest.xml:24:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Sajid Khan\.gradle\caches\transforms-3\93cc3c78252b8763d6e624a1da6afb3d\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -135,50 +135,54 @@ activity#com.skrozana.app.ui.screens.MainActivity
 ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:25:9-61
 	android:name
 		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:25:19-58
+activity#com.skrozana.app.ui.screens.OnboardingActivity
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:26:9-67
+	android:name
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:26:19-64
 activity#com.skrozana.app.ui.screens.LoginActivity
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:26:9-62
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:27:9-62
 	android:name
-		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:26:19-59
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:27:19-59
 activity#com.skrozana.app.ui.screens.OtpVerificationActivity
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:27:9-72
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:28:9-72
 	android:name
-		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:27:19-69
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:28:19-69
 activity#com.skrozana.app.ui.screens.ProductListActivity
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:28:9-68
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:29:9-68
 	android:name
-		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:28:19-65
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:29:19-65
 activity#com.skrozana.app.ui.screens.CheckoutActivity
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:29:9-65
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:30:9-65
 	android:name
-		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:29:19-62
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:30:19-62
 activity#com.skrozana.app.ui.screens.OrderSuccessActivity
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:30:9-69
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:31:9-69
 	android:name
-		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:30:19-66
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:31:19-66
 activity#com.skrozana.app.ui.screens.OrderTrackingActivity
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:31:9-70
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:32:9-70
 	android:name
-		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:31:19-67
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:32:19-67
 activity#com.skrozana.app.ui.screens.RegisterActivity
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:32:9-65
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:33:9-65
 	android:name
-		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:32:19-62
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:33:19-62
 activity#com.skrozana.app.ui.screens.ProductDetailsActivity
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:33:9-71
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:34:9-71
 	android:name
-		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:33:19-68
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:34:19-68
 activity#com.skrozana.app.ui.screens.CartActivity
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:34:9-61
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:35:9-61
 	android:name
-		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:34:19-58
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:35:19-58
 activity#com.skrozana.app.ui.screens.ProfileActivity
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:35:9-64
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:36:9-64
 	android:name
-		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:35:19-61
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:36:19-61
 activity#com.skrozana.app.ui.screens.AddProductActivity
-ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:36:9-67
+ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:37:9-67
 	android:name
-		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:36:19-64
+		ADDED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml:37:19-64
 uses-sdk
 INJECTED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Sajid Khan\OneDrive\Documents\NetBeansProjects\SKRozaanaBazaar\android_app\app\src\main\AndroidManifest.xml

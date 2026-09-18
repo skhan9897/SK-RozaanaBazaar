@@ -133,6 +133,9 @@ public class DatabaseSeeder {
                     "rating DECIMAL(3, 2) DEFAULT 0.00, " +
                     "status ENUM('active', 'inactive') DEFAULT 'active', " +
                     "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    "FOREIGN KEY (category_id) REFERENCES categories(id)" +
+                    ")");
+
             stmt.execute("CREATE TABLE IF NOT EXISTS product_images (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "product_id INT NOT NULL, " +
@@ -141,6 +144,35 @@ public class DatabaseSeeder {
                     "image_order INT DEFAULT 0, " +
                     "is_primary BOOLEAN DEFAULT FALSE, " +
                     "FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE" +
+                    ")");
+
+            stmt.execute("CREATE TABLE IF NOT EXISTS merchants (" +
+                    "id INT PRIMARY KEY AUTO_INCREMENT, " +
+                    "user_id INT NOT NULL, " +
+                    "merchant_id VARCHAR(20) UNIQUE NOT NULL, " +
+                    "business_name VARCHAR(255) NOT NULL, " +
+                    "business_type VARCHAR(100), " +
+                    "pan_number VARCHAR(20), " +
+                    "gstin VARCHAR(20), " +
+                    "business_address TEXT, " +
+                    "terms_accepted BOOLEAN DEFAULT FALSE, " +
+                    "verification_status VARCHAR(20) DEFAULT 'active', " +
+                    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE" +
+                    ")");
+
+            stmt.execute("CREATE TABLE IF NOT EXISTS persistent_sessions (" +
+                    "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                    "user_id INT NOT NULL, " +
+                    "user_type ENUM('CUSTOMER', 'ADMIN') NOT NULL, " +
+                    "selector VARCHAR(255) UNIQUE NOT NULL, " +
+                    "token_hash VARCHAR(255) NOT NULL, " +
+                    "device_info TEXT, " +
+                    "expires_at TIMESTAMP NOT NULL, " +
+                    "last_used_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, " +
+                    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    "revoked BOOLEAN DEFAULT FALSE, " +
+                    "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE" +
                     ")");
         }
     }

@@ -10,8 +10,8 @@
         <!-- Logo -->
         <div class="d-flex align-items-center">
             <a class="navbar-brand text-white d-flex flex-column" href="index.jsp" style="text-decoration: none;">
-                <span class="font-weight-bold" style="font-size: 1.2rem; line-height: 1;">SKRozaanaBazaar</span>
-                <span class="plus-text">Explore <span style="color: #ffe500;">Plus</span> <i class="fas fa-plus-square ml-1"></i></span>
+                <span class="font-weight-bold" style="font-size: 1.2rem; line-height: 1;">SKRozanaBazaar</span>
+                <span class="plus-text">Explore <span style="color: #ffe500;">Premium</span> <i class="fas fa-star ml-1"></i></span>
             </a>
         </div>
 

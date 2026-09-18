@@ -36,7 +36,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SK Bazaar"
+            android:text="SKRozanaBazaar"
             android:textColor="#002D62"
             android:textSize="36sp"
             android:textStyle="bold" />

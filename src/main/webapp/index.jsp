@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKRozaanaBazaar - Online Shopping Site for Fashion, Electronics, Home & More</title>
+    <title>SKRozanaBazaar - Online Shopping Site for Fashion, Electronics, Home & More</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
     <div id="splash-screen">
         <div class="splash-logo mb-3">
             <i class="fas fa-shopping-basket fa-3x"></i>
-            <h2 class="mt-2 font-weight-bold">SK Rozaana Bazaar</h2>
+            <h2 class="mt-2 font-weight-bold">SKRozanaBazaar</h2>
         </div>
         <div class="loader"></div>
         <div class="mt-4 small text-uppercase font-weight-bold" style="letter-spacing: 2px; opacity: 0.8;">
@@ -50,7 +50,7 @@
                 <div class="carousel-item active">
                     <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&h=400&fit=crop" class="d-block w-100" alt="Banner 1">
                     <div class="carousel-caption d-none d-md-block text-left" style="left: 5%; bottom: 20%;">
-                        <h2 class="display-4 font-weight-bold">Big Billion Days</h2>
+                        <h2 class="display-4 font-weight-bold">Mega Bazaar Days</h2>
                         <p class="h4">Up to 80% Off on Top Brands</p>
                         <a href="products.jsp" class="btn btn-primary mt-3">Shop Now</a>
                     </div>
@@ -81,7 +81,7 @@
                     <div class="scroll-item">
                         <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none text-dark">
                             <div class="product-card text-center">
-                                <img src="https://via.placeholder.com/150" alt="${product.productName}" class="img-fluid deal-img" data-name="${product.productName}" loading="lazy">
+                                <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/150'}" alt="${product.productName}" class="img-fluid deal-img" data-name="${product.productName}" loading="lazy">
                                 <div class="product-name mt-2">${product.productName}</div>
                                 <div class="text-success font-weight-bold">From ₹${product.finalPrice}</div>
                                 <div class="text-muted small">${product.brand}</div>
@@ -103,7 +103,7 @@
                                 <div class="product-card">
                                     <a href="ProductDetailsServlet?id=${product.id}">
                                         <div class="text-center mb-3" style="height: 180px; display: flex; align-items: center; justify-content: center;">
-                                            <img src="https://via.placeholder.com/150" alt="${product.productName}" class="img-fluid grid-img" data-name="${product.productName}" style="max-height: 100%;" loading="lazy">
+                                            <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/150'}" alt="${product.productName}" class="img-fluid grid-img" data-name="${product.productName}" style="max-height: 100%;" loading="lazy">
                                         </div>
                                     </a>
                                     <div class="product-brand">${product.brand}</div>
@@ -131,7 +131,9 @@
 
         <c:if test="${empty products}">
             <div class="text-center py-5 bg-white-card">
-                <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/error-no-search-results_2353c5.png" alt="No products" style="width: 200px;">
+                <div class="mb-4">
+                    <i class="fas fa-search fa-5x text-muted opacity-50"></i>
+                </div>
                 <h4 class="mt-4">No products found</h4>
                 <p class="text-muted">Try refreshing or check back later.</p>
                 <a href="HomeServlet" class="btn btn-primary mt-2">Refresh</a>
@@ -166,12 +168,14 @@
 
             function setImages(selector) {
                 document.querySelectorAll(selector).forEach(img => {
-                    const name = img.getAttribute("data-name");
-                    if (name) {
-                        for (let key in images) {
-                            if (name.toLowerCase().includes(key.toLowerCase())) {
-                                img.src = images[key];
-                                break;
+                    if (img.src.includes('via.placeholder.com')) {
+                        const name = img.getAttribute("data-name");
+                        if (name) {
+                            for (let key in images) {
+                                if (name.toLowerCase().includes(key.toLowerCase())) {
+                                    img.src = images[key];
+                                    break;
+                                }
                             }
                         }
                     }

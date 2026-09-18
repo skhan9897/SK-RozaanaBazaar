@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Wishlist | SKRozaanaBazaar</title>
+    <title>My Wishlist | SKRozanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -33,7 +33,7 @@
             <!-- Sidebar -->
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="bg-white-card p-3 mb-3 d-flex align-items-center">
-                    <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/profile-pic-male_4811a3.svg" width="50" class="mr-3">
+                    <img src="https://ui-avatars.com/api/?name=${user.name}&background=2874F0&color=fff" width="50" class="mr-3 rounded-circle">
                     <div>
                         <div class="small">Hello,</div>
                         <div class="font-weight-bold">${user.name != null ? user.name : 'Guest User'}</div>
@@ -97,7 +97,7 @@
                                 <div class="p-4 border-bottom position-relative wishlist-item transition-smooth">
                                     <div class="row align-items-center">
                                         <div class="col-md-2 col-4 text-center">
-                                            <img src="https://via.placeholder.com/100" class="img-fluid wishlist-img" data-name="${item.name}" style="max-height: 100px; object-fit: contain;">
+                                            <img src="${not empty item.image ? item.image : 'https://via.placeholder.com/100'}" class="img-fluid wishlist-img" data-name="${item.name}" style="max-height: 100px; object-fit: contain;">
                                         </div>
                                         <div class="col-md-7 col-8">
                                             <h6 class="mb-1 text-truncate">${item.name}</h6>
@@ -190,12 +190,14 @@
             };
 
             document.querySelectorAll(".wishlist-img").forEach(img => {
-                const name = img.getAttribute("data-name");
-                if (name) {
-                    for (let key in images) {
-                        if (name.toLowerCase().includes(key.toLowerCase())) {
-                            img.src = images[key];
-                            break;
+                if (img.src.includes('via.placeholder.com')) {
+                    const name = img.getAttribute("data-name");
+                    if (name) {
+                        for (let key in images) {
+                            if (name.toLowerCase().includes(key.toLowerCase())) {
+                                img.src = images[key];
+                                break;
+                            }
                         }
                     }
                 }

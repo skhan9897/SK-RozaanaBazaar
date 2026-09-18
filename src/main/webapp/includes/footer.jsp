@@ -10,7 +10,7 @@
                         <a href="#">Contact Us</a>
                         <a href="#">About Us</a>
                         <a href="#">Careers</a>
-                        <a href="#">SKRozaana Stories</a>
+                        <a href="#">SKRozana Stories</a>
                         <a href="#">Press</a>
                     </div>
                     <!-- Help -->
@@ -45,7 +45,7 @@
                     <div class="col-md-6 mb-4">
                         <h6>Registered Office Address:</h6>
                         <p class="text-white small" style="line-height: 1.6; opacity: 0.8;">
-                            SKRozaanaBazaar Internet Private Limited,<br>
+                            SKRozanaBazaar Internet Private Limited,<br>
                             Buildings Alyssa, Begonia &<br>
                             Clove Embassy Tech Village,<br>
                             Outer Ring Road, Devarabeesanahalli Village,<br>
@@ -69,10 +69,15 @@
                 <a href="#" class="mx-3"><i class="fas fa-question-circle text-warning mr-2"></i> Help Center</a>
             </div>
             <div class="text-white small" style="opacity: 0.8;">
-                &copy; 2024-2025 SKRozaanaBazaar.com
+                &copy; 2026 SKRozanaBazaar.com
             </div>
             <div class="mt-3 mt-md-0">
-                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/payment-method-c454fb.svg" class="img-fluid" alt="payments" style="height: 20px;">
+                <div class="d-flex align-items-center text-white small opacity-7">
+                    <i class="fab fa-cc-visa mx-2 fa-lg"></i>
+                    <i class="fab fa-cc-mastercard mx-2 fa-lg"></i>
+                    <i class="fab fa-cc-paypal mx-2 fa-lg"></i>
+                    <i class="fas fa-money-bill-wave mx-2 fa-lg"></i>
+                </div>
             </div>
         </div>
     </div>

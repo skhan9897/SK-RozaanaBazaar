@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart | SKRozaanaBazaar</title>
+    <title>Shopping Cart | SKRozanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -32,7 +32,7 @@
                                 <div class="p-3 border-bottom">
                                     <div class="row">
                                         <div class="col-md-2 col-4 text-center">
-                                            <img src="https://via.placeholder.com/100" class="img-fluid cart-item-img" data-name="${item.productName}" style="max-height: 100px; object-fit: contain;">
+                                            <img src="${not empty item.productImage ? item.productImage : 'https://via.placeholder.com/100'}" class="img-fluid cart-item-img" data-name="${item.productName}" style="max-height: 100px; object-fit: contain;">
                                             <div class="mt-3 d-flex align-items-center justify-content-center">
                                                 <form action="CartServlet" method="POST" class="d-flex align-items-center">
                                                     <input type="hidden" name="action" value="updateQuantity">
@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="col-md-7 col-8">
                                             <a href="#" class="text-dark"><h6 class="mb-1">${item.productName}</h6></a>
-                                            <p class="text-muted small mb-2">Seller: SK Retailer <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png" height="15" class="ml-2"></p>
+                                            <p class="text-muted small mb-2">Seller: SK Retailer <span class="badge badge-primary ml-2" style="font-size: 8px;">SK ASSURED</span></p>
                                             <div class="d-flex align-items-center mb-3">
                                                 <span class="text-muted small"><del>₹${item.price + 500}</del></span>
                                                 <h5 class="font-weight-bold mx-2 mb-0">₹${item.price}</h5>
@@ -68,7 +68,9 @@
                         </c:when>
                         <c:otherwise>
                             <div class="text-center py-5">
-                                <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/empty-cart_ee6141.png" alt="Empty Cart" style="width: 200px;">
+                                <div class="mb-4">
+                                    <i class="fas fa-shopping-basket fa-5x text-muted opacity-50"></i>
+                                </div>
                                 <h4 class="mt-4">Your cart is empty!</h4>
                                 <p class="text-muted small">Add items to it now.</p>
                                 <a href="index.jsp" class="btn btn-primary px-5 mt-2">Shop Now</a>
@@ -126,12 +128,14 @@
             };
 
             document.querySelectorAll(".cart-item-img").forEach(img => {
-                const name = img.getAttribute("data-name");
-                if (name) {
-                    for (let key in images) {
-                        if (name.toLowerCase().includes(key.toLowerCase())) {
-                            img.src = images[key];
-                            break;
+                if (img.src.includes('via.placeholder.com')) {
+                    const name = img.getAttribute("data-name");
+                    if (name) {
+                        for (let key in images) {
+                            if (name.toLowerCase().includes(key.toLowerCase())) {
+                                img.src = images[key];
+                                break;
+                            }
                         }
                     }
                 }

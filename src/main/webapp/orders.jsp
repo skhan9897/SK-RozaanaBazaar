@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Orders | SKRozaanaBazaar</title>
+    <title>My Orders | SKRozanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -47,7 +47,7 @@
                             <div class="bg-white-card p-3 mb-3 product-card">
                                 <div class="row align-items-center">
                                     <div class="col-md-2 col-3 text-center">
-                                        <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/myorders-placeholder_6a7988.png" class="img-fluid" style="max-height: 80px;">
+                                        <i class="fas fa-box-open fa-3x text-muted opacity-50"></i>
                                     </div>
                                     <div class="col-md-4 col-9">
                                         <h6 class="font-weight-bold mb-1 text-primary">Order #${order.orderNumber}</h6>
@@ -71,7 +71,9 @@
                     </c:when>
                     <c:otherwise>
                         <div class="text-center py-5 bg-white-card">
-                            <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/myorders-empty_80436d.png" style="width: 200px;">
+                            <div class="mb-4">
+                                <i class="fas fa-shopping-bag fa-5x text-muted opacity-50"></i>
+                            </div>
                             <h4 class="mt-4">You have no orders</h4>
                             <a href="index.jsp" class="btn btn-primary mt-3 px-5">Start Shopping</a>
                         </div>

@@ -4,6 +4,7 @@ com\skrozana\controller\api\UserApiServlet.class
 com\skrozana\controller\RegisterServlet.class
 com\skrozana\util\ProductDataGenerator.class
 com\skrozana\controller\admin\AdminBannerServlet.class
+com\skrozana\controller\admin\ImageManagementServlet.class
 com\skrozana\model\Category.class
 com\skrozana\controller\LogoutServlet.class
 com\skrozana\model\User.class
@@ -25,12 +26,14 @@ com\skrozana\controller\NewArrivalsServlet.class
 com\skrozana\controller\admin\AdminCategoryServlet.class
 com\skrozana\model\Merchant.class
 com\skrozana\dao\CartDAO.class
+com\skrozana\util\ImageTaskWorker.class
 com\skrozana\controller\AddToCartServlet.class
 com\skrozana\controller\HomeServlet.class
 com\skrozana\controller\OrderServlet.class
 com\skrozana\controller\admin\AdminReportServlet.class
 com\skrozana\controller\CheckoutServlet.class
 com\skrozana\model\Product.class
+com\skrozana\util\DatabaseAuditRunner.class
 com\skrozana\controller\api\CategoryApiServlet.class
 com\skrozana\util\CatalogScanner.class
 com\skrozana\controller\admin\ImageAutoPopulateServlet.class
@@ -50,4 +53,5 @@ com\skrozana\controller\admin\AdminCouponServlet.class
 com\skrozana\controller\admin\AdminPaymentServlet.class
 com\skrozana\util\DBConnection.class
 com\skrozana\controller\admin\AdminDashboardServlet.class
+com\skrozana\util\AppContextListener.class
 com\skrozana\controller\admin\AdminSettingsServlet.class

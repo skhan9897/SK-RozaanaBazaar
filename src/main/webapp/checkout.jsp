@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout | SKRozaanaBazaar</title>
+    <title>Checkout | SKRozanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -86,7 +86,7 @@
                             <div class="custom-control custom-radio border-bottom pb-3 mb-3">
                                 <input type="radio" id="upi" name="paymentMethod" value="UPI" class="custom-control-input" onclick="togglePay()">
                                 <label class="custom-control-label font-weight-bold d-flex align-items-center" for="upi">
-                                    <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/upi_gpay_a5c7c2.png" height="20" class="mr-3"> UPI
+                                    <i class="fas fa-mobile-alt mr-3 text-primary"></i> UPI
                                 </label>
                                 <div id="upi-box" class="mt-3 pl-4" style="display:none;">
                                     <input type="text" class="form-control form-control-sm w-50" placeholder="Enter UPI ID">

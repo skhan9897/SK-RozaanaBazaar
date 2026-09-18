@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Registration Successful - SKRozaanaBazaar</title>
+    <title>Registration Successful - SKRozanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body { background-color: #f4f7f6; height: 100vh; display: flex; align-items: center; justify-content: center; }

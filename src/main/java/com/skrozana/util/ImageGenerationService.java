@@ -31,7 +31,7 @@ public class ImageGenerationService {
 
         for (int i = 1; i <= 4; i++) {
             String keyword = PREMIUM_KEYWORDS[i - 1];
-            String sourceUrl = UNSPLASH_BASE + sanitize(baseQuery + "," + keyword) + "&sig=" + (Math.abs(product.getProductName().hashCode()) + i);
+            String sourceUrl = "https://picsum.photos/1024/1024?random=" + (Math.abs(product.getProductName().hashCode()) + i + product.getId());
             String fileName = "product-" + product.getId() + "-" + i + ".jpg";
             String relativePath = "images/products/" + folderPath + "/" + fileName;
             

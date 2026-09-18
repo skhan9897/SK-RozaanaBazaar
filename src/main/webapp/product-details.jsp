@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${product.productName} | SKRozaanaBazaar</title>
+    <title>${product.productName} | SKRozanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -98,7 +98,7 @@
                     <div class="d-flex align-items-center mb-2">
                         <span class="rating-badge">${product.rating} <i class="fas fa-star fa-xs"></i></span>
                         <span class="text-muted small ml-2 font-weight-bold">12,456 Ratings & 1,234 Reviews</span>
-                        <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png" height="20" alt="assured" class="ml-3">
+                        <span class="badge badge-primary px-2 py-1 ml-3" style="font-size: 12px;">SK ASSURED</span>
                     </div>
 
                     <div class="mt-3">
@@ -116,7 +116,7 @@
                         <ul class="list-unstyled small">
                             <li class="mb-2"><i class="fas fa-tag text-success mr-2"></i> <span class="font-weight-bold">Bank Offer</span> 10% off on SBI Credit Card, up to ₹1750, on orders of ₹5000 and above <a href="#" class="text-primary font-weight-bold">T&C</a></li>
                             <li class="mb-2"><i class="fas fa-tag text-success mr-2"></i> <span class="font-weight-bold">Bank Offer</span> 10% off on SBI Credit Card EMI transactions, up to ₹2250, on orders of ₹5000 and above <a href="#" class="text-primary font-weight-bold">T&C</a></li>
-                            <li class="mb-2"><i class="fas fa-tag text-success mr-2"></i> <span class="font-weight-bold">Partner Offer</span> Sign up for SKRozaana Pay Later and get Bazaar Gift Card worth up to ₹500* <a href="#" class="text-primary font-weight-bold">Know More</a></li>
+                            <li class="mb-2"><i class="fas fa-tag text-success mr-2"></i> <span class="font-weight-bold">Partner Offer</span> Sign up for SKRozana Pay Later and get Bazaar Gift Card worth up to ₹500* <a href="#" class="text-primary font-weight-bold">Know More</a></li>
                         </ul>
                     </div>
 
@@ -170,6 +170,29 @@
             $('#productCarousel').carousel({
                 interval: false
             });
+
+            const images = {
+                "Galaxy": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800",
+                "iPhone": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800",
+                "Laptop": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800",
+                "Shirt": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800",
+                "Shoes": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
+                "Watch": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800",
+                "Earbuds": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800"
+            };
+
+            const mainImg = document.querySelector("#productCarousel .carousel-item.active img");
+            if (mainImg && mainImg.src.includes('via.placeholder.com')) {
+                const name = "${product.productName}";
+                for (let key in images) {
+                    if (name.toLowerCase().includes(key.toLowerCase())) {
+                        mainImg.src = images[key];
+                        // Also update thumbnail
+                        document.querySelector(".img-thumbnail").src = images[key];
+                        break;
+                    }
+                }
+            }
         });
     </script>
 </body>

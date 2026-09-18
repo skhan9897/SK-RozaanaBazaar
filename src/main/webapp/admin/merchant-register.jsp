@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Merchant Registration - SKRozaanaBazaar</title>
+    <title>Merchant Registration - SKRozanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -20,7 +20,7 @@
     <div class="card">
         <div class="card-header">
             <h3><i class="fas fa-store mr-2"></i> Merchant Partnership Program</h3>
-            <p class="mb-0">Grow your business with SK-RozaanaBazaar</p>
+            <p class="mb-0">Grow your business with SKRozanaBazaar</p>
         </div>
         <div class="card-body p-4">
             <c:if test="${not empty errorMsg}">

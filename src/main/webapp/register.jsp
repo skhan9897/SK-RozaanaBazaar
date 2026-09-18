@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup | SKRozaanaBazaar</title>
+    <title>Signup | SKRozanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -19,8 +19,8 @@
             <div class="auth-sidebar d-none d-md-block">
                 <h2 class="font-weight-bold mb-4">Looks like you're new here!</h2>
                 <p class="h5" style="line-height: 1.5; opacity: 0.8;">Sign up with your mobile number to get started</p>
-                <div style="margin-top: 150px;">
-                    <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/login_img_c4a81e.png" class="img-fluid" alt="login-icon">
+                <div class="text-center" style="margin-top: 100px;">
+                    <i class="fas fa-user-plus fa-5x text-white opacity-50"></i>
                 </div>
             </div>
 

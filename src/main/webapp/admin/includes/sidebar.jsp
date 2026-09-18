@@ -2,7 +2,7 @@
 <!-- Sidebar -->
 <nav id="sidebar" class="d-none d-md-block">
     <div class="sidebar-header">
-        <h4 class="m-0 text-white font-weight-bold">SKR Bazaar</h4>
+        <h4 class="m-0 text-white font-weight-bold">SKRozanaBazaar</h4>
         <small class="text-muted">Merchant Console</small>
     </div>
 

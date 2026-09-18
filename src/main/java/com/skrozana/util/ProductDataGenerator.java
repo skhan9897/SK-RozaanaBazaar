@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.Random;
 
 /**
- * Utility to generate rich e-commerce product data for SKRozaanaBazaar.
+ * Utility to generate rich e-commerce product data for SKRozanaBazaar.
  */
 public class ProductDataGenerator {
 
@@ -15,7 +15,7 @@ public class ProductDataGenerator {
     public static void main(String[] args) {
         String fileName = "rich_products_seed.sql";
         try (PrintWriter out = new PrintWriter(new FileWriter(fileName))) {
-            out.println("-- Generated Rich Product Seed Data for SKRozaanaBazaar");
+            out.println("-- Generated Rich Product Seed Data for SKRozanaBazaar");
             out.println("SET FOREIGN_KEY_CHECKS = 0;");
             out.println("-- We don't truncate here to allow appending, but you can if needed.");
             out.println("SET FOREIGN_KEY_CHECKS = 1;");

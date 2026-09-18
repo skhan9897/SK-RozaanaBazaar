@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${not empty category ? category.name : 'Products'} | SKRozaanaBazaar</title>
+    <title>${not empty category ? category.name : 'Products'} | SKRozanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -96,7 +96,7 @@
                                         <div class="product-card">
                                             <a href="ProductDetailsServlet?id=${product.id}">
                                                 <div class="text-center mb-3" style="height: 180px; display: flex; align-items: center; justify-content: center;">
-                                                    <img src="https://via.placeholder.com/150" alt="${product.productName}" class="img-fluid prod-img" data-name="${product.productName}" style="max-height: 100%;" loading="lazy">
+                                                    <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/150'}" alt="${product.productName}" class="img-fluid prod-img" data-name="${product.productName}" style="max-height: 100%;" loading="lazy">
                                                 </div>
                                             </a>
                                             <div class="product-brand">${product.brand}</div>
@@ -111,7 +111,7 @@
                                                 <span class="discount-text">${product.discount}% off</span>
                                             </div>
                                             <div class="mt-2">
-                                                <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png" height="15" alt="assured">
+                                                <span class="badge badge-primary px-2 py-1" style="font-size: 10px;">SK ASSURED</span>
                                             </div>
                                             <form action="AddToCartServlet" method="POST" class="mt-3">
                                                 <input type="hidden" name="pid" value="${product.id}">
@@ -124,7 +124,9 @@
                         </c:when>
                         <c:otherwise>
                             <div class="text-center py-5">
-                                <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/error-no-search-results_2353c5.png" alt="No products" style="width: 200px;">
+                                <div class="mb-4">
+                                    <i class="fas fa-search-minus fa-5x text-muted opacity-50"></i>
+                                </div>
                                 <h4 class="mt-4">Sorry, no products found!</h4>
                                 <p class="text-muted">Try a different category or search term.</p>
                                 <a href="index.jsp" class="btn btn-primary mt-2 px-5">Go to Homepage</a>
@@ -152,12 +154,14 @@
             };
 
             document.querySelectorAll(".prod-img").forEach(img => {
-                const name = img.getAttribute("data-name");
-                if (name) {
-                    for (let key in images) {
-                        if (name.toLowerCase().includes(key.toLowerCase())) {
-                            img.src = images[key];
-                            break;
+                if (img.src.includes('via.placeholder.com')) {
+                    const name = img.getAttribute("data-name");
+                    if (name) {
+                        for (let key in images) {
+                            if (name.toLowerCase().includes(key.toLowerCase())) {
+                                img.src = images[key];
+                                break;
+                            }
                         }
                     }
                 }

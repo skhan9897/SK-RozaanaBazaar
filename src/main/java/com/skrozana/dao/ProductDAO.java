@@ -120,7 +120,7 @@ public class ProductDAO {
 
     public List<Product> getAllProducts(int offset, int limit) {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT id, category_id, subcategory_id, product_name, brand, price, discount, final_price, stock, sku, image, image2, image3, image4, rating, status FROM products LIMIT ? OFFSET ?";
+        String sql = "SELECT * FROM products LIMIT ? OFFSET ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, limit);

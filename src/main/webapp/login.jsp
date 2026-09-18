@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | SKRozaanaBazaar</title>
+    <title>Login | SKRozanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -22,8 +22,8 @@
             <div class="auth-sidebar d-none d-md-block">
                 <h2 class="font-weight-bold mb-4">Login</h2>
                 <p class="h5" style="line-height: 1.5; opacity: 0.8;">Get access to your Orders, Wishlist and Recommendations</p>
-                <div style="margin-top: 150px;">
-                    <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/login_img_c4a81e.png" class="img-fluid" alt="login-icon">
+                <div class="text-center" style="margin-top: 100px;">
+                    <i class="fas fa-shopping-bag fa-5x text-white opacity-50"></i>
                 </div>
             </div>
 
@@ -52,13 +52,13 @@
                         <input type="password" name="password" class="form-control border-top-0 border-left-0 border-right-0 rounded-0 px-0" style="border-bottom: 2px solid #ddd; box-shadow: none;" required>
                     </div>
 
-                    <p class="small text-secondary mb-4">By continuing, you agree to SKRozaanaBazaar's <a href="#" class="text-primary">Terms of Use</a> and <a href="#" class="text-primary">Privacy Policy</a>.</p>
+                    <p class="small text-secondary mb-4">By continuing, you agree to SKRozanaBazaar's <a href="#" class="text-primary">Terms of Use</a> and <a href="#" class="text-primary">Privacy Policy</a>.</p>
 
                     <button type="submit" class="btn btn-orange btn-block py-3 shadow">Login</button>
                 </form>
 
                 <div class="text-center mt-5">
-                    <a href="register.jsp" class="text-primary font-weight-bold">New to SKRozaanaBazaar? Create an account</a>
+                    <a href="register.jsp" class="text-primary font-weight-bold">New to SKRozanaBazaar? Create an account</a>
                 </div>
             </div>
         </div>

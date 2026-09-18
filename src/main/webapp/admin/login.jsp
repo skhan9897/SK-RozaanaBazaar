@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SK-RozaanaBazaar Admin Login</title>
+    <title>SKRozanaBazaar Admin Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -51,7 +51,7 @@
 <div class="login-card">
     <div class="brand-header">
         <div class="brand-logo"><i class="fas fa-shield-alt"></i></div>
-        <h4 class="font-weight-bold">SK-RozaanaBazaar</h4>
+        <h4 class="font-weight-bold">SKRozanaBazaar</h4>
         <small class="text-muted text-uppercase tracking-wider">Admin Login Portal</small>
     </div>
 
@@ -64,7 +64,7 @@
     <form action="AdminLoginServlet" method="POST">
         <div class="form-group">
             <label for="email"><i class="fas fa-envelope mr-1 text-muted"></i> Email Address</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="admin@skrozaana.com" required>
+            <input type="email" class="form-control" id="email" name="email" placeholder="admin@skrozana.com" required>
         </div>
         <div class="form-group mb-4">
             <label for="password"><i class="fas fa-lock mr-1 text-muted"></i> Password</label>

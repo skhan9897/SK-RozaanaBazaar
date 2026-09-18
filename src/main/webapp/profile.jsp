@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile | SKRozaanaBazaar</title>
+    <title>My Profile | SKRozanaBazaar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -39,7 +39,7 @@
             <!-- Sidebar -->
             <div class="col-lg-3">
                 <div class="bg-white-card p-3 mb-3 d-flex align-items-center">
-                    <img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/profile-pic-male_4811a3.svg" width="50" class="mr-3">
+                    <img src="https://ui-avatars.com/api/?name=${user.name}&background=2874F0&color=fff" width="50" class="mr-3 rounded-circle">
                     <div>
                         <div class="small">Hello,</div>
                         <div class="font-weight-bold">${user.name != null ? user.name : 'Sajid Khan'}</div>
@@ -99,7 +99,7 @@
                 <div class="bg-white-card mt-3 p-3">
                     <h6 class="font-weight-bold mb-3">Frequently Asked Questions</h6>
                     <p class="small text-muted mb-2">What happens when I update my email address (or mobile number)?</p>
-                    <p class="small text-muted">What will happen to my Flipkart account if I update my email address?</p>
+                    <p class="small text-muted">What will happen to my SKRozanaBazaar account if I update my email address?</p>
                 </div>
             </div>
 
@@ -155,7 +155,7 @@
                             <p class="text-muted">Your login email id (or mobile number) changes, likewise. You'll receive all your account related communication on your updated email address (or mobile number).</p>
                         </div>
                         <div class="small mb-4">
-                            <p class="font-weight-bold mb-2">When will my Flipkart account be updated with the new email address (or mobile number)?</p>
+                            <p class="font-weight-bold mb-2">When will my SKRozanaBazaar account be updated with the new email address (or mobile number)?</p>
                             <p class="text-muted">It happens instantly. You can start using your new email address (or mobile number) to login after you confirm it.</p>
                         </div>
                     </div>

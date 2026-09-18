@@ -96,9 +96,11 @@
                                 <span class="review-count">(1,234 Reviews)</span>
                             </div>
                             <div class="price-row">
-                                <span class="price-final">₹${product.finalPrice}</span>
-                                <span class="price-original">₹${product.price}</span>
-                                <span class="discount-text">${product.discount}% OFF</span>
+                                <span class="price-final">₹${not empty product.finalPrice and product.finalPrice > 0 ? product.finalPrice : product.price}</span>
+                                <c:if test="${product.discount > 0}">
+                                    <span class="price-original">₹${product.price}</span>
+                                    <span class="discount-text">${product.discount}% OFF</span>
+                                </c:if>
                             </div>
                             <div class="stock-status ${product.stock > 0 ? 'in-stock' : 'out-of-stock'}">
                                 <c:choose>
@@ -155,9 +157,11 @@
                                 <span class="review-count">(50+)</span>
                             </div>
                             <div class="price-row">
-                                <span class="price-final">₹${product.finalPrice}</span>
-                                <span class="price-original">₹${product.price}</span>
-                                <span class="discount-text">Special Price</span>
+                                <span class="price-final">₹${not empty product.finalPrice and product.finalPrice > 0 ? product.finalPrice : product.price}</span>
+                                <c:if test="${product.discount > 0}">
+                                    <span class="price-original">₹${product.price}</span>
+                                    <span class="discount-text">Special Price</span>
+                                </c:if>
                             </div>
                             <div class="product-actions">
                                 <form action="AddToCartServlet" method="POST" class="flex-grow-1">
@@ -265,11 +269,13 @@
                 div.className = 'product-card fade-in';
 
                 const discountBadge = product.discount > 0 ? `<div class="discount-badge">SAVE ₹${product.discount}</div>` : '';
+                const badge360 = product.has360 ? `<div class="badge badge-info position-absolute" style="top: 40px; left: 10px; z-index: 5; font-size: 10px;">🔄 360°</div>` : '';
                 const rating = product.rating > 0 ? product.rating.toFixed(1) : '4.0';
 
                 div.innerHTML = `
                     <div class="wishlist-icon"><i class="far fa-heart"></i></div>
                     ${discountBadge}
+                    ${badge360}
                     <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none">
                         <div class="product-image-container">
                             <img src="${product.image || 'https://via.placeholder.com/400?text=No+Image'}"
@@ -286,9 +292,11 @@
                             <span class="review-count">(50+)</span>
                         </div>
                         <div class="price-row">
-                            <span class="price-final">₹${product.finalPrice}</span>
-                            <span class="price-original">₹${product.price}</span>
-                            <span class="discount-text">Special Price</span>
+                            <span class="price-final">₹${product.finalPrice || product.price}</span>
+                            ${product.discount > 0 ? `
+                                <span class="price-original">₹${product.price}</span>
+                                <span class="discount-text">Special Price</span>
+                            ` : ''}
                         </div>
                         <div class="product-actions">
                             <form action="AddToCartServlet" method="POST" class="flex-grow-1">

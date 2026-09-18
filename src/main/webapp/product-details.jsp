@@ -117,9 +117,11 @@
                     <div class="mt-3">
                         <span class="text-success font-weight-bold small">Special Price</span>
                         <div class="d-flex align-items-baseline">
-                            <h2 class="font-weight-bold mr-3">₹${product.finalPrice}</h2>
-                            <h5 class="text-muted mr-3"><del>₹${product.price}</del></h5>
-                            <h5 class="text-success font-weight-bold">${product.discount}% off</h5>
+                            <h2 class="font-weight-bold mr-3">₹${not empty product.finalPrice and product.finalPrice > 0 ? product.finalPrice : product.price}</h2>
+                            <c:if test="${product.discount > 0}">
+                                <h5 class="text-muted mr-3"><del>₹${product.price}</del></h5>
+                                <h5 class="text-success font-weight-bold">${product.discount}% off</h5>
+                            </c:if>
                         </div>
                         <p class="text-success font-weight-bold small">+ ₹29 Secured Packaging Fee</p>
                     </div>

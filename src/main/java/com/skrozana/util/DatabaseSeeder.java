@@ -88,10 +88,10 @@ public class DatabaseSeeder {
             
             while (rs.next()) {
                 int productId = rs.getInt("id");
-                String name = rs.getString("product_name").toLowerCase().replace(" ", "-");
+                String name = rs.getString("product_name").toLowerCase().replaceAll("[^a-zA-Z0-9]", "-");
                 for (int i = 1; i <= 24; i++) {
-                    // Pattern for Unsplash random frame (mocking 24 angles)
-                    String imageUrl = "https://source.unsplash.com/featured/800x800?" + name + "-angle-" + i + "&sig=" + (productId * 100 + i);
+                    // Optimized 360 viewer frames with stable signatures
+                    String imageUrl = "https://source.unsplash.com/featured/800x800?" + name + ",angle" + i + "&sig=" + (productId * 1000 + i);
                     
                     ps.setInt(1, productId);
                     ps.setString(2, imageUrl);
@@ -228,8 +228,12 @@ public class DatabaseSeeder {
                 // Using exact Unsplash featured keyword format to guarantee unique, correct images for 500 products
                 String cleanType = type.toLowerCase().replace(" ", "-");
                 String cleanBrand = brand.toLowerCase().replace(" ", "-");
-                String keyword = cleanBrand + "-" + cleanType + "-product";
-                String imgUrl = "https://source.unsplash.com/featured/800x800?" + keyword + "&sig=" + (catId * 10000 + subId * 1000 + i);
+                String keyword = cleanBrand + "," + cleanType + ",product";
+                // High-stability image source with unique signature
+                String imgUrl = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800&h=800&sig=" + (catId * 10000 + subId * 1000 + i);
+                
+                // For variety, let's use the keyword in the search but keep the signature
+                imgUrl = "https://source.unsplash.com/featured/800x800?" + keyword + "&sig=" + (catId * 10000 + subId * 1000 + i);
 
                 ps.setInt(1, catId);
                 ps.setInt(2, subId);

@@ -90,33 +90,42 @@
 
                     <c:choose>
                         <c:when test="${not empty products}">
-                            <div class="row no-gutters border-top">
+                            <div class="product-grid">
                                 <c:forEach var="product" items="${products}">
-                                    <div class="col-lg-3 col-md-4 col-6 border-right border-bottom">
-                                        <div class="product-card">
-                                            <a href="ProductDetailsServlet?id=${product.id}">
-                                                <div class="text-center mb-3" style="height: 180px; display: flex; align-items: center; justify-content: center;">
-                                                    <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/150'}" alt="${product.productName}" class="img-fluid prod-img" data-name="${product.productName}" style="max-height: 100%;" loading="lazy">
-                                                </div>
-                                            </a>
-                                            <div class="product-brand">${product.brand}</div>
-                                            <a href="ProductDetailsServlet?id=${product.id}"><div class="product-name text-truncate" title="${product.productName}">${product.productName}</div></a>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="rating-badge">${product.rating} <i class="fas fa-star fa-xs"></i></span>
-                                                <span class="text-muted small ml-2">(1,234)</span>
+                                    <div class="product-card">
+                                        <c:if test="${product.discount > 0}">
+                                            <div class="discount-badge">${product.discount}% OFF</div>
+                                        </c:if>
+                                        <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none">
+                                            <div class="product-image-container">
+                                                <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/400?text=No+Image'}" alt="${product.productName}" class="product-image" loading="lazy">
                                             </div>
-                                            <div class="d-flex align-items-baseline">
-                                                <span class="price-final">₹${product.finalPrice}</span>
-                                                <span class="price-original">₹${product.price}</span>
-                                                <span class="discount-text">${product.discount}% off</span>
+                                        </a>
+                                        <div class="product-details">
+                                            <div class="product-brand">${not empty product.brand ? product.brand : 'SKR Bazaar'}</div>
+                                            <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none">
+                                                <div class="product-name" title="${product.productName}">${product.productName}</div>
+                                            </a>
+                                            <div class="rating-row">
+                                                <span class="rating-badge">${product.rating > 0 ? product.rating : '4.4'} <i class="fas fa-star fa-xs"></i></span>
+                                                <span class="review-count">(1,234)</span>
+                                            </div>
+                                            <div class="price-row">
+                                                <span class="price-final">₹${not empty product.finalPrice and product.finalPrice > 0 ? product.finalPrice : product.price}</span>
+                                                <c:if test="${product.discount > 0}">
+                                                    <span class="price-original">₹${product.price}</span>
+                                                    <span class="discount-text">${product.discount}% OFF</span>
+                                                </c:if>
                                             </div>
                                             <div class="mt-2">
                                                 <span class="badge badge-primary px-2 py-1" style="font-size: 10px;">SK ASSURED</span>
                                             </div>
-                                            <form action="AddToCartServlet" method="POST" class="mt-3">
-                                                <input type="hidden" name="pid" value="${product.id}">
-                                                <button type="submit" class="btn btn-orange btn-block btn-sm">Add to Cart</button>
-                                            </form>
+                                            <div class="product-actions mt-auto">
+                                                <form action="AddToCartServlet" method="POST" class="flex-grow-1">
+                                                    <input type="hidden" name="pid" value="${product.id}">
+                                                    <button type="submit" class="btn btn-white btn-block">ADD TO CART</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </c:forEach>

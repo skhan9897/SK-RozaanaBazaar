@@ -15,30 +15,33 @@ public class DatabaseSeeder {
     }
 
     public static void seedDatabase() {
-        System.out.println("Starting database seeding process...");
+        System.out.println(">>> SEEDER: Starting database seeding process...");
         try (Connection conn = DBConnection.getConnection()) {
             if (conn == null) {
-                System.err.println("Seeding failed: Could not connect to database (connection is null).");
+                System.err.println(">>> SEEDER ERROR: Could not connect to database (connection is null).");
                 return;
             }
+            System.out.println(">>> SEEDER: Connection established. Checking tables...");
 
-            // Check if products table is empty
+            ensureTablesExist(conn);
+
             String checkSql = "SELECT COUNT(*) FROM products";
             try (Statement st = conn.createStatement();
                  ResultSet rs = st.executeQuery(checkSql)) {
                 if (rs.next() && rs.getInt(1) > 0) {
-                    System.out.println("Products table already has data. Skipping seeding.");
+                    System.out.println(">>> SEEDER: Products already exist (" + rs.getInt(1) + "). Skipping.");
                     return;
                 }
             }
 
-            // Ensure categories exist first
+            System.out.println(">>> SEEDER: No products found. Ensuring categories...");
             ensureBasicCategories(conn);
 
-            System.out.println("Seeding products...");
+            System.out.println(">>> SEEDER: Categories ready. Inserting products...");
+            // ...
+
             
             // Total target: 500+ products
-            // Using IDs that we will ensure exist in ensureBasicCategories
             insertProducts(conn, 1, 101, "Smartphone", new String[]{"iPhone 15 Pro", "Samsung Galaxy S24 Ultra", "Google Pixel 8 Pro", "OnePlus 12", "Nothing Phone (2)"}, 60, "MOB");
             insertProducts(conn, 1, 102, "Tablet", new String[]{"iPad Pro M2", "Samsung Galaxy Tab S9 Ultra", "Microsoft Surface Pro 9"}, 40, "TAB");
             insertProducts(conn, 2, 201, "Laptop", new String[]{"MacBook Pro M3 Max", "Dell XPS 17", "HP Spectre x360", "Razer Blade 16"}, 60, "LAP");
@@ -55,6 +58,70 @@ public class DatabaseSeeder {
         } catch (Exception e) {
             System.err.println("Error during database seeding: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    private static void ensureTablesExist(Connection conn) throws SQLException {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("CREATE TABLE IF NOT EXISTS categories (" +
+                    "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                    "category_name VARCHAR(100) NOT NULL, " +
+                    "parent_id INT DEFAULT 0, " +
+                    "image VARCHAR(255), " +
+                    "status ENUM('active', 'inactive') DEFAULT 'active', " +
+                    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
+                    ")");
+
+            stmt.execute("CREATE TABLE IF NOT EXISTS products (" +
+                    "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                    "category_id INT NOT NULL, " +
+                    "subcategory_id INT, " +
+                    "product_name VARCHAR(255) NOT NULL, " +
+                    "description TEXT, " +
+                    "price DECIMAL(10, 2) NOT NULL, " +
+                    "discount DECIMAL(10, 2) DEFAULT 0.00, " +
+                    "final_price DECIMAL(10, 2) NOT NULL, " +
+                    "stock INT DEFAULT 0, " +
+                    "brand VARCHAR(100), " +
+                    "image VARCHAR(255), " +
+                    "image2 VARCHAR(255), " +
+                    "image3 VARCHAR(255), " +
+                    "image4 VARCHAR(255), " +
+                    "sku VARCHAR(100), " +
+                    "rating DECIMAL(3, 2) DEFAULT 0.00, " +
+                    "status ENUM('active', 'inactive') DEFAULT 'active', " +
+                    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    "FOREIGN KEY (category_id) REFERENCES categories(id)" +
+                    ")");
+
+            stmt.execute("CREATE TABLE IF NOT EXISTS merchants (" +
+                    "id INT PRIMARY KEY AUTO_INCREMENT, " +
+                    "user_id INT NOT NULL, " +
+                    "merchant_id VARCHAR(20) UNIQUE NOT NULL, " +
+                    "business_name VARCHAR(255) NOT NULL, " +
+                    "business_type VARCHAR(100), " +
+                    "pan_number VARCHAR(20), " +
+                    "gstin VARCHAR(20), " +
+                    "business_address TEXT, " +
+                    "terms_accepted BOOLEAN DEFAULT FALSE, " +
+                    "verification_status VARCHAR(20) DEFAULT 'active', " +
+                    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE" +
+                    ")");
+
+            stmt.execute("CREATE TABLE IF NOT EXISTS persistent_sessions (" +
+                    "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                    "user_id INT NOT NULL, " +
+                    "user_type ENUM('CUSTOMER', 'ADMIN') NOT NULL, " +
+                    "selector VARCHAR(255) UNIQUE NOT NULL, " +
+                    "token_hash VARCHAR(255) NOT NULL, " +
+                    "device_info TEXT, " +
+                    "expires_at TIMESTAMP NOT NULL, " +
+                    "last_used_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, " +
+                    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    "revoked BOOLEAN DEFAULT FALSE, " +
+                    "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE" +
+                    ")");
         }
     }
 

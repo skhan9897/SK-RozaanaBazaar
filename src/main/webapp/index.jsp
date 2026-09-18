@@ -138,8 +138,11 @@
                     <i class="fas fa-search fa-5x text-muted opacity-50"></i>
                 </div>
                 <h4 class="mt-4">No products found</h4>
-                <p class="text-muted">Try refreshing or check back later.</p>
-                <a href="HomeServlet" class="btn btn-primary mt-2">Refresh</a>
+                <p class="text-muted">Try refreshing or initializing the database catalog.</p>
+                <div class="d-flex justify-content-center mt-3">
+                    <a href="HomeServlet" class="btn btn-primary mr-2">Refresh Page</a>
+                    <a href="diagnostics?action=seed" class="btn btn-orange">Initialize Store Data</a>
+                </div>
             </div>
         </c:if>
     </div>

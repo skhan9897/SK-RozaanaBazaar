@@ -63,6 +63,7 @@ public class DatabaseSeeder {
 
     private static void ensureTablesExist(Connection conn) throws SQLException {
         try (Statement stmt = conn.createStatement()) {
+            // 1. Categories Table (Simplified base)
             stmt.execute("CREATE TABLE IF NOT EXISTS categories (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "category_name VARCHAR(100) NOT NULL, " +
@@ -72,28 +73,17 @@ public class DatabaseSeeder {
                     "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                     ")");
 
+            // 2. Products Table (Simplified base)
             stmt.execute("CREATE TABLE IF NOT EXISTS products (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "category_id INT NOT NULL, " +
-                    "subcategory_id INT, " +
                     "product_name VARCHAR(255) NOT NULL, " +
-                    "description TEXT, " +
                     "price DECIMAL(10, 2) NOT NULL, " +
-                    "discount DECIMAL(10, 2) DEFAULT 0.00, " +
-                    "final_price DECIMAL(10, 2) NOT NULL, " +
-                    "stock INT DEFAULT 0, " +
-                    "brand VARCHAR(100), " +
-                    "image VARCHAR(255), " +
-                    "image2 VARCHAR(255), " +
-                    "image3 VARCHAR(255), " +
-                    "image4 VARCHAR(255), " +
-                    "sku VARCHAR(100), " +
-                    "rating DECIMAL(3, 2) DEFAULT 0.00, " +
                     "status ENUM('active', 'inactive') DEFAULT 'active', " +
-                    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
-                    "FOREIGN KEY (category_id) REFERENCES categories(id)" +
+                    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                     ")");
 
+            // 3. Merchants Table
             stmt.execute("CREATE TABLE IF NOT EXISTS merchants (" +
                     "id INT PRIMARY KEY AUTO_INCREMENT, " +
                     "user_id INT NOT NULL, " +
@@ -109,6 +99,7 @@ public class DatabaseSeeder {
                     "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE" +
                     ")");
 
+            // 4. Persistent Sessions Table
             stmt.execute("CREATE TABLE IF NOT EXISTS persistent_sessions (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "user_id INT NOT NULL, " +
@@ -122,8 +113,52 @@ public class DatabaseSeeder {
                     "revoked BOOLEAN DEFAULT FALSE, " +
                     "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE" +
                     ")");
+
+
+            System.out.println(">>> SEEDER: Core tables ensured. Running column integrity check...");
+            ensureColumnIntegrity(conn);
         }
     }
+
+    private static void ensureColumnIntegrity(Connection conn) throws SQLException {
+        // Products columns (Required by user)
+        addColumnIfNotExists(conn, "products", "image2", "VARCHAR(255)");
+        addColumnIfNotExists(conn, "products", "image3", "VARCHAR(255)");
+        addColumnIfNotExists(conn, "products", "image4", "VARCHAR(255)");
+        addColumnIfNotExists(conn, "products", "sku", "VARCHAR(100)");
+        addColumnIfNotExists(conn, "products", "rating", "DECIMAL(3, 2) DEFAULT 0.00");
+        addColumnIfNotExists(conn, "products", "description", "TEXT");
+        addColumnIfNotExists(conn, "products", "final_price", "DECIMAL(10, 2) NOT NULL DEFAULT 0.00");
+        
+        // Other missing columns seen in existing DAO
+        addColumnIfNotExists(conn, "products", "subcategory_id", "INT");
+        addColumnIfNotExists(conn, "products", "brand", "VARCHAR(100)");
+        addColumnIfNotExists(conn, "products", "image", "VARCHAR(255)");
+        addColumnIfNotExists(conn, "products", "discount", "DECIMAL(10, 2) DEFAULT 0.00");
+        addColumnIfNotExists(conn, "products", "stock", "INT DEFAULT 0");
+
+        // Categories columns
+        addColumnIfNotExists(conn, "categories", "description", "TEXT");
+    }
+
+    private static void addColumnIfNotExists(Connection conn, String tableName, String columnName, String columnType) throws SQLException {
+        DatabaseMetaData meta = conn.getMetaData();
+        // Note: Table name case sensitivity depends on DB, using uppercase/exact match as needed
+        try (ResultSet rs = meta.getColumns(null, null, tableName, columnName)) {
+            if (!rs.next()) {
+                // Try uppercase for H2/MySQL compatibility if needed
+                try (ResultSet rs2 = meta.getColumns(null, null, tableName.toUpperCase(), columnName.toUpperCase())) {
+                    if (!rs2.next()) {
+                        System.out.println(">>> SEEDER: Adding missing column [" + columnName + "] to table [" + tableName + "]...");
+                        try (Statement stmt = conn.createStatement()) {
+                            stmt.execute("ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + columnType);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     private static void ensureBasicCategories(Connection conn) throws SQLException {
         // Main Categories (parent_id = 0)

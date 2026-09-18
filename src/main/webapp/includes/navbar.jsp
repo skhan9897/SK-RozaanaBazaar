@@ -13,7 +13,13 @@
                 <span class="font-weight-bold" style="font-size: 1.25rem; line-height: 1;">SKRozanaBazaar</span>
                 <span class="plus-text">Explore <span style="color: #ffe500;">Premium</span> <i class="fas fa-star ml-1" style="font-size: 8px;"></i></span>
             </a>
+            <div class="ml-2 d-none d-lg-block">
+                <span class="badge badge-success" style="font-size: 10px; background-color: #28a745; color: white; padding: 2px 6px; border-radius: 10px;">
+                    <i class="fas fa-check-circle mr-1"></i>System Status: Online
+                </span>
+            </div>
         </div>
+
 
         <!-- Search Bar (Desktop) -->
         <div class="search-container d-none d-md-flex flex-grow-1">

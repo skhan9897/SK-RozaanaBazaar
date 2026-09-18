@@ -12,6 +12,25 @@ import java.util.List;
 
 public class CategoryDAO {
     
+    private void extractCategory(ResultSet rs, Category cat) throws SQLException {
+        try {
+            cat.setId(rs.getInt("id"));
+            cat.setName(rs.getString("category_name"));
+            cat.setDescription(rs.getString("description"));
+            cat.setImage(rs.getString("image"));
+            cat.setStatus(rs.getString("status"));
+        } catch (SQLException e) {
+            System.err.println("CRITICAL: Failed to extract category field. Possible column mismatch.");
+            String msg = e.getMessage().toLowerCase();
+            if (msg.contains("id")) System.err.println("Failed column: id");
+            else if (msg.contains("category_name")) System.err.println("Failed column: category_name");
+            else if (msg.contains("description")) System.err.println("Failed column: description");
+            else if (msg.contains("image")) System.err.println("Failed column: image");
+            else if (msg.contains("status")) System.err.println("Failed column: status");
+            throw e;
+        }
+    }
+
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
         String sql = "SELECT * FROM categories WHERE UPPER(status) = 'ACTIVE'";
@@ -22,11 +41,7 @@ public class CategoryDAO {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     Category cat = new Category();
-                    cat.setId(rs.getInt("id"));
-                    cat.setName(rs.getString("category_name"));
-                    cat.setDescription(rs.getString("description"));
-                    cat.setImage(rs.getString("image"));
-                    cat.setStatus(rs.getString("status"));
+                    extractCategory(rs, cat);
                     categories.add(cat);
                 }
             }
@@ -72,11 +87,7 @@ public class CategoryDAO {
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     Category cat = new Category();
-                    cat.setId(rs.getInt("id"));
-                    cat.setName(rs.getString("category_name"));
-                    cat.setDescription(rs.getString("description"));
-                    cat.setImage(rs.getString("image"));
-                    cat.setStatus(rs.getString("status"));
+                    extractCategory(rs, cat);
                     return cat;
                 }
             }
@@ -96,11 +107,7 @@ public class CategoryDAO {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     Category cat = new Category();
-                    cat.setId(rs.getInt("id"));
-                    cat.setName(rs.getString("category_name"));
-                    cat.setDescription(rs.getString("description"));
-                    cat.setImage(rs.getString("image"));
-                    cat.setStatus(rs.getString("status"));
+                    extractCategory(rs, cat);
                     categories.add(cat);
                 }
             }

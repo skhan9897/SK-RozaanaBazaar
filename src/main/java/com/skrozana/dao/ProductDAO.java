@@ -13,25 +13,52 @@ import java.util.List;
 public class ProductDAO {
     
     private void extractProduct(ResultSet rs, Product product) throws SQLException {
-        product.setId(rs.getInt("id"));
-        product.setCategoryId(rs.getInt("category_id"));
-        product.setSubcategoryId((Integer) rs.getObject("subcategory_id"));
-        product.setProductName(rs.getString("product_name"));
-        product.setBrand(rs.getString("brand"));
-        product.setDescription(rs.getString("description"));
-        product.setPrice(rs.getDouble("price"));
-        product.setDiscount(rs.getDouble("discount"));
-        product.setFinalPrice(rs.getDouble("final_price"));
-        product.setStock(rs.getInt("stock"));
-        product.setSku(rs.getString("sku"));
-        product.setImage(rs.getString("image"));
-        product.setImage2(rs.getString("image2"));
-        product.setImage3(rs.getString("image3"));
-        product.setImage4(rs.getString("image4"));
-        product.setRating(rs.getDouble("rating"));
-        product.setStatus(rs.getString("status"));
-        product.setCreatedAt(rs.getTimestamp("created_at"));
+        try {
+            product.setId(rs.getInt("id"));
+            product.setCategoryId(rs.getInt("category_id"));
+            product.setSubcategoryId((Integer) rs.getObject("subcategory_id"));
+            product.setProductName(rs.getString("product_name"));
+            product.setBrand(rs.getString("brand"));
+            product.setDescription(rs.getString("description"));
+            product.setPrice(rs.getDouble("price"));
+            product.setDiscount(rs.getDouble("discount"));
+            product.setFinalPrice(rs.getDouble("final_price"));
+            product.setStock(rs.getInt("stock"));
+            product.setSku(rs.getString("sku"));
+            product.setImage(rs.getString("image"));
+            product.setImage2(rs.getString("image2"));
+            product.setImage3(rs.getString("image3"));
+            product.setImage4(rs.getString("image4"));
+            product.setRating(rs.getDouble("rating"));
+            product.setStatus(rs.getString("status"));
+            product.setCreatedAt(rs.getTimestamp("created_at"));
+        } catch (SQLException e) {
+            System.err.println("CRITICAL: Failed to extract product field. Possible column mismatch.");
+            // Log specific column by checking exception message
+            String msg = e.getMessage().toLowerCase();
+            if (msg.contains("id")) System.err.println("Failed column: id");
+            else if (msg.contains("category_id")) System.err.println("Failed column: category_id");
+            else if (msg.contains("subcategory_id")) System.err.println("Failed column: subcategory_id");
+            else if (msg.contains("product_name")) System.err.println("Failed column: product_name");
+            else if (msg.contains("brand")) System.err.println("Failed column: brand");
+            else if (msg.contains("description")) System.err.println("Failed column: description");
+            else if (msg.contains("price")) System.err.println("Failed column: price");
+            else if (msg.contains("discount")) System.err.println("Failed column: discount");
+            else if (msg.contains("final_price")) System.err.println("Failed column: final_price");
+            else if (msg.contains("stock")) System.err.println("Failed column: stock");
+            else if (msg.contains("sku")) System.err.println("Failed column: sku");
+            else if (msg.contains("image2")) System.err.println("Failed column: image2");
+            else if (msg.contains("image3")) System.err.println("Failed column: image3");
+            else if (msg.contains("image4")) System.err.println("Failed column: image4");
+            else if (msg.contains("image")) System.err.println("Failed column: image");
+            else if (msg.contains("rating")) System.err.println("Failed column: rating");
+            else if (msg.contains("status")) System.err.println("Failed column: status");
+            else if (msg.contains("created_at")) System.err.println("Failed column: created_at");
+            
+            throw e; // Rethrow to let the caller handle the empty list return
+        }
     }
+
 
     public List<Product> searchProducts(String query) {
         List<Product> products = new ArrayList<>();

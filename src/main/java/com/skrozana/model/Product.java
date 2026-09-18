@@ -77,4 +77,8 @@ public class Product {
 
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+
+    private boolean has360;
+    public boolean isHas360() { return has360; }
+    public void setHas360(boolean has360) { this.has360 = has360; }
 }

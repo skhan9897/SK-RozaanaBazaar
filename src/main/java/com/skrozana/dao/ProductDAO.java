@@ -32,6 +32,14 @@ public class ProductDAO {
             product.setRating(rs.getDouble("rating"));
             product.setStatus(rs.getString("status"));
             product.setCreatedAt(rs.getTimestamp("created_at"));
+            
+            // Check for 360 view
+            try {
+                // We use a column alias 'has360' if provided in query, or check separately
+                product.setHas360(rs.getInt("has_360") > 0);
+            } catch (Exception e) {
+                // If column not in result set, we'll fetch it on demand in details or use a safer query
+            }
         } catch (SQLException e) {
             System.err.println("CRITICAL: Failed to extract product field: " + e.getMessage());
             throw e;
@@ -133,9 +141,21 @@ public class ProductDAO {
         return getAllProducts(0, 500); // Default high limit for compatibility
     }
 
-    public List<Product> getAllProducts(int offset, int limit) {
+    public List<Product> getAllProducts(int offset, int limit, String sortBy) {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM products LIMIT ? OFFSET ?";
+        String orderByClause = "id DESC"; // Default
+        
+        if (sortBy != null) {
+            switch (sortBy) {
+                case "priceLow": orderByClause = "final_price ASC"; break;
+                case "priceHigh": orderByClause = "final_price DESC"; break;
+                case "rating": orderByClause = "rating DESC"; break;
+                case "newest": orderByClause = "created_at DESC"; break;
+                case "discount": orderByClause = "(discount/price) DESC"; break;
+            }
+        }
+
+        String sql = "SELECT *, (SELECT COUNT(*) FROM product_images WHERE product_id = p.id AND image_type = '360') as has_360 FROM products p WHERE UPPER(status) = 'ACTIVE' ORDER BY " + orderByClause + " LIMIT ? OFFSET ?";
         try (Connection conn = DBConnection.getConnection()) {
             if (conn == null) return products;
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -149,10 +169,13 @@ public class ProductDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error fetching all products: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Error fetching paginated products: " + e.getMessage());
         }
         return products;
+    }
+
+    public List<Product> getAllProducts(int offset, int limit) {
+        return getAllProducts(offset, limit, null);
     }
 
     public boolean addProduct(Product p) {

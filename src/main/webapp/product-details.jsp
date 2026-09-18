@@ -31,23 +31,15 @@
                             <div class="carousel-item active text-center">
                                 <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/600'}" alt="${product.productName}" class="img-fluid" style="max-height: 450px; object-fit: contain;" loading="lazy">
                             </div>
-                            <c:if test="${not empty product.image2}">
-                                <div class="carousel-item text-center">
-                                    <img src="${product.image2}" alt="${product.productName} 2" class="img-fluid" style="max-height: 450px; object-fit: contain;" loading="lazy">
-                                </div>
-                            </c:if>
-                            <c:if test="${not empty product.image3}">
-                                <div class="carousel-item text-center">
-                                    <img src="${product.image3}" alt="${product.productName} 3" class="img-fluid" style="max-height: 450px; object-fit: contain;" loading="lazy">
-                                </div>
-                            </c:if>
-                            <c:if test="${not empty product.image4}">
-                                <div class="carousel-item text-center">
-                                    <img src="${product.image4}" alt="${product.productName} 4" class="img-fluid" style="max-height: 450px; object-fit: contain;" loading="lazy">
-                                </div>
-                            </c:if>
+                            <c:forEach var="galImg" items="${gallery}">
+                                <c:if test="${galImg.imageType == 'NORMAL'}">
+                                    <div class="carousel-item text-center">
+                                        <img src="${galImg.imageUrl}" alt="${product.productName}" class="img-fluid" style="max-height: 450px; object-fit: contain;" loading="lazy">
+                                    </div>
+                                </c:if>
+                            </c:forEach>
                         </div>
-                        <c:if test="${not empty product.image2}">
+                        <c:if test="${not empty gallery}">
                             <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(100%);"></span>
                                 <span class="sr-only">Previous</span>
@@ -58,12 +50,33 @@
                             </a>
                         </c:if>
 
+                        <c:if test="${not empty images360}">
+                            <div class="btn-360" onclick="open360Viewer()" title="360° View">
+                                <i class="fas fa-redo fa-lg"></i>
+                            </div>
+                        </c:if>
+
                         <!-- Thumbnails -->
                         <div class="d-flex justify-content-center mt-2 pb-2">
                              <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/600'}" class="img-thumbnail mr-1" style="width: 50px; height: 50px; cursor: pointer; object-fit: cover;" onclick="$('#productCarousel').carousel(0)">
-                             <c:if test="${not empty product.image2}"><img src="${product.image2}" class="img-thumbnail mr-1" style="width: 50px; height: 50px; cursor: pointer; object-fit: cover;" onclick="$('#productCarousel').carousel(1)"></c:if>
-                             <c:if test="${not empty product.image3}"><img src="${product.image3}" class="img-thumbnail mr-1" style="width: 50px; height: 50px; cursor: pointer; object-fit: cover;" onclick="$('#productCarousel').carousel(2)"></c:if>
-                             <c:if test="${not empty product.image4}"><img src="${product.image4}" class="img-thumbnail" style="width: 50px; height: 50px; cursor: pointer; object-fit: cover;" onclick="$('#productCarousel').carousel(3)"></c:if>
+                             <c:forEach var="galImg" items="${gallery}" varStatus="status">
+                                <img src="${galImg.imageUrl}" class="img-thumbnail mr-1" style="width: 50px; height: 50px; cursor: pointer; object-fit: cover;" onclick="$('#productCarousel').carousel(${status.index + 1})">
+                             </c:forEach>
+                        </div>
+                    </div>
+
+                    <!-- 360 Viewer Modal -->
+                    <div id="v360Container" class="v360-container">
+                        <span class="v360-close" onclick="close360Viewer()">&times;</span>
+                        <div class="v360-viewer" id="v360Viewer">
+                            <div id="v360Loader" class="v360-loader">Loading 360° View...</div>
+                            <img id="v360Image" class="v360-image" src="">
+                            <div class="v360-controls">
+                                <button class="v360-btn" onclick="prevFrame()"><i class="fas fa-chevron-left"></i></button>
+                                <button class="v360-btn" id="btnAutoRotate" onclick="toggleAutoRotate()"><i class="fas fa-sync-alt"></i></button>
+                                <button class="v360-btn" onclick="nextFrame()"><i class="fas fa-chevron-right"></i></button>
+                                <button class="v360-btn" onclick="reset360()"><i class="fas fa-undo"></i></button>
+                            </div>
                         </div>
                     </div>
 
@@ -165,6 +178,111 @@
     <%@ include file="includes/footer.jsp" %>
 
     <script>
+        const frames360 = [
+            <c:forEach var="img360" items="${images360}" varStatus="status">
+                '${img360.imageUrl}'${not status.last ? ',' : ''}
+            </c:forEach>
+        ];
+
+        let currentFrame = 0;
+        let isDragging = false;
+        let startX = 0;
+        let autoRotateInterval = null;
+
+        function open360Viewer() {
+            document.getElementById('v360Container').style.display = 'flex';
+            loadFrame(0);
+            preloadImages();
+        }
+
+        function close360Viewer() {
+            document.getElementById('v360Container').style.display = 'none';
+            stopAutoRotate();
+        }
+
+        function preloadImages() {
+            const loader = document.getElementById('v360Loader');
+            let loadedCount = 0;
+            frames360.forEach(src => {
+                const img = new Image();
+                img.onload = () => {
+                    loadedCount++;
+                    if (loadedCount === frames360.length) {
+                        loader.style.display = 'none';
+                    }
+                };
+                img.src = src;
+            });
+        }
+
+        function loadFrame(index) {
+            if (index < 0) index = frames360.length - 1;
+            if (index >= frames360.length) index = 0;
+            currentFrame = index;
+            document.getElementById('v360Image').src = frames360[currentFrame];
+        }
+
+        function nextFrame() { loadFrame(currentFrame + 1); }
+        function prevFrame() { loadFrame(currentFrame - 1); }
+        function reset360() { loadFrame(0); stopAutoRotate(); }
+
+        function toggleAutoRotate() {
+            if (autoRotateInterval) {
+                stopAutoRotate();
+            } else {
+                document.getElementById('btnAutoRotate').classList.add('text-primary');
+                autoRotateInterval = setInterval(nextFrame, 150);
+            }
+        }
+
+        function stopAutoRotate() {
+            if (autoRotateInterval) {
+                clearInterval(autoRotateInterval);
+                autoRotateInterval = null;
+                document.getElementById('btnAutoRotate').classList.remove('text-primary');
+            }
+        }
+
+        // Drag & Touch Logic
+        const viewer = document.getElementById('v360Viewer');
+
+        viewer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX;
+            stopAutoRotate();
+        });
+
+        window.addEventListener('mouseup', () => isDragging = false);
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const x = e.pageX;
+            const diff = startX - x;
+            if (Math.abs(diff) > 10) {
+                if (diff > 0) nextFrame();
+                else prevFrame();
+                startX = x;
+            }
+        });
+
+        // Touch Support
+        viewer.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].pageX;
+            stopAutoRotate();
+        });
+        viewer.addEventListener('touchend', () => isDragging = false);
+        viewer.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const x = e.touches[0].pageX;
+            const diff = startX - x;
+            if (Math.abs(diff) > 10) {
+                if (diff > 0) nextFrame();
+                else prevFrame();
+                startX = x;
+            }
+        });
+
         document.addEventListener("DOMContentLoaded", function() {
             // Carousel initialization
             $('#productCarousel').carousel({

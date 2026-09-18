@@ -26,35 +26,53 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-        // Fetch all main categories for the homepage
+        // Handle Pagination & Sorting
+        int page = 1;
+        int pageSize = 20;
+        try {
+            if (request.getParameter("page") != null) page = Integer.parseInt(request.getParameter("page"));
+            if (request.getParameter("size") != null) pageSize = Integer.parseInt(request.getParameter("size"));
+        } catch (NumberFormatException e) {}
+
+        String sortBy = request.getParameter("sort");
+        int offset = (page - 1) * pageSize;
+
+        // Fetch all main categories
         List<Category> categories = categoryDAO.getAllCategories();
         request.setAttribute("categories", categories);
         
-        // Fetch products for Today's Deals (Optimized with LIMIT)
-        List<Product> products = productDAO.getAllProducts(0, 24);
+        // Fetch products with pagination & sorting
+        List<Product> products = productDAO.getAllProducts(offset, pageSize, sortBy);
         
-        // Auto-seed if empty
-        if (products.isEmpty()) {
+        // Auto-seed if database is empty or has very few products
+        if (products.isEmpty() && page == 1) {
             try {
-                System.out.println(">>> HomeServlet: Products list is empty. Triggering DatabaseSeeder...");
-                com.skrozana.util.DatabaseSeeder.seedDatabase(); // Call seedDatabase directly for clarity
+                System.out.println(">>> HomeServlet: Catalog check triggered DatabaseSeeder...");
+                com.skrozana.util.DatabaseSeeder.seedDatabase();
                 
-                // Re-fetch everything after seeding
                 categories = categoryDAO.getAllCategories();
-                products = productDAO.getAllProducts(0, 24);
+                products = productDAO.getAllProducts(0, pageSize, sortBy);
                 
                 request.setAttribute("categories", categories);
-                System.out.println(">>> HomeServlet: Seeding complete. Re-fetched " + products.size() + " products.");
             } catch (Exception e) {
-                System.err.println(">>> HomeServlet Error: Failed to seed database: " + e.getMessage());
-                e.printStackTrace();
+                System.err.println(">>> HomeServlet Error: Seeding failed: " + e.getMessage());
             }
         }
 
-        
+        // AJAX Support for "Load More"
+        if ("true".equals(request.getParameter("ajax"))) {
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            com.google.gson.Gson gson = new com.google.gson.Gson();
+            response.getWriter().write(gson.toJson(products));
+            return;
+        }
+
         request.setAttribute("products", products);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("pageSize", pageSize);
+        request.setAttribute("currentSort", sortBy);
         
-        // Forward to index.jsp
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }

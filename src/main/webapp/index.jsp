@@ -73,20 +73,44 @@
         <!-- Deals of the Day -->
         <div class="bg-white-card mb-4">
             <div class="section-header">
-                <h4 class="section-title">Deals of the Day</h4>
+                <h4 class="section-title"><i class="fas fa-bolt text-warning mr-2"></i>Deals of the Day</h4>
                 <a href="products.jsp" class="btn-view-all">VIEW ALL</a>
             </div>
-            <div class="p-3 scroll-container">
-                <c:forEach var="product" items="${products}" end="7">
-                    <div class="scroll-item">
-                        <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none text-dark">
-                            <div class="product-card text-center">
-                                <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/150'}" alt="${not empty product.productName ? product.productName : 'Product'}" class="img-fluid deal-img" data-name="${product.productName}" loading="lazy">
-                                <div class="product-name mt-2">${not empty product.productName ? product.productName : 'Premium Product'}</div>
-                                <div class="text-success font-weight-bold">From ₹${not empty product.finalPrice ? product.finalPrice : '0.00'}</div>
-                                <div class="text-muted small">${not empty product.brand ? product.brand : 'Bazaar Choice'}</div>
+            <div class="deals-grid">
+                <c:forEach var="product" items="${products}" end="9">
+                    <div class="product-card border-right border-bottom">
+                        <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                        <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none">
+                            <div class="image-container">
+                                <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/200'}" alt="${product.productName}" class="img-fluid deal-img" data-name="${product.productName}" loading="lazy">
                             </div>
                         </a>
+                        <div class="details">
+                            <div class="product-brand">${not empty product.brand ? product.brand : 'SKR Choice'}</div>
+                            <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none">
+                                <div class="product-name" title="${product.productName}">${not empty product.productName ? product.productName : 'Premium Quality Product'}</div>
+                            </a>
+                            <div class="product-desc">${not empty product.description ? product.description : 'Explore our premium collection'}</div>
+                            <div class="rating-row">
+                                <span class="rating-badge">${not empty product.rating && product.rating > 0 ? product.rating : '4.2'} <i class="fas fa-star fa-xs"></i></span>
+                                <span class="review-count">(1,234)</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-final">₹${not empty product.finalPrice ? product.finalPrice : '0.00'}</span>
+                                <span class="price-original">₹${not empty product.price ? product.price : '0.00'}</span>
+                                <span class="discount-text">${not empty product.discount ? product.discount : '10'}% OFF</span>
+                            </div>
+                            <div class="stock-status ${product.stock > 0 ? 'in-stock' : 'out-of-stock'}">
+                                ${product.stock > 0 ? 'In Stock' : 'Out of Stock'}
+                            </div>
+                            <div class="card-actions">
+                                <form action="AddToCartServlet" method="POST" class="flex-grow-1">
+                                    <input type="hidden" name="pid" value="${product.id}">
+                                    <button type="submit" class="btn btn-white btn-block"><i class="fas fa-shopping-cart mr-1"></i> CART</button>
+                                </form>
+                                <a href="CheckoutServlet?pid=${product.id}" class="btn btn-orange flex-grow-1">BUY NOW</a>
+                            </div>
+                        </div>
                     </div>
                 </c:forEach>
             </div>
@@ -97,33 +121,40 @@
             <div class="col-12">
                 <div class="bg-white-card mb-4">
                     <div class="section-header">
-                        <h4 class="section-title">Suggested for You</h4>
+                        <h4 class="section-title"><i class="fas fa-thumbs-up text-primary mr-2"></i>Suggested for You</h4>
                         <a href="products.jsp" class="btn-view-all">VIEW ALL</a>
                     </div>
-                    <div class="row no-gutters p-2">
-                        <c:forEach var="product" items="${products}" begin="0">
-                            <div class="col-lg-2 col-md-3 col-6 border">
-                                <div class="product-card">
-                                    <a href="ProductDetailsServlet?id=${product.id}">
-                                        <div class="text-center mb-3" style="height: 180px; display: flex; align-items: center; justify-content: center;">
-                                            <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/150'}" alt="${not empty product.productName ? product.productName : 'Product'}" class="img-fluid grid-img" data-name="${product.productName}" style="max-height: 100%;" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-brand">${not empty product.brand ? product.brand : 'Premium'}</div>
-                                    <a href="ProductDetailsServlet?id=${product.id}"><div class="product-name text-truncate">${not empty product.productName ? product.productName : 'Premium Product'}</div></a>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <span class="rating-badge">${not empty product.rating ? product.rating : '0.0'} <i class="fas fa-star fa-xs"></i></span>
-                                        <span class="text-muted small ml-2">(1,234)</span>
+                    <div class="deals-grid">
+                        <c:forEach var="product" items="${products}" begin="10">
+                            <div class="product-card border-right border-bottom">
+                                <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                                <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none">
+                                    <div class="image-container">
+                                        <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/200'}" alt="${product.productName}" class="img-fluid grid-img" data-name="${product.productName}" loading="lazy">
                                     </div>
-                                    <div class="d-flex align-items-baseline">
+                                </a>
+                                <div class="details">
+                                    <div class="product-brand">${not empty product.brand ? product.brand : 'Premium'}</div>
+                                    <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none">
+                                        <div class="product-name">${not empty product.productName ? product.productName : 'Quality Item'}</div>
+                                    </a>
+                                    <div class="product-desc">${not empty product.description ? product.description : 'High-end features and style'}</div>
+                                    <div class="rating-row">
+                                        <span class="rating-badge">${not empty product.rating && product.rating > 0 ? product.rating : '4.5'} <i class="fas fa-star fa-xs"></i></span>
+                                        <span class="review-count">(982)</span>
+                                    </div>
+                                    <div class="price-row">
                                         <span class="price-final">₹${not empty product.finalPrice ? product.finalPrice : '0.00'}</span>
                                         <span class="price-original">₹${not empty product.price ? product.price : '0.00'}</span>
-                                        <span class="discount-text">${not empty product.discount ? product.discount : '0'}% off</span>
+                                        <span class="discount-text">${not empty product.discount ? product.discount : '15'}% OFF</span>
                                     </div>
-                                    <form action="AddToCartServlet" method="POST" class="mt-3">
-                                        <input type="hidden" name="pid" value="${product.id}">
-                                        <button type="submit" class="btn btn-orange btn-block btn-sm">Add to Cart</button>
-                                    </form>
+                                    <div class="card-actions">
+                                        <form action="AddToCartServlet" method="POST" class="flex-grow-1">
+                                            <input type="hidden" name="pid" value="${product.id}">
+                                            <button type="submit" class="btn btn-white btn-block">ADD TO CART</button>
+                                        </form>
+                                        <a href="CheckoutServlet?pid=${product.id}" class="btn btn-orange flex-grow-1">BUY NOW</a>
+                                    </div>
                                 </div>
                             </div>
                         </c:forEach>

@@ -13,12 +13,18 @@ public class DBConnection {
     private static HikariDataSource dataSource;
 
     static {
+        System.out.println("Initializing DBConnection static block...");
         try {
+            System.out.println("Loading MySQL Driver: com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            
             HikariConfig config = new HikariConfig();
             String url = System.getenv("DB_URL") != null ? System.getenv("DB_URL") : DEFAULT_URL;
             String user = System.getenv("DB_USER") != null ? System.getenv("DB_USER") : DEFAULT_USER;
             String password = System.getenv("DB_PASSWORD") != null ? System.getenv("DB_PASSWORD") : DEFAULT_PASSWORD;
 
+            System.out.println("Connecting to database URL: " + (url != null ? url.split("\\?")[0] : "null"));
+            
             config.setJdbcUrl(url);
             config.setUsername(user);
             config.setPassword(password);
@@ -34,17 +40,29 @@ public class DBConnection {
             config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
             dataSource = new HikariDataSource(config);
+            System.out.println("HikariCP Data Source initialized successfully.");
         } catch (Exception e) {
+            System.err.println("CRITICAL: Failed to initialize HikariCP Data Source!");
+            System.err.println("Error details: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public static Connection getConnection() {
+    public static Connection getConnection() throws SQLException {
+        if (dataSource == null) {
+            System.err.println("DBConnection.getConnection() called but dataSource is NULL!");
+            throw new SQLException("Data Source is not initialized. Check server logs for startup errors.");
+        }
+        
         try {
-            return dataSource.getConnection();
+            Connection conn = dataSource.getConnection();
+            if (conn == null) {
+                throw new SQLException("HikariDataSource.getConnection() returned null.");
+            }
+            return conn;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            System.err.println("Error getting connection from data source: " + e.getMessage());
+            throw e;
         }
     }
 }

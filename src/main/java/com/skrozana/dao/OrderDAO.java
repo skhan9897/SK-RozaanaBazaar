@@ -6,6 +6,7 @@ import com.skrozana.util.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,10 @@ public class OrderDAO {
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
+            if (conn == null) {
+                System.err.println("Error placing order: Connection is null");
+                return 0;
+            }
             conn.setAutoCommit(false);
             
             try (PreparedStatement ps = conn.prepareStatement(orderSql, Statement.RETURN_GENERATED_KEYS)) {
@@ -67,14 +72,15 @@ public class OrderDAO {
                     return orderId;
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             if (conn != null) {
-                try { conn.rollback(); } catch (Exception ex) { ex.printStackTrace(); }
+                try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
             }
+            System.err.println("Error placing order: " + e.getMessage());
             e.printStackTrace();
         } finally {
             if (conn != null) {
-                try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+                try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
             }
         }
         return 0;
@@ -83,24 +89,27 @@ public class OrderDAO {
     public List<Order> getOrdersByUser(int userId) {
         List<Order> orders = new ArrayList<>();
         String sql = "SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, userId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Order order = new Order();
-                order.setId(rs.getInt("id"));
-                order.setUserId(rs.getInt("user_id"));
-                order.setOrderNumber(rs.getString("order_number"));
-                order.setTotalAmount(rs.getDouble("total_amount"));
-                order.setShippingAddress(rs.getString("shipping_address"));
-                order.setPaymentMethod(rs.getString("payment_method"));
-                order.setPaymentStatus(rs.getString("payment_status"));
-                order.setOrderStatus(rs.getString("order_status"));
-                order.setCreatedAt(rs.getTimestamp("created_at"));
-                orders.add(order);
+        try (Connection conn = DBConnection.getConnection()) {
+            if (conn == null) return orders;
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, userId);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Order order = new Order();
+                    order.setId(rs.getInt("id"));
+                    order.setUserId(rs.getInt("user_id"));
+                    order.setOrderNumber(rs.getString("order_number"));
+                    order.setTotalAmount(rs.getDouble("total_amount"));
+                    order.setShippingAddress(rs.getString("shipping_address"));
+                    order.setPaymentMethod(rs.getString("payment_method"));
+                    order.setPaymentStatus(rs.getString("payment_status"));
+                    order.setOrderStatus(rs.getString("order_status"));
+                    order.setCreatedAt(rs.getTimestamp("created_at"));
+                    orders.add(order);
+                }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println("Error fetching orders for user: " + e.getMessage());
             e.printStackTrace();
         }
         return orders;
@@ -109,23 +118,26 @@ public class OrderDAO {
     public List<Order> getAllOrders() {
         List<Order> orders = new ArrayList<>();
         String sql = "SELECT * FROM orders ORDER BY created_at DESC";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Order order = new Order();
-                order.setId(rs.getInt("id"));
-                order.setUserId(rs.getInt("user_id"));
-                order.setOrderNumber(rs.getString("order_number"));
-                order.setTotalAmount(rs.getDouble("total_amount"));
-                order.setShippingAddress(rs.getString("shipping_address"));
-                order.setPaymentMethod(rs.getString("payment_method"));
-                order.setPaymentStatus(rs.getString("payment_status"));
-                order.setOrderStatus(rs.getString("order_status"));
-                order.setCreatedAt(rs.getTimestamp("created_at"));
-                orders.add(order);
+        try (Connection conn = DBConnection.getConnection()) {
+            if (conn == null) return orders;
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Order order = new Order();
+                    order.setId(rs.getInt("id"));
+                    order.setUserId(rs.getInt("user_id"));
+                    order.setOrderNumber(rs.getString("order_number"));
+                    order.setTotalAmount(rs.getDouble("total_amount"));
+                    order.setShippingAddress(rs.getString("shipping_address"));
+                    order.setPaymentMethod(rs.getString("payment_method"));
+                    order.setPaymentStatus(rs.getString("payment_status"));
+                    order.setOrderStatus(rs.getString("order_status"));
+                    order.setCreatedAt(rs.getTimestamp("created_at"));
+                    orders.add(order);
+                }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println("Error fetching all orders: " + e.getMessage());
             e.printStackTrace();
         }
         return orders;
@@ -137,24 +149,27 @@ public class OrderDAO {
         if ("Pending".equalsIgnoreCase(status)) {
             sql = "SELECT * FROM orders WHERE (UPPER(order_status) = ? OR UPPER(order_status) = 'PLACED') ORDER BY created_at DESC";
         }
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, status.toUpperCase());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Order order = new Order();
-                order.setId(rs.getInt("id"));
-                order.setUserId(rs.getInt("user_id"));
-                order.setOrderNumber(rs.getString("order_number"));
-                order.setTotalAmount(rs.getDouble("total_amount"));
-                order.setShippingAddress(rs.getString("shipping_address"));
-                order.setPaymentMethod(rs.getString("payment_method"));
-                order.setPaymentStatus(rs.getString("payment_status"));
-                order.setOrderStatus(rs.getString("order_status"));
-                order.setCreatedAt(rs.getTimestamp("created_at"));
-                orders.add(order);
+        try (Connection conn = DBConnection.getConnection()) {
+            if (conn == null) return orders;
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, status.toUpperCase());
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Order order = new Order();
+                    order.setId(rs.getInt("id"));
+                    order.setUserId(rs.getInt("user_id"));
+                    order.setOrderNumber(rs.getString("order_number"));
+                    order.setTotalAmount(rs.getDouble("total_amount"));
+                    order.setShippingAddress(rs.getString("shipping_address"));
+                    order.setPaymentMethod(rs.getString("payment_method"));
+                    order.setPaymentStatus(rs.getString("payment_status"));
+                    order.setOrderStatus(rs.getString("order_status"));
+                    order.setCreatedAt(rs.getTimestamp("created_at"));
+                    orders.add(order);
+                }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println("Error fetching orders by status: " + e.getMessage());
             e.printStackTrace();
         }
         return orders;
@@ -162,12 +177,15 @@ public class OrderDAO {
 
     public boolean updateOrderStatus(int orderId, String status) {
         String sql = "UPDATE orders SET order_status = ? WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, status);
-            ps.setInt(2, orderId);
-            return ps.executeUpdate() > 0;
-        } catch (Exception e) {
+        try (Connection conn = DBConnection.getConnection()) {
+            if (conn == null) return false;
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, status);
+                ps.setInt(2, orderId);
+                return ps.executeUpdate() > 0;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error updating order status: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
@@ -175,24 +193,27 @@ public class OrderDAO {
 
     public Order getOrderById(int id) {
         String sql = "SELECT * FROM orders WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Order order = new Order();
-                order.setId(rs.getInt("id"));
-                order.setUserId(rs.getInt("user_id"));
-                order.setOrderNumber(rs.getString("order_number"));
-                order.setTotalAmount(rs.getDouble("total_amount"));
-                order.setShippingAddress(rs.getString("shipping_address"));
-                order.setPaymentMethod(rs.getString("payment_method"));
-                order.setPaymentStatus(rs.getString("payment_status"));
-                order.setOrderStatus(rs.getString("order_status"));
-                order.setCreatedAt(rs.getTimestamp("created_at"));
-                return order;
+        try (Connection conn = DBConnection.getConnection()) {
+            if (conn == null) return null;
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    Order order = new Order();
+                    order.setId(rs.getInt("id"));
+                    order.setUserId(rs.getInt("user_id"));
+                    order.setOrderNumber(rs.getString("order_number"));
+                    order.setTotalAmount(rs.getDouble("total_amount"));
+                    order.setShippingAddress(rs.getString("shipping_address"));
+                    order.setPaymentMethod(rs.getString("payment_method"));
+                    order.setPaymentStatus(rs.getString("payment_status"));
+                    order.setOrderStatus(rs.getString("order_status"));
+                    order.setCreatedAt(rs.getTimestamp("created_at"));
+                    return order;
+                }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println("Error fetching order by ID: " + e.getMessage());
             e.printStackTrace();
         }
         return null;
@@ -201,16 +222,19 @@ public class OrderDAO {
     public java.util.Map<String, Integer> getOrdersByState() {
         java.util.Map<String, Integer> stateData = new java.util.HashMap<>();
         String sql = "SELECT u.state, COUNT(o.id) as count FROM orders o JOIN users u ON o.user_id = u.id GROUP BY u.state";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String state = rs.getString("state");
-                if (state != null && !state.isEmpty()) {
-                    stateData.put(state, rs.getInt("count"));
+        try (Connection conn = DBConnection.getConnection()) {
+            if (conn == null) return stateData;
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    String state = rs.getString("state");
+                    if (state != null && !state.isEmpty()) {
+                        stateData.put(state, rs.getInt("count"));
+                    }
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println("Error fetching orders by state: " + e.getMessage());
             e.printStackTrace();
         }
         return stateData;

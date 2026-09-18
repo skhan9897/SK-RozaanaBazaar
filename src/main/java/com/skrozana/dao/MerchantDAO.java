@@ -12,14 +12,14 @@ import java.util.Random;
 
 public class MerchantDAO {
 
-    public String registerMerchant(User user, Merchant merchant) throws Exception {
+    public String registerMerchant(User user, Merchant merchant) throws SQLException, Exception {
         // Check if email or mobile already exists
         String checkSql = "SELECT id FROM users WHERE email = ? OR mobile = ?";
         
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
-            if (conn == null) throw new Exception("Database connection failed!");
+            if (conn == null) throw new SQLException("Database connection failed!");
 
             // Automatically create merchants table if it doesn't exist (Auto-Fix)
             String createTableSql = "CREATE TABLE IF NOT EXISTS merchants (" +
@@ -91,7 +91,7 @@ public class MerchantDAO {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             if (conn != null && !conn.getAutoCommit()) {
                 try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
             }
@@ -116,20 +116,23 @@ public class MerchantDAO {
     
     public User loginMerchant(String merchantId, String password) {
         String sql = "SELECT u.* FROM users u JOIN merchants m ON u.id = m.user_id WHERE m.merchant_id = ? AND u.password = ? AND u.role = 'ADMIN' AND UPPER(u.status) = 'ACTIVE'";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, merchantId);
-            ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("email"));
-                user.setRole(rs.getString("role"));
-                return user;
+        try (Connection conn = DBConnection.getConnection()) {
+            if (conn == null) return null;
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, merchantId);
+                ps.setString(2, password);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setName(rs.getString("name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setRole(rs.getString("role"));
+                    return user;
+                }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println("Error during merchant login: " + e.getMessage());
             e.printStackTrace();
         }
         return null;

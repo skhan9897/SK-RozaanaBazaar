@@ -18,7 +18,7 @@ public class DatabaseSeeder {
         System.out.println("Starting database seeding process...");
         try (Connection conn = DBConnection.getConnection()) {
             if (conn == null) {
-                System.err.println("Seeding failed: Could not connect to database.");
+                System.err.println("Seeding failed: Could not connect to database (connection is null).");
                 return;
             }
 
@@ -52,8 +52,8 @@ public class DatabaseSeeder {
             insertProducts(conn, 8, 801, "Gourmet Rice", new String[]{"Lundberg Organic", "Lotus Foods Heirloom", "India Gate Select"}, 50, "GRO");
 
             System.out.println("Seeding completed successfully!");
-        } catch (SQLException e) {
-            System.err.println("SQL Error during seeding: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error during database seeding: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -138,9 +138,6 @@ public class DatabaseSeeder {
                 ps.setString(4, brand);
                 ps.setString(5, desc);
                 ps.setDouble(6, price);
-                ps.setDouble(7, (double) discountPercent); // Based on schema, 'discount' might be a percentage or amount.
-                // Re-calculating based on standard e-commerce logic (discount as amount usually, but let's check schema again)
-                // schema: discount DECIMAL(10, 2) DEFAULT 0.00, final_price DECIMAL(10, 2) NOT NULL
                 ps.setDouble(7, discountAmt); 
                 ps.setDouble(8, finalPrice);
                 ps.setInt(9, stock);

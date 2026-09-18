@@ -35,8 +35,14 @@ public class HomeServlet extends HttpServlet {
         
         // Auto-seed if empty
         if (products.isEmpty()) {
-            com.skrozana.util.DatabaseSeeder.main(null);
-            products = productDAO.getAllProducts(0, 24);
+            try {
+                System.out.println("Products list is empty. Triggering DatabaseSeeder...");
+                com.skrozana.util.DatabaseSeeder.main(null);
+                products = productDAO.getAllProducts(0, 24);
+            } catch (Exception e) {
+                System.err.println("Failed to seed database from HomeServlet: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
         
         request.setAttribute("products", products);

@@ -49,16 +49,7 @@
                                 <a href="CategoryServlet?id=${cat.id}" class="text-decoration-none">
                                     <div class="category-item-card text-center h-100">
                                         <div class="category-img-wrapper">
-                                            <c:set var="catImg" value="https://via.placeholder.com/150?text=${cat.name}" />
-                                            <c:choose>
-                                                <c:when test="${cat.id == 1}"><c:set var="catImg" value="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200" /></c:when>
-                                                <c:when test="${cat.id == 2}"><c:set var="catImg" value="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200" /></c:when>
-                                                <c:when test="${cat.id == 3}"><c:set var="catImg" value="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200" /></c:when>
-                                                <c:when test="${cat.id == 4}"><c:set var="catImg" value="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=200" /></c:when>
-                                                <c:when test="${cat.id == 5}"><c:set var="catImg" value="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=200" /></c:when>
-                                                <c:when test="${cat.id == 6}"><c:set var="catImg" value="https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?w=200" /></c:when>
-                                            </c:choose>
-                                            <img src="${catImg}" class="img-fluid" style="max-height: 100px; object-fit: contain;" alt="${cat.name}">
+                                            <img src="${not empty cat.image ? cat.image : 'https://via.placeholder.com/150?text=' + cat.name}" class="img-fluid" style="max-height: 100px; object-fit: contain;" alt="${cat.name}">
                                         </div>
                                         <div class="p-3">
                                             <h6 class="font-weight-bold text-dark mb-1" style="font-size: 0.95rem;">${cat.name}</h6>
@@ -70,54 +61,10 @@
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
-                        <!-- Fallback static categories for demo if no data -->
-                        <div class="col-lg-2 col-md-3 col-6 mb-4">
-                            <a href="#" class="text-decoration-none">
-                                <div class="category-item-card text-center h-100">
-                                    <div class="category-img-wrapper"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200" class="img-fluid" style="max-height: 100px; object-fit: contain;"></div>
-                                    <div class="p-3"><h6 class="font-weight-bold text-dark mb-1">Mobiles</h6><span class="text-success small font-weight-bold">Shop Now</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6 mb-4">
-                            <a href="#" class="text-decoration-none">
-                                <div class="category-item-card text-center h-100">
-                                    <div class="category-img-wrapper"><img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200" class="img-fluid" style="max-height: 100px; object-fit: contain;"></div>
-                                    <div class="p-3"><h6 class="font-weight-bold text-dark mb-1">Laptops</h6><span class="text-success small font-weight-bold">Shop Now</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6 mb-4">
-                            <a href="#" class="text-decoration-none">
-                                <div class="category-item-card text-center h-100">
-                                    <div class="category-img-wrapper"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200" class="img-fluid" style="max-height: 100px; object-fit: contain;"></div>
-                                    <div class="p-3"><h6 class="font-weight-bold text-dark mb-1">Electronics</h6><span class="text-success small font-weight-bold">Shop Now</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6 mb-4">
-                            <a href="#" class="text-decoration-none">
-                                <div class="category-item-card text-center h-100">
-                                    <div class="category-img-wrapper"><img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=200" class="img-fluid" style="max-height: 100px; object-fit: contain;"></div>
-                                    <div class="p-3"><h6 class="font-weight-bold text-dark mb-1">Appliances</h6><span class="text-success small font-weight-bold">Shop Now</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6 mb-4">
-                            <a href="#" class="text-decoration-none">
-                                <div class="category-item-card text-center h-100">
-                                    <div class="category-img-wrapper"><img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=200" class="img-fluid" style="max-height: 100px; object-fit: contain;"></div>
-                                    <div class="p-3"><h6 class="font-weight-bold text-dark mb-1">Fashion</h6><span class="text-success small font-weight-bold">Shop Now</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6 mb-4">
-                            <a href="#" class="text-decoration-none">
-                                <div class="category-item-card text-center h-100">
-                                    <div class="category-img-wrapper"><img src="https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?w=200" class="img-fluid" style="max-height: 100px; object-fit: contain;"></div>
-                                    <div class="p-3"><h6 class="font-weight-bold text-dark mb-1">Home & Kitchen</h6><span class="text-success small font-weight-bold">Shop Now</span></div>
-                                </div>
-                            </a>
+                        <div class="col-12 text-center py-5">
+                            <i class="fas fa-list fa-3x text-muted mb-3"></i>
+                            <h5>No categories found.</h5>
+                            <a href="index" class="btn btn-primary mt-3">Back to Store</a>
                         </div>
                     </c:otherwise>
                 </c:choose>

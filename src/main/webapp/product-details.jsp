@@ -166,33 +166,18 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Carousel initialization if needed
+            // Carousel initialization
             $('#productCarousel').carousel({
                 interval: false
             });
 
-            const images = {
-                "Galaxy": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800",
-                "iPhone": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800",
-                "Laptop": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800",
-                "Shirt": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800",
-                "Shoes": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
-                "Watch": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800",
-                "Earbuds": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800"
-            };
-
-            const mainImg = document.querySelector("#productCarousel .carousel-item.active img");
-            if (mainImg && mainImg.src.includes('via.placeholder.com')) {
-                const name = "${product.productName}";
-                for (let key in images) {
-                    if (name.toLowerCase().includes(key.toLowerCase())) {
-                        mainImg.src = images[key];
-                        // Also update thumbnail
-                        document.querySelector(".img-thumbnail").src = images[key];
-                        break;
-                    }
-                }
-            }
+            // Handle broken images
+            document.querySelectorAll('img').forEach(img => {
+                img.onerror = function() {
+                    this.onerror = null;
+                    this.src = 'https://via.placeholder.com/600?text=Image+Unavailable';
+                };
+            });
         });
     </script>
 </body>

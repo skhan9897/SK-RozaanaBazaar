@@ -11,7 +11,7 @@
         <div class="d-flex align-items-center">
             <a class="navbar-brand text-white d-flex flex-column" href="index.jsp" style="text-decoration: none;">
                 <span class="font-weight-bold" style="font-size: 1.25rem; line-height: 1;">SKRozanaBazaar</span>
-                <span class="plus-text" style="color: #ffe500; font-style: italic; font-size: 11px; margin-top: -3px; display: block; font-weight: 500;">Explore <span style="color: #ffe500;">Premium</span> <i class="fas fa-star ml-1" style="font-size: 8px;"></i></span>
+                <span class="plus-text" style="color: #ffe500; font-style: italic; font-size: 11px; margin-top: -3px; display: block; font-weight: 500;">Online Marketplace</span>
             </a>
         </div>
 

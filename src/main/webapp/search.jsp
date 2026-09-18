@@ -99,25 +99,12 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const images = {
-                "Galaxy": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400",
-                "iPhone": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400",
-                "Laptop": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400",
-                "Shoes": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400"
-            };
-
-            document.querySelectorAll(".search-img").forEach(img => {
-                if (img.src.includes('via.placeholder.com')) {
-                    const name = img.getAttribute("data-name");
-                    if (name) {
-                        for (let key in images) {
-                            if (name.toLowerCase().includes(key.toLowerCase())) {
-                                img.src = images[key];
-                                break;
-                            }
-                        }
-                    }
-                }
+            // Remove JS keyword mapping logic.
+            document.querySelectorAll('img').forEach(img => {
+                img.onerror = function() {
+                    this.onerror = null;
+                    this.src = 'https://via.placeholder.com/400?text=Image+Unavailable';
+                };
             });
         });
     </script>

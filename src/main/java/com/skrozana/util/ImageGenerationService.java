@@ -23,15 +23,17 @@ public class ImageGenerationService {
         Map<String, String> results = new HashMap<>();
         String brand = product.getBrand() != null ? product.getBrand() : "";
         String name = product.getProductName() != null ? product.getProductName() : "product";
-        String baseQuery = (brand + " " + name).trim();
         
+        // Use a more descriptive query for Unsplash
+        String query = sanitize(brand + " " + name);
         String folderPath = categoryName.toLowerCase().replaceAll("[^a-z0-9]", "-");
         File dir = new File(STORAGE_ROOT + folderPath);
         if (!dir.exists()) dir.mkdirs();
 
         for (int i = 1; i <= 4; i++) {
             String keyword = PREMIUM_KEYWORDS[i - 1];
-            String sourceUrl = "https://picsum.photos/1024/1024?random=" + (Math.abs(product.getProductName().hashCode()) + i + product.getId());
+            // Using a unique signature for each product + slot to ensure one-to-one mapping
+            String sourceUrl = "https://source.unsplash.com/1024x1024/?" + query + "," + keyword + "&sig=" + (product.getId() * 10 + i);
             String fileName = "product-" + product.getId() + "-" + i + ".jpg";
             String relativePath = "images/products/" + folderPath + "/" + fileName;
             

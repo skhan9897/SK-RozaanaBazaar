@@ -186,46 +186,22 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Image mapping for premium look
-            const images = {
-                "Galaxy": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400",
-                "iPhone": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400",
-                "Laptop": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400",
-                "Shirt": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400",
-                "Shoes": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
-                "Watch": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400",
-                "Headphones": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
-                "Grocery": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=200",
-                "Mobile": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200",
-                "Fashion": "https://images.unsplash.com/photo-1445205170230-053b83016050?w=200",
-                "Electronics": "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=200",
-                "Home": "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=200",
-                "Appliances": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=200"
-            };
-
-            function setImages(selector) {
-                document.querySelectorAll(selector).forEach(img => {
-                    if (img.src.includes('via.placeholder.com')) {
-                        const name = img.getAttribute("data-name");
-                        if (name) {
-                            for (let key in images) {
-                                if (name.toLowerCase().includes(key.toLowerCase())) {
-                                    img.src = images[key];
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            setImages(".grid-img");
-            setImages(".deal-img");
-            setImages(".category-icon-img");
+            // Remove JS keyword mapping logic as we now have correct DB mapping.
+            // Placeholder onerror handler for broken images
+            document.querySelectorAll('img').forEach(img => {
+                img.onerror = function() {
+                    this.onerror = null;
+                    this.src = 'https://via.placeholder.com/400?text=Image+Unavailable';
+                };
+            });
 
             // Hide Splash
             setTimeout(() => {
-                document.getElementById('splash-screen').classList.add('hidden');
+                const splash = document.getElementById('splash-screen');
+                if (splash) {
+                    splash.classList.add('hidden');
+                    setTimeout(() => splash.style.display = 'none', 500);
+                }
             }, 2000);
         });
     </script>

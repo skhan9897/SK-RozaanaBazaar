@@ -25,12 +25,23 @@ public class DiagnosticServlet extends HttpServlet {
             }
             response.sendRedirect("diagnostics");
             return;
+        } else if ("fixMappings".equals(action)) {
+            try {
+                com.skrozana.util.CatalogAuditFixer.fixAllProductMappings();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            response.sendRedirect("diagnostics");
+            return;
         }
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<html><head><title>Diagnostics</title></head><body><h1>SKRozanaBazaar Diagnostics</h1>");
-        out.println("<a href='diagnostics?action=seed' style='display:inline-block; padding:10px 20px; background:#007bff; color:white; text-decoration:none; border-radius:5px;'>FORCE SEED DATABASE</a><br><br>");
+        out.println("<div style='display:flex; gap:10px;'>");
+        out.println("<a href='diagnostics?action=seed' style='display:inline-block; padding:10px 20px; background:#007bff; color:white; text-decoration:none; border-radius:5px;'>FORCE SEED DATABASE</a>");
+        out.println("<a href='diagnostics?action=fixMappings' style='display:inline-block; padding:10px 20px; background:#28a745; color:white; text-decoration:none; border-radius:5px;'>FIX PRODUCT IMAGE MAPPINGS</a>");
+        out.println("</div><br><br>");
 
         try (Connection conn = DBConnection.getConnection()) {
             if (conn != null) {

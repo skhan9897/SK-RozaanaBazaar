@@ -37,6 +37,10 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("api/user")
+    Call<Map<String, Object>> validateToken(@Field("action") String action, @Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("api/user")
     Call<Map<String, Object>> sendOtp(@Field("action") String action, @Field("phone") String phone);
 
     @FormUrlEncoded

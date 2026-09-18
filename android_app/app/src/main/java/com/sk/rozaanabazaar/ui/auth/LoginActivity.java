@@ -105,8 +105,14 @@ public class LoginActivity extends AppCompatActivity {
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
-                        String name = (String) body.get("name");
-                        String token = body.containsKey("token") ? (String) body.get("token") : "";
+                        String name = "";
+                        if (body.containsKey("user")) {
+                            Map<String, Object> user = (Map<String, Object>) body.get("user");
+                            name = (String) user.get("name");
+                            userId = ((Double) user.get("id")).intValue();
+                        }
+                        
+                        String token = (String) body.get("persistentToken");
                         sessionManager.createLoginSession(userId, name, token);
 
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));

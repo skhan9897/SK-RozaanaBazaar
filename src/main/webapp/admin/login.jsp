@@ -66,9 +66,12 @@
             <label for="email"><i class="fas fa-envelope mr-1 text-muted"></i> Email Address</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="admin@skrozana.com" required>
         </div>
-        <div class="form-group mb-4">
-            <label for="password"><i class="fas fa-lock mr-1 text-muted"></i> Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" required>
+        <div class="form-group mb-4 d-flex justify-content-between">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="rememberMe" class="custom-control-input" id="rememberMe">
+                <label class="custom-control-label small text-muted" for="rememberMe">Remember me</label>
+            </div>
+            <a href="#" class="small text-primary">Forgot Password?</a>
         </div>
         <button type="submit" class="btn btn-primary btn-block btn-lg font-weight-bold shadow-sm">
             Sign In <i class="fas fa-sign-in-alt ml-1"></i>

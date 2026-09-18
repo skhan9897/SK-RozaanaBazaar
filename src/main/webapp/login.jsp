@@ -52,6 +52,14 @@
                         <input type="password" name="password" class="form-control border-top-0 border-left-0 border-right-0 rounded-0 px-0" style="border-bottom: 2px solid #ddd; box-shadow: none;" required>
                     </div>
 
+                    <div class="form-group mb-4 d-flex justify-content-between">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="rememberMe" class="custom-control-input" id="rememberMe">
+                            <label class="custom-control-label small text-secondary" for="rememberMe">Remember me</label>
+                        </div>
+                        <a href="#" class="small text-primary font-weight-bold">Forgot?</a>
+                    </div>
+
                     <p class="small text-secondary mb-4">By continuing, you agree to SKRozanaBazaar's <a href="#" class="text-primary">Terms of Use</a> and <a href="#" class="text-primary">Privacy Policy</a>.</p>
 
                     <button type="submit" class="btn btn-orange btn-block py-3 shadow">Login</button>

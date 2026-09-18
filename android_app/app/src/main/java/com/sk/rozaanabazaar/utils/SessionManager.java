@@ -20,28 +20,23 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    public void createLoginSession(int userId, String userName, String token) {
+    private static final String KEY_PERSISTENT_TOKEN = "persistentToken";
+
+    public void createLoginSession(int userId, String userName, String persistentToken) {
         editor.putInt(KEY_USER_ID, userId);
         editor.putString(KEY_USER_NAME, userName);
-        editor.putString(KEY_USER_TOKEN, token);
+        editor.putString(KEY_PERSISTENT_TOKEN, persistentToken);
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
         editor.apply();
     }
 
-    public boolean isLoggedIn() {
-        return pref.getBoolean(KEY_IS_LOGGED_IN, false);
+    public String getPersistentToken() {
+        return pref.getString(KEY_PERSISTENT_TOKEN, null);
     }
 
-    public int getUserId() {
-        return pref.getInt(KEY_USER_ID, -1);
-    }
-
-    public String getUserName() {
-        return pref.getString(KEY_USER_NAME, "User");
-    }
-
-    public String getUserToken() {
-        return pref.getString(KEY_USER_TOKEN, null);
+    public void updatePersistentToken(String newToken) {
+        editor.putString(KEY_PERSISTENT_TOKEN, newToken);
+        editor.apply();
     }
 
     public void logout() {

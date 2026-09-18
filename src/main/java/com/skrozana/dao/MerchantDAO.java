@@ -31,7 +31,7 @@ public class MerchantDAO {
                     "gstin VARCHAR(20), " +
                     "business_address TEXT, " +
                     "terms_accepted BOOLEAN DEFAULT FALSE, " +
-                    "verification_status VARCHAR(20) DEFAULT 'ACTIVE', " +
+                    "verification_status VARCHAR(20) DEFAULT 'active', " +
                     "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
                     "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE" +
                     ")";
@@ -42,17 +42,17 @@ public class MerchantDAO {
             try (PreparedStatement psCheck = conn.prepareStatement(checkSql)) {
                 psCheck.setString(1, user.getEmail());
                 psCheck.setString(2, user.getMobile());
-                ResultSet rsCheck = psCheck.executeQuery();
-                if (rsCheck.next()) {
-                    return "EXISTS"; 
+                try (ResultSet rsCheck = psCheck.executeQuery()) {
+                    if (rsCheck.next()) {
+                        return "EXISTS"; 
+                    }
                 }
             }
 
             conn.setAutoCommit(false);
             
-            // Fixed column count to match DB structure
-            String userSql = "INSERT INTO users (name, email, mobile, password, address, city, state, pincode, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ADMIN', 'ACTIVE')";
-            String merchantSql = "INSERT INTO merchants (user_id, merchant_id, business_name, business_type, pan_number, gstin, business_address, terms_accepted, verification_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ACTIVE')";
+            String userSql = "INSERT INTO users (name, email, mobile, password, address, city, state, pincode, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ADMIN', 'active')";
+            String merchantSql = "INSERT INTO merchants (user_id, merchant_id, business_name, business_type, pan_number, gstin, business_address, terms_accepted, verification_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'active')";
 
             String merchantId = "SKR-MER-" + (1000 + new Random().nextInt(9000));
             String initialPassword = generateRandomPassword();
@@ -68,33 +68,37 @@ public class MerchantDAO {
                 psUser.setString(8, "000000"); 
                 
                 psUser.executeUpdate();
-                ResultSet rs = psUser.getGeneratedKeys();
-                
-                if (rs.next()) {
-                    int userId = rs.getInt(1);
-                    
-                    try (PreparedStatement psMerch = conn.prepareStatement(merchantSql)) {
-                        psMerch.setInt(1, userId);
-                        psMerch.setString(2, merchantId);
-                        psMerch.setString(3, merchant.getBusinessName());
-                        psMerch.setString(4, merchant.getBusinessType());
-                        psMerch.setString(5, merchant.getPanNumber());
-                        psMerch.setString(6, merchant.getGstin());
-                        psMerch.setString(7, merchant.getBusinessAddress());
-                        psMerch.setBoolean(8, merchant.isTermsAccepted());
+                try (ResultSet rs = psUser.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int userId = rs.getInt(1);
                         
-                        psMerch.executeUpdate();
+                        try (PreparedStatement psMerch = conn.prepareStatement(merchantSql)) {
+                            psMerch.setInt(1, userId);
+                            psMerch.setString(2, merchantId);
+                            psMerch.setString(3, merchant.getBusinessName());
+                            psMerch.setString(4, merchant.getBusinessType());
+                            psMerch.setString(5, merchant.getPanNumber());
+                            psMerch.setString(6, merchant.getGstin());
+                            psMerch.setString(7, merchant.getBusinessAddress());
+                            psMerch.setBoolean(8, merchant.isTermsAccepted());
+                            
+                            psMerch.executeUpdate();
+                        }
+                        
+                        conn.commit();
+                        return merchantId + "|" + initialPassword;
                     }
-                    
-                    conn.commit();
-                    return merchantId + "|" + initialPassword;
                 }
             }
         } catch (Exception e) {
-            if (conn != null) conn.rollback();
-            throw e; // Re-throw to catch in Servlet
+            if (conn != null && !conn.getAutoCommit()) {
+                try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            }
+            throw e;
         } finally {
-            if (conn != null) conn.close();
+            if (conn != null) {
+                try { conn.setAutoCommit(true); conn.close(); } catch (SQLException ex) { ex.printStackTrace(); }
+            }
         }
         return null;
     }

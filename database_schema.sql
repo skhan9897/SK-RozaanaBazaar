@@ -99,6 +99,21 @@ CREATE TABLE IF NOT EXISTS order_items (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
+-- 7. Persistent Sessions Table (Remember Me)
+CREATE TABLE IF NOT EXISTS persistent_sessions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    user_type ENUM('CUSTOMER', 'ADMIN') NOT NULL,
+    selector VARCHAR(255) UNIQUE NOT NULL,
+    token_hash VARCHAR(255) NOT NULL,
+    device_info TEXT,
+    expires_at TIMESTAMP NOT NULL,
+    last_used_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    revoked BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 -- Initial Admin User (Password: admin123 - You should change this!)
 INSERT INTO users (name, email, mobile, password, role, status)
 VALUES ('Admin', 'admin@skrozana.com', '9999999999', 'admin123', 'ADMIN', 'active');

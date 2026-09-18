@@ -12,21 +12,17 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Splash Screen -->
     <div id="splash-screen">
         <div class="splash-logo mb-3">
             <i class="fas fa-shopping-basket fa-3x"></i>
             <h2 class="mt-2 font-weight-bold">SKRozanaBazaar</h2>
         </div>
         <div class="loader"></div>
-        <div class="mt-4 small text-uppercase font-weight-bold" style="letter-spacing: 2px; opacity: 0.8;">
-            Experience Premium Shopping
-        </div>
+        <div class="mt-4 small text-uppercase font-weight-bold" style="letter-spacing: 2px; opacity: 0.8;">Experience Premium Shopping</div>
     </div>
 
     <%@ include file="includes/navbar.jsp" %>
 
-    <!-- Secondary Category Nav -->
     <div class="cat-nav d-none d-md-block">
         <div class="container-premium">
             <div class="cat-list">
@@ -41,7 +37,6 @@
     </div>
 
     <div class="container-premium mt-2">
-        <!-- Hero Banner Carousel -->
         <div id="heroCarousel" class="carousel slide bg-white-card shadow-sm mb-3" data-ride="carousel">
             <div class="carousel-inner" style="border-radius: 2px;">
                 <div class="carousel-item active">
@@ -62,7 +57,6 @@
             </a>
         </div>
 
-        <!-- Deals of the Day -->
         <div class="bg-white-card mb-4">
             <div class="section-header">
                 <h4 class="section-title"><i class="fas fa-bolt text-warning mr-2"></i>Deals of the Day</h4>
@@ -72,14 +66,8 @@
                 <c:forEach var="product" items="${products}" end="9">
                     <div class="product-card">
                         <div class="wishlist-icon"><i class="far fa-heart"></i></div>
-                        <c:if test="${product.discount > 0}">
-                            <div class="discount-badge">${product.discount}% OFF</div>
-                        </c:if>
-                        <c:if test="${product.has360}">
-                            <div class="badge badge-info position-absolute" style="top: 40px; left: 10px; z-index: 5; font-size: 10px;">
-                                🔄 360°
-                            </div>
-                        </c:if>
+                        <c:if test="${product.discount > 0}"><div class="discount-badge">${product.discount}% OFF</div></c:if>
+                        <c:if test="${product.has360}"><div class="badge badge-info position-absolute" style="top: 40px; left: 10px; z-index: 5; font-size: 10px;">🔄 360°</div></c:if>
                         <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none">
                             <div class="product-image-container">
                                 <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/400?text=No+Image'}" alt="${product.productName}" class="product-image" loading="lazy">
@@ -96,17 +84,21 @@
                                 <span class="review-count">(1,234 Reviews)</span>
                             </div>
                             <div class="price-row">
-                                <span class="price-final">₹${not empty product.finalPrice and product.finalPrice > 0 ? product.finalPrice : product.price}</span>
+                                <c:choose>
+                                    <c:when test="${not empty product.finalPrice and product.finalPrice > 0}">
+                                        <span class="price-final">₹${product.finalPrice}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="price-final">₹${product.price}</span>
+                                    </c:otherwise>
+                                </c:choose>
                                 <c:if test="${product.discount > 0}">
                                     <span class="price-original">₹${product.price}</span>
                                     <span class="discount-text">${product.discount}% OFF</span>
                                 </c:if>
                             </div>
                             <div class="stock-status ${product.stock > 0 ? 'in-stock' : 'out-of-stock'}">
-                                <c:choose>
-                                    <c:when test="${product.stock > 0}">✓ In Stock</c:when>
-                                    <c:otherwise>Out of Stock</c:otherwise>
-                                </c:choose>
+                                ${product.stock > 0 ? '✓ In Stock' : 'Out of Stock'}
                             </div>
                             <div class="product-actions">
                                 <form action="AddToCartServlet" method="POST" class="flex-grow-1">
@@ -121,7 +113,6 @@
             </div>
         </div>
 
-        <!-- All Products with Sorting and Load More -->
         <div class="bg-white-card mb-4">
             <div class="section-header border-bottom">
                 <h4 class="section-title"><i class="fas fa-list-ul text-secondary mr-2"></i>All Products</h4>
@@ -139,9 +130,7 @@
                 <c:forEach var="product" items="${products}">
                     <div class="product-card">
                         <div class="wishlist-icon"><i class="far fa-heart"></i></div>
-                        <c:if test="${product.discount > 0}">
-                            <div class="discount-badge">SAVE ₹${product.discount}</div>
-                        </c:if>
+                        <c:if test="${product.discount > 0}"><div class="discount-badge">SAVE ₹${product.discount}</div></c:if>
                         <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none">
                             <div class="product-image-container">
                                 <img src="${not empty product.image ? product.image : 'https://via.placeholder.com/400?text=No+Image'}" alt="${product.productName}" class="product-image" loading="lazy">
@@ -157,7 +146,14 @@
                                 <span class="review-count">(50+)</span>
                             </div>
                             <div class="price-row">
-                                <span class="price-final">₹${not empty product.finalPrice and product.finalPrice > 0 ? product.finalPrice : product.price}</span>
+                                <c:choose>
+                                    <c:when test="${not empty product.finalPrice and product.finalPrice > 0}">
+                                        <span class="price-final">₹${product.finalPrice}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="price-final">₹${product.price}</span>
+                                    </c:otherwise>
+                                </c:choose>
                                 <c:if test="${product.discount > 0}">
                                     <span class="price-original">₹${product.price}</span>
                                     <span class="discount-text">Special Price</span>
@@ -174,7 +170,6 @@
                     </div>
                 </c:forEach>
             </div>
-
             <div class="text-center py-4 border-top">
                 <button id="btnLoadMore" class="btn btn-primary px-5 shadow-sm">
                     <span id="loadText">LOAD MORE PRODUCTS</span>
@@ -185,9 +180,7 @@
 
         <c:if test="${empty products}">
             <div class="text-center py-5 bg-white-card">
-                <div class="mb-4">
-                    <i class="fas fa-search fa-5x text-muted opacity-50"></i>
-                </div>
+                <div class="mb-4"><i class="fas fa-search fa-5x text-muted opacity-50"></i></div>
                 <h4 class="mt-4">No products found</h4>
                 <p class="text-muted">Try refreshing or initializing the database catalog.</p>
                 <div class="d-flex justify-content-center mt-3">
@@ -206,29 +199,24 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let currentPage = ${currentPage};
-            const pageSize = ${pageSize};
-            let currentSort = '${currentSort}';
+            let currentPage = parseInt('${currentPage}' || '1');
+            const pageSize = parseInt('${pageSize}' || '20');
+            let currentSort = '${currentSort}' || 'newest';
             const productGrid = document.getElementById('productGrid');
             const btnLoadMore = document.getElementById('btnLoadMore');
             const loadText = document.getElementById('loadText');
             const loadSpinner = document.getElementById('loadSpinner');
             const sortSelector = document.getElementById('sortSelector');
 
-            // Handle Sorting
             if (sortSelector) {
                 sortSelector.addEventListener('change', function() {
-                    const sortValue = this.value;
-                    window.location.href = 'index?sort=' + sortValue;
+                    window.location.href = 'index?sort=' + this.value;
                 });
             }
 
-            // Handle Load More (AJAX)
             if (btnLoadMore) {
                 btnLoadMore.addEventListener('click', function() {
                     currentPage++;
-
-                    // Show loading state
                     loadText.innerText = "LOADING...";
                     loadSpinner.classList.remove('d-none');
                     btnLoadMore.disabled = true;
@@ -240,23 +228,14 @@
                                 btnLoadMore.style.display = 'none';
                                 return;
                             }
-
-                            products.forEach(product => {
-                                const card = createProductCard(product);
-                                productGrid.appendChild(card);
-                            });
-
-                            // Reset button state
+                            products.forEach(p => productGrid.appendChild(createProductCard(p)));
                             loadText.innerText = "LOAD MORE PRODUCTS";
                             loadSpinner.classList.add('d-none');
                             btnLoadMore.disabled = false;
-
-                            if (products.length < pageSize) {
-                                btnLoadMore.style.display = 'none';
-                            }
+                            if (products.length < pageSize) btnLoadMore.style.display = 'none';
                         })
-                        .catch(error => {
-                            console.error('Error loading products:', error);
+                        .catch(err => {
+                            console.error(err);
                             btnLoadMore.disabled = false;
                             loadText.innerText = "LOAD MORE PRODUCTS";
                             loadSpinner.classList.add('d-none');
@@ -264,68 +243,52 @@
                 });
             }
 
-            function createProductCard(product) {
+            function createProductCard(p) {
                 const div = document.createElement('div');
                 div.className = 'product-card fade-in';
-
-                const discountBadge = product.discount > 0 ? `<div class="discount-badge">SAVE ₹${product.discount}</div>` : '';
-                const badge360 = product.has360 ? `<div class="badge badge-info position-absolute" style="top: 40px; left: 10px; z-index: 5; font-size: 10px;">🔄 360°</div>` : '';
-                const rating = product.rating > 0 ? product.rating.toFixed(1) : '4.0';
-
+                const disc = p.discount > 0 ? `<div class="discount-badge">SAVE ₹${p.discount}</div>` : '';
+                const b360 = p.has360 ? `<div class="badge badge-info position-absolute" style="top: 40px; left: 10px; z-index: 5; font-size: 10px;">🔄 360°</div>` : '';
                 div.innerHTML = `
                     <div class="wishlist-icon"><i class="far fa-heart"></i></div>
-                    ${discountBadge}
-                    ${badge360}
-                    <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none">
+                    ${disc} ${b360}
+                    <a href="ProductDetailsServlet?id=${p.id}" class="text-decoration-none">
                         <div class="product-image-container">
-                            <img src="${product.image || 'https://via.placeholder.com/400?text=No+Image'}"
-                                 alt="${product.productName}" class="product-image" loading="lazy">
+                            <img src="${p.image || 'https://via.placeholder.com/400?text=No+Image'}" class="product-image" loading="lazy">
                         </div>
                     </a>
                     <div class="product-details">
-                        <div class="product-brand">${product.brand || 'Premium'}</div>
-                        <a href="ProductDetailsServlet?id=${product.id}" class="text-decoration-none">
-                            <div class="product-name" title="${product.productName}">${product.productName}</div>
+                        <div class="product-brand">${p.brand || 'Premium'}</div>
+                        <a href="ProductDetailsServlet?id=${p.id}" class="text-decoration-none">
+                            <div class="product-name" title="${p.productName}">${p.productName}</div>
                         </a>
                         <div class="rating-row">
-                            <span class="rating-badge">${rating} <i class="fas fa-star fa-xs"></i></span>
+                            <span class="rating-badge">${p.rating > 0 ? p.rating.toFixed(1) : '4.0'} <i class="fas fa-star fa-xs"></i></span>
                             <span class="review-count">(50+)</span>
                         </div>
                         <div class="price-row">
-                            <span class="price-final">₹${product.finalPrice || product.price}</span>
-                            ${product.discount > 0 ? `
-                                <span class="price-original">₹${product.price}</span>
-                                <span class="discount-text">Special Price</span>
-                            ` : ''}
+                            <span class="price-final">₹${p.finalPrice || p.price}</span>
+                            ${p.discount > 0 ? `<span class="price-original">₹${p.price}</span><span class="discount-text">Special Price</span>` : ''}
                         </div>
                         <div class="product-actions">
                             <form action="AddToCartServlet" method="POST" class="flex-grow-1">
-                                <input type="hidden" name="pid" value="${product.id}">
+                                <input type="hidden" name="pid" value="${p.id}">
                                 <button type="submit" class="btn btn-white btn-block">ADD TO CART</button>
                             </form>
-                            <a href="CheckoutServlet?pid=${product.id}" class="btn btn-orange">BUY NOW</a>
+                            <a href="CheckoutServlet?pid=${p.id}" class="btn btn-orange">BUY NOW</a>
                         </div>
-                    </div>
-                `;
-
-                // Attach error handler to new image
+                    </div>`;
                 const img = div.querySelector('img');
-                img.onerror = function() {
-                    this.onerror = null;
-                    this.src = 'https://via.placeholder.com/400?text=Image+Unavailable';
-                };
-
+                img.onerror = function() { this.onerror = null; this.src = 'https://via.placeholder.com/400?text=Image+Unavailable'; };
                 return div;
             }
 
-            // Hide Splash
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 if (splash) {
                     splash.classList.add('hidden');
                     setTimeout(() => splash.style.display = 'none', 500);
                 }
-            }, 1500);
+            }, 1000);
         });
     </script>
 </body>

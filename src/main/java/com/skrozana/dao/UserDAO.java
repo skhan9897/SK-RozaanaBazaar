@@ -11,6 +11,16 @@ import java.util.List;
 public class UserDAO {
 
     public boolean registerUser(User user) {
+        // Check if email or mobile already exists
+        if (isEmailExists(user.getEmail())) {
+            System.out.println("Registration failed: Email already registered.");
+            return false;
+        }
+        if (isMobileExists(user.getMobile())) {
+            System.out.println("Registration failed: Mobile already registered.");
+            return false;
+        }
+
         String sql = "INSERT INTO users (name, email, mobile, password, address, city, state, pincode, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'CUSTOMER', 'ACTIVE')";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -31,8 +41,34 @@ public class UserDAO {
         return false;
     }
 
+    private boolean isEmailExists(String email) {
+        String sql = "SELECT id FROM users WHERE email = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean isMobileExists(String mobile) {
+        String sql = "SELECT id FROM users WHERE mobile = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, mobile);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public User loginUser(String email, String password) {
-        String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND status = 'ACTIVE'";
+        String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND UPPER(status) = 'ACTIVE'";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             

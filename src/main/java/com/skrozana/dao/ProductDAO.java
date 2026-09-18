@@ -34,12 +34,12 @@ public class ProductDAO {
 
     public List<Product> searchProducts(String query) {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT id, category_id, subcategory_id, product_name, brand, description, price, discount, final_price, stock, sku, image, image2, image3, image4, rating, status, created_at FROM products WHERE (product_name LIKE ? OR description LIKE ? OR brand LIKE ?) AND status = 'ACTIVE' LIMIT 20";
+        String sql = "SELECT * FROM products WHERE (UPPER(product_name) LIKE ? OR UPPER(description) LIKE ? OR UPPER(brand) LIKE ?) AND UPPER(status) = 'ACTIVE' LIMIT 20";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             
-            String searchTerm = "%" + query + "%";
+            String searchTerm = "%" + query.toUpperCase() + "%";
             ps.setString(1, searchTerm);
             ps.setString(2, searchTerm);
             ps.setString(3, searchTerm);
@@ -58,7 +58,7 @@ public class ProductDAO {
 
     public List<Product> getProductsByCategory(int categoryId) {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM products WHERE category_id = ? AND status = 'ACTIVE'";
+        String sql = "SELECT * FROM products WHERE category_id = ? AND UPPER(status) = 'ACTIVE'";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -78,7 +78,7 @@ public class ProductDAO {
 
     public List<Product> getProductsBySubcategory(int subcategoryId) {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM products WHERE subcategory_id = ? AND status = 'ACTIVE'";
+        String sql = "SELECT * FROM products WHERE subcategory_id = ? AND UPPER(status) = 'ACTIVE'";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {

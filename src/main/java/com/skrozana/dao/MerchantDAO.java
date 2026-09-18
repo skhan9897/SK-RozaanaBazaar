@@ -110,7 +110,7 @@ public class MerchantDAO {
     }
     
     public User loginMerchant(String merchantId, String password) {
-        String sql = "SELECT u.* FROM users u JOIN merchants m ON u.id = m.user_id WHERE m.merchant_id = ? AND u.password = ? AND u.role = 'ADMIN'";
+        String sql = "SELECT u.* FROM users u JOIN merchants m ON u.id = m.user_id WHERE m.merchant_id = ? AND u.password = ? AND u.role = 'ADMIN' AND UPPER(u.status) = 'ACTIVE'";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, merchantId);

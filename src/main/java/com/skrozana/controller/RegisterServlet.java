@@ -44,7 +44,7 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("successMsg", "Registration Successful! Please login.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            request.setAttribute("errorMsg", "Registration Failed! Try again.");
+            request.setAttribute("errorMsg", "Registration Failed! Email or Mobile may already be registered, or there is a connection issue.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }

@@ -31,7 +31,14 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("categories", categories);
         
         // Fetch products for Today's Deals (Optimized with LIMIT)
-        List<Product> products = productDAO.getAllProducts(0, 24); 
+        List<Product> products = productDAO.getAllProducts(0, 24);
+        
+        // Auto-seed if empty
+        if (products.isEmpty()) {
+            com.skrozana.util.DatabaseSeeder.main(null);
+            products = productDAO.getAllProducts(0, 24);
+        }
+        
         request.setAttribute("products", products);
         
         // Forward to index.jsp

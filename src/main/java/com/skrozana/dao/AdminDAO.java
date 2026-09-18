@@ -13,15 +13,15 @@ public class AdminDAO {
         Map<String, Object> stats = new HashMap<>();
         // Optimized: Combined summary query to reduce DB round-trips
         String sql = "SELECT " +
-                     "(SELECT COUNT(*) FROM users WHERE role = 'CUSTOMER') as totalUsers, " +
+                     "(SELECT COUNT(*) FROM users WHERE UPPER(role) = 'CUSTOMER') as totalUsers, " +
                      "(SELECT COUNT(*) FROM products) as totalProducts, " +
                      "(SELECT COUNT(*) FROM orders) as totalOrders, " +
-                     "(SELECT IFNULL(SUM(total_amount), 0) FROM orders WHERE payment_status = 'Paid' OR order_status != 'Cancelled') as totalRevenue, " +
+                     "(SELECT IFNULL(SUM(total_amount), 0) FROM orders WHERE UPPER(payment_status) = 'PAID' OR UPPER(order_status) != 'CANCELLED') as totalRevenue, " +
                      "(SELECT COUNT(*) FROM orders WHERE DATE(created_at) = CURDATE()) as todayOrders, " +
-                     "(SELECT IFNULL(SUM(total_amount), 0) FROM orders WHERE DATE(created_at) = CURDATE() AND order_status != 'Cancelled') as todayRevenue, " +
+                     "(SELECT IFNULL(SUM(total_amount), 0) FROM orders WHERE DATE(created_at) = CURDATE() AND UPPER(order_status) != 'CANCELLED') as todayRevenue, " +
                      "(SELECT COUNT(*) FROM products WHERE stock < 10) as lowStock, " +
-                     "(SELECT COUNT(*) FROM orders WHERE order_status IN ('Pending', 'Placed')) as pendingOrders, " +
-                     "(SELECT COUNT(*) FROM orders WHERE order_status = 'Delivered') as deliveredOrders";
+                     "(SELECT COUNT(*) FROM orders WHERE UPPER(order_status) IN ('PENDING', 'PLACED')) as pendingOrders, " +
+                     "(SELECT COUNT(*) FROM orders WHERE UPPER(order_status) = 'DELIVERED') as deliveredOrders";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);

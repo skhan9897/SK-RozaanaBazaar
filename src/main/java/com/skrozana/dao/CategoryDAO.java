@@ -13,7 +13,7 @@ public class CategoryDAO {
     
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
-        String sql = "SELECT * FROM categories WHERE status = 'ACTIVE'";
+        String sql = "SELECT * FROM categories WHERE UPPER(status) = 'ACTIVE'";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -36,7 +36,7 @@ public class CategoryDAO {
 
     public List<Subcategory> getSubCategories(int categoryId) {
         List<Subcategory> subcategories = new ArrayList<>();
-        String sql = "SELECT * FROM subcategories WHERE status = 'ACTIVE' AND category_id = ?";
+        String sql = "SELECT * FROM subcategories WHERE UPPER(status) = 'ACTIVE' AND category_id = ?";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {

@@ -99,29 +99,67 @@ a:hover { color: var(--primary-blue); }
 /* Header & Navbar */
 .main-header {
     background-color: var(--primary-blue);
-    height: 56px;
+    min-height: 56px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     color: #fff;
     position: sticky;
     top: 0;
     z-index: 1050;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.16);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
 }
-.navbar-brand .plus-text { color: #ffe500; font-style: italic; font-size: 11px; margin-top: -3px; display: block; }
+.navbar-brand {
+    margin-right: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.navbar-brand .plus-text {
+    color: #ffe500;
+    font-style: italic;
+    font-size: 11px;
+    margin-top: -3px;
+    display: block;
+    font-weight: 500;
+}
 .search-container {
-    background: #fff;
-    border-radius: 2px;
+    background: #f0f5ff;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     padding: 0 16px;
     width: 100%;
-    max-width: 560px;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.23);
+    max-width: 600px;
     margin: 0 20px;
+    height: 40px;
+    transition: var(--transition-smooth);
+    border: 1px solid transparent;
 }
-.search-container input { border: none; outline: none; padding: 8px 0; width: 100%; font-size: 14px; }
-.search-container button { background: none; border: none; color: var(--primary-blue); cursor: pointer; }
+.search-container:focus-within {
+    background: #fff;
+    border-color: #dbdbdb;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+}
+.search-container input {
+    border: none;
+    outline: none;
+    padding: 8px 0;
+    width: 100%;
+    font-size: 14px;
+    background: transparent;
+    color: var(--text-primary);
+}
+.search-container input::placeholder {
+    color: #878787;
+}
+.search-container button {
+    background: none;
+    border: none;
+    color: var(--primary-blue);
+    cursor: pointer;
+    padding-left: 10px;
+    font-size: 16px;
+}
 .header-links a { color: #fff; font-weight: 500; padding: 0 15px; font-size: 15px; }
 .cart-count {
     position: absolute;
@@ -166,6 +204,32 @@ a:hover { color: var(--primary-blue); }
 .price-original { color: var(--text-secondary); text-decoration: line-through; font-size: 14px; margin-left: 8px; }
 .discount-text { color: #388e3c; font-size: 13px; font-weight: 500; margin-left: 8px; }
 
+/* Sections & Titles */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+.section-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+}
+.btn-view-all {
+    background: var(--primary-blue);
+    color: #fff !important;
+    font-size: 13px;
+    padding: 10px 20px;
+    border-radius: 2px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+.btn-view-all:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2);
+}
+
 /* Footer */
 .footer-main { background-color: var(--dark-blue); color: #fff; padding: 60px 0 30px; font-size: 12px; margin-top: 40px; }
 .footer-main h6 { color: var(--text-secondary); margin-bottom: 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -201,10 +265,20 @@ a:hover { color: var(--primary-blue); }
 }
 
 @media (max-width: 768px) {
-    .main-header { height: auto; padding: 10px 0; }
+    .main-header { padding: 8px 0; }
     .container-premium { flex-wrap: wrap; }
-    .search-container { order: 3; width: 100%; max-width: 100%; margin: 10px 0 0; }
+    .navbar-brand { margin-right: 0; }
+    .search-container {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+        margin: 8px 0 0;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: var(--shadow-sm);
+    }
     .header-links { margin-left: auto; }
+    .header-links a { padding: 0 10px; }
     .auth-card { flex-direction: column; width: 95%; margin: 20px auto; }
     .auth-sidebar { width: 100%; padding: 30px; }
     .auth-form-side { width: 100%; padding: 30px; }

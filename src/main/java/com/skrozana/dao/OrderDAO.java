@@ -133,13 +133,13 @@ public class OrderDAO {
 
     public List<Order> getOrdersByStatus(String status) {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM orders WHERE order_status = ? ORDER BY created_at DESC";
+        String sql = "SELECT * FROM orders WHERE UPPER(order_status) = ? ORDER BY created_at DESC";
         if ("Pending".equalsIgnoreCase(status)) {
-            sql = "SELECT * FROM orders WHERE order_status = ? OR order_status = 'Placed' ORDER BY created_at DESC";
+            sql = "SELECT * FROM orders WHERE (UPPER(order_status) = ? OR UPPER(order_status) = 'PLACED') ORDER BY created_at DESC";
         }
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, status);
+            ps.setString(1, status.toUpperCase());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Order order = new Order();

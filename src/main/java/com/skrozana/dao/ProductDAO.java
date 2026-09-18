@@ -35,8 +35,7 @@ public class ProductDAO {
             
             // Check for 360 view
             try {
-                // We use a column alias 'has360' if provided in query, or check separately
-                product.setHas360(rs.getInt("has_360") > 0);
+                product.setHas360(rs.getObject("has_360") != null && rs.getInt("has_360") > 0);
             } catch (Exception e) {
                 // If column not in result set, we'll fetch it on demand in details or use a safer query
             }

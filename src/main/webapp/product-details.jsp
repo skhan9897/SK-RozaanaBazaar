@@ -51,8 +51,8 @@
                         </c:if>
 
                         <c:if test="${not empty images360}">
-                            <div class="btn-360" onclick="open360Viewer()" title="360° View">
-                                <i class="fas fa-redo fa-lg"></i>
+                            <div class="btn-360" onclick="open360Viewer()" title="360° View" style="border-radius: 20px; width: auto; padding: 5px 15px; font-size: 14px; font-weight: bold; white-space: nowrap; display: flex; align-items: center; justify-content: center;">
+                                🔄 360°
                             </div>
                         </c:if>
 

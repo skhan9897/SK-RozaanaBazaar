@@ -91,7 +91,7 @@ public class DatabaseSeeder {
                 String name = rs.getString("product_name").toLowerCase().replace(" ", "-");
                 for (int i = 1; i <= 24; i++) {
                     // Pattern for Unsplash random frame (mocking 24 angles)
-                    String imageUrl = "https://source.unsplash.com/800x800/?" + name + "&sig=" + (productId * 100 + i);
+                    String imageUrl = "https://source.unsplash.com/featured/800x800?" + name + "-angle-" + i + "&sig=" + (productId * 100 + i);
                     
                     ps.setInt(1, productId);
                     ps.setString(2, imageUrl);
@@ -178,18 +178,29 @@ public class DatabaseSeeder {
     }
 
     private static void ensureAllCategories(Connection conn) throws SQLException {
-        String catSql = "INSERT INTO categories (id, category_name, parent_id, status) VALUES (?, ?, 0, 'active') ON DUPLICATE KEY UPDATE category_name = VALUES(category_name)";
+        String catSql = "INSERT INTO categories (id, category_name, parent_id, image, status) VALUES (?, ?, 0, ?, 'active') ON DUPLICATE KEY UPDATE category_name = VALUES(category_name), image = VALUES(image)";
         Object[][] cats = {
-            {1, "Mobiles & Tablets"}, {2, "Computers & Laptops"}, {3, "Electronics"},
-            {4, "TV & Entertainment"}, {5, "Men Fashion"}, {6, "Women Fashion"},
-            {7, "Kids & Baby"}, {8, "Grocery & Food"}, {9, "Snacks & Beverages"},
-            {10, "Home & Kitchen"}, {11, "Beauty & Personal Care"}, {12, "Footwear"},
-            {13, "Sports & Fitness"}, {14, "Accessories"}, {15, "Other"}
+            {1, "Mobiles & Tablets", "https://img.icons8.com/color/96/smartphone.png"},
+            {2, "Computers & Laptops", "https://img.icons8.com/color/96/laptop.png"},
+            {3, "Electronics", "https://img.icons8.com/color/96/headphones.png"},
+            {4, "TV & Entertainment", "https://img.icons8.com/color/96/tv.png"},
+            {5, "Men Fashion", "https://img.icons8.com/color/96/mens-t-shirt.png"},
+            {6, "Women Fashion", "https://img.icons8.com/color/96/womens-dress.png"},
+            {7, "Kids & Baby", "https://img.icons8.com/color/96/baby-bottle.png"},
+            {8, "Grocery & Food", "https://img.icons8.com/color/96/shopping-basket.png"},
+            {9, "Snacks & Beverages", "https://img.icons8.com/color/96/soda-bottle.png"},
+            {10, "Home & Kitchen", "https://img.icons8.com/color/96/blender.png"},
+            {11, "Beauty & Personal Care", "https://img.icons8.com/color/96/makeup.png"},
+            {12, "Footwear", "https://img.icons8.com/color/96/shoes.png"},
+            {13, "Sports & Fitness", "https://img.icons8.com/color/96/dumbbell.png"},
+            {14, "Accessories", "https://img.icons8.com/color/96/watch.png"},
+            {15, "Other", "https://img.icons8.com/color/96/shopping-basket.png"}
         };
         try (PreparedStatement ps = conn.prepareStatement(catSql)) {
             for (Object[] cat : cats) {
                 ps.setInt(1, (Integer) cat[0]);
                 ps.setString(2, (String) cat[1]);
+                ps.setString(3, (String) cat[2]);
                 ps.executeUpdate();
             }
         }
@@ -214,8 +225,11 @@ public class DatabaseSeeder {
                 String sku = "SKR-" + prefix + "-" + (1000 + i);
                 String desc = "Experience the best-in-class " + type + " with the " + name + ". Featuring premium design and top-tier performance.";
                 
-                // Using exact Unsplash signatures to guarantee unique, correct images for 500 products
-                String imgUrl = "https://source.unsplash.com/800x800/?" + type.toLowerCase().replace(" ", "-") + "," + brand.toLowerCase() + "&sig=" + (catId * 1000 + i);
+                // Using exact Unsplash featured keyword format to guarantee unique, correct images for 500 products
+                String cleanType = type.toLowerCase().replace(" ", "-");
+                String cleanBrand = brand.toLowerCase().replace(" ", "-");
+                String keyword = cleanBrand + "-" + cleanType + "-product";
+                String imgUrl = "https://source.unsplash.com/featured/800x800?" + keyword + "&sig=" + (catId * 10000 + subId * 1000 + i);
 
                 ps.setInt(1, catId);
                 ps.setInt(2, subId);
